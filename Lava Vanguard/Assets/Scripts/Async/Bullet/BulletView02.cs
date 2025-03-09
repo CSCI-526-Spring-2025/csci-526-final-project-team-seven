@@ -107,10 +107,13 @@ public class BulletView02 : BulletView
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-
+        if (hasHit)
+        {
+            return;
+        }
         if (other.CompareTag("Enemy"))
         {
-            PlayerManager.Instance.GainEXP(1);
+            hasHit = true;
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {

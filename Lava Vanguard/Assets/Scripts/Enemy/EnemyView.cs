@@ -29,6 +29,7 @@ public abstract class EnemyView : MonoBehaviour
         if (Health <= 0)
         {
             Health = 0;
+            PlayerManager.Instance.GainEXP(expGained);
             Destroy(gameObject);
         }
     }

@@ -9,7 +9,12 @@ public class EnemyView_03 : EnemyView
     private float leftLimit;
     private float rightLimit;
     private Camera mainCamera;
+    // Enemy will be destroyed if lower than mainCamera.y+destroyY
     public float destroyY=-10f;
+    // How many small enemies will be splited
+    private int splitCount=3;
+    // The radius of split
+    private float splitRadius = 1.0f;
     
     public GameObject enemyView02Prefab;
 
@@ -44,18 +49,13 @@ public class EnemyView_03 : EnemyView
 
     protected override Vector3 GetSpawnPosition()
     {
-        // var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
-        // return g.transform.position + new Vector3(0, 0.25f, 0);
-
         if (LevelGenerator.Instance.grounds == null || LevelGenerator.Instance.grounds.Count == 0)
         {
-            Debug.LogError("No level grounds");
             return Vector3.zero;
         }
 
         var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
-        Debug.Log("EnemyView_03 spawned on: " + g.transform.position);
-        return g.transform.position + new Vector3(0, 0.5f, 0);
+        return g.transform.position + new Vector3(0, 0.6f, 0);
     }
 
     void Flip()
@@ -66,17 +66,15 @@ public class EnemyView_03 : EnemyView
 
     private void SplitIntoSmallerEnemies()
     {
-
         Vector3 parentPosition = transform.position;
-
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < splitCount; i++)
         {
-            //Vector3 spawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-            GameObject smallEnemy = Instantiate(enemyView02Prefab, parentPosition, Quaternion.identity);
-            Debug.Log("Generate sub enemy: " + enemyView02Prefab.name);
-            smallEnemy.GetComponent<EnemyView>().Init("Enemy_02");
+            float rad = i * (360f / (1f * splitCount))*Mathf.Deg2Rad;
+            Vector3 offset=new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0) * splitRadius;
+            Vector3 spawnLocation = parentPosition + offset;
+            var enemyView=EnemyManager.Instance.GenerateSpecificEnemy(0);
+            enemyView.transform.position = spawnLocation;
         }
-        Destroy(gameObject);
     }
 
     public override void TakeHit(int bulletAttack)

@@ -13,6 +13,7 @@ public abstract class BulletView : MonoBehaviour
     protected bool hasTarget = false;
     protected float detectionRange = 10.0f;
     public LayerMask enemyLayer;
+    protected bool hasHit=false;
 
     // Start is called before the first frame update
     void Start()

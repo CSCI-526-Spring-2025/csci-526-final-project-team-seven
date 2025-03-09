@@ -46,7 +46,7 @@ public class PauseMamager : MonoBehaviour
 
     public void Quit(){
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Start");
+        SceneManager.LoadScene("Menu");
     }
 
     public void SwitchWeaponPanel(){

@@ -12,11 +12,19 @@ public class EnemyManager : MonoBehaviour
     {
         Instance = this;
     }
-    public void GenerateRandomEnemy()
+    public EnemyView GenerateRandomEnemy()
     {
         int suffix = Random.Range(0, enemyPrefabs.Length);
         var enemyView = Instantiate(enemyPrefabs[suffix],enemyContainer).GetComponent<EnemyView>();
         enemyView.Init("Enemy_0" + (suffix + 1));
+        return enemyView;
+    }
+
+    public EnemyView GenerateSpecificEnemy(int suffix)
+    {
+        var enemyView = Instantiate(enemyPrefabs[suffix], enemyContainer).GetComponent<EnemyView>();
+        enemyView.Init("Enemy_0" + (suffix + 1));
+        return enemyView;
     }
     private void Start()
     {
