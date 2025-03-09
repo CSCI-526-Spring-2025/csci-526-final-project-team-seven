@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 散射
 public class BulletView02 : BulletView
 {
     protected float splitDistance = 5f;
@@ -12,7 +13,7 @@ public class BulletView02 : BulletView
     {
         lifeDistance = 15.0f;
         detectionRange = 10.0f;
-        speed = 8f;
+        speed = 10f;
         attack = 3;
         if (!isSplited)
         {
