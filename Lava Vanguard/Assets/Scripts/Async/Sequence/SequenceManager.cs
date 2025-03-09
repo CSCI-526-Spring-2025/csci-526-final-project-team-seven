@@ -142,6 +142,7 @@ namespace Async
                             continue;
                         }
                         CardRankData data = threads[j].Item2.slots[i - threads[j].Item1].content.cardRankData;
+                        //TODO: not only generate bullets
                         BulletManager.Instance.GenerateBullet(data);
                         yield return new WaitForSeconds(0.05f);
                         if (data.LinkedSequenceID != null)

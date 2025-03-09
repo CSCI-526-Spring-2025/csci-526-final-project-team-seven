@@ -17,19 +17,9 @@ namespace Async
             SequenceManager.Instance.Init();
             InventoryManager.Instance.Init();
         }
-        public void GainCard(int cardIndex)
+        public void GainCard(CardRankData data)
         {
-            switch(cardIndex){
-                case 0:
-                    InventoryManager.Instance.inventoryView.AddCardView(CardRankData.Bullet01);
-                break;
-                case 1:
-                    InventoryManager.Instance.inventoryView.AddCardView(CardRankData.Bullet02);
-                break;
-                case 2:
-                    InventoryManager.Instance.inventoryView.AddCardView(CardRankData.Bullet03);
-                    break;
-            }
+            InventoryManager.Instance.inventoryView.AddCardView(data);
         }
     }
 }

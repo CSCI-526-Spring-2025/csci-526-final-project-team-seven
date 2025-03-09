@@ -10,7 +10,7 @@ namespace Async
         private RectTransform rectTransform;
         private Canvas canvas;
         private Vector2 originalPosition;
-        private bool draggable = true;
+        private bool draggable = false;
         private Transform originalParent;
         private Transform draggingParent;
 

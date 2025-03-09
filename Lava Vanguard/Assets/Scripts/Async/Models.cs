@@ -6,13 +6,17 @@ namespace Async
     public struct CardSpriteData
     {
         public string ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public string Background { get; set; }
         public string Outline { get; set; }
         public string Content { get; set; }
         public bool Draggable { get; set; }
+        public bool Collectable { get; set; }
     }
     public struct CardRankData
     {
+        //Currently ID has no usage
         public string ID { get; set; }
         public string CardID { get; set; }
         public int Level { get; set; }
@@ -23,30 +27,19 @@ namespace Async
             this.CardID = CardID;
             this.Level = Level;
         }
+        public CardRankData(CardSpriteData data) : this() 
+        {
+            this.ID = "0";
+            this.CardID = data.ID;
+            this.Level = 1;
+        }
         public static CardRankData AsyncHead
         {
-            get =>
-                new CardRankData(ID: "0", CardID: "Card_Async", Level: 1);
-        }
-        public static CardRankData Bullet01
-        {
-            get =>
-                new CardRankData(ID: "0", CardID: "Bullet_01", Level: 1);
-        }
-        public static CardRankData Bullet02
-        {
-            get =>
-                new CardRankData(ID: "0", CardID: "Bullet_02", Level: 1);
-        }
-        public static CardRankData Bullet03
-        {
-            get =>
-                new CardRankData(ID: "0", CardID: "Bullet_03", Level: 1);
+            get => new CardRankData(ID: "0", CardID: "Card_Async2", Level: 1);
         }
         public static CardRankData Empty
         {
-            get =>
-                new CardRankData(ID: "0", CardID: "Card_Empty", Level: 1);
+            get => new CardRankData(ID: "0", CardID: "Card_Empty", Level: 1);
         }
     }
     public struct SequenceData

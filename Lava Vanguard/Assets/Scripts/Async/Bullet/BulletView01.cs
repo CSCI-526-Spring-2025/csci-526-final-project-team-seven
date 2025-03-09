@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 普通
 public class BulletView01 : BulletView
 {
 
@@ -12,7 +13,7 @@ public class BulletView01 : BulletView
     {
         lifeDistance = 8.0f;
         detectionRange = 8.0f;
-        speed = 5f;
+        speed = 15f;
         attack = 1;
         FindClosestEnemy();
         ApplyInitialRotation();
