@@ -12,6 +12,7 @@ namespace Async
             Instance = this;
         }
         public UIPanel[] UIPanels;
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.E))

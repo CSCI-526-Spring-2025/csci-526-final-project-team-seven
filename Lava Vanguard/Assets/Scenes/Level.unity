@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6072,10 +6073,7 @@ MonoBehaviour:
   inventoryRectTransform: {fileID: 7420616716647227545}
   gridLayoutGroup: {fileID: 402653826721620228}
   cardContainer: {fileID: 7420616716647227545}
-  cardPrefabs:
-  - {fileID: 3373597543558504571, guid: 77230c972b440ff49a62f58d6f38c86b, type: 3}
-  - {fileID: 3373597543558504571, guid: 7358c13015a114f37ac42db845c42f86, type: 3}
-  - {fileID: 3373597543558504571, guid: 76c50651ac73b4031a1f4468f2c2c347, type: 3}
+  cardPrefab: {fileID: 350450903472776147}
   cardViews: []
 --- !u!114 &1399540997667878871
 MonoBehaviour:

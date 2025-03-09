@@ -14,7 +14,7 @@ namespace Async
         public GridLayoutGroup gridLayoutGroup;
 
         public Transform cardContainer;
-        public GameObject[] cardPrefabs;
+        public GameObject cardPrefab;
 
         public List<CardView> cardViews = new List<CardView>();
         public void Init()
@@ -32,19 +32,7 @@ namespace Async
                 if (data.CardID == "Card_Empty"){
                     continue;
                 }
-                CardView cardView;
-                if (data.CardID == "Bullet_01"){
-                    cardView = Instantiate(cardPrefabs[0], cardContainer).GetComponent<CardView>();
-                }
-                else if(data.CardID=="Bullet_02"){
-                    cardView = Instantiate(cardPrefabs[1], cardContainer).GetComponent<CardView>();
-                }
-                else if(data.CardID=="Bullet_03"){
-                    cardView = Instantiate(cardPrefabs[2], cardContainer).GetComponent<CardView>();
-                }
-                else{
-                    cardView = Instantiate(cardPrefabs[0], cardContainer).GetComponent<CardView>();
-                }
+                CardView cardView = Instantiate(cardPrefab, cardContainer).GetComponent<CardView>();
                 cardView.Init(null, GameDataManager.CardData[data.CardID], data);
                 cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
                 cardViews.Add(cardView);
@@ -61,25 +49,10 @@ namespace Async
         }
         public void AddCardView(CardRankData data)
         {
-            if(data.CardID=="Bullet_01"){
-                var cardView = Instantiate(cardPrefabs[0], cardContainer).GetComponent<CardView>();
-                cardView.Init(null, GameDataManager.CardData[data.CardID], data);
-                cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
-                cardViews.Add(cardView);
-            }
-            else if(data.CardID=="Bullet_02"){
-                var cardView = Instantiate(cardPrefabs[1], cardContainer).GetComponent<CardView>();
-                cardView.Init(null, GameDataManager.CardData[data.CardID], data);
-                cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
-                cardViews.Add(cardView);
-            }
-            else if (data.CardID == "Bullet_03")
-            {
-                var cardView = Instantiate(cardPrefabs[2], cardContainer).GetComponent<CardView>();
-                cardView.Init(null, GameDataManager.CardData[data.CardID], data);
-                cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
-                cardViews.Add(cardView);
-            }
+            var cardView = Instantiate(cardPrefab, cardContainer).GetComponent<CardView>();
+            cardView.Init(null, GameDataManager.CardData[data.CardID], data);
+            cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
+            cardViews.Add(cardView);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Async
         public List<SlotView> slots;
 
         public Transform slotContainer;
-        public GameObject[] cardPrefabs;
+        public GameObject cardPrefab;
         public GameObject slotPrefab;
 
         public void Init(Vector2 localAnchorPosition, SequenceData sequenceData)
@@ -37,24 +37,7 @@ namespace Async
                 var data = sequenceData.CardDatas[i];
                 if (data.CardID != "Card_Empty")
                 {
-                    CardView cardView;
-                    if (data.CardID == "Bullet_01")
-                    {
-                        cardView = Instantiate(cardPrefabs[0], slot.transform).GetComponent<CardView>();
-                    }
-                    else if (data.CardID == "Bullet_02")
-                    {
-                        cardView = Instantiate(cardPrefabs[1], slot.transform).GetComponent<CardView>();
-                    }
-                    else if(data.CardID =="Bullet_03")
-                    {
-                        cardView = Instantiate(cardPrefabs[2], slot.transform).GetComponent<CardView>();
-                    }
-                    else
-                    {
-                        cardView = Instantiate(cardPrefabs[0], slot.transform).GetComponent<CardView>();
-                    }
-                    
+                    CardView cardView = cardView = Instantiate(cardPrefab, slot.transform).GetComponent<CardView>();
                     cardView.Init(slot, GameDataManager.CardData[data.CardID], data);
                     cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
                     slot.Init(this, cardView);

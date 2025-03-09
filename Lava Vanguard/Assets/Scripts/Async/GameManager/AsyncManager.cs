@@ -21,7 +21,7 @@ namespace Async
         {
             switch(cardIndex){
                 case 0:
-                InventoryManager.Instance.inventoryView.AddCardView(CardRankData.Bullet01);
+                    InventoryManager.Instance.inventoryView.AddCardView(CardRankData.Bullet01);
                 break;
                 case 1:
                     InventoryManager.Instance.inventoryView.AddCardView(CardRankData.Bullet02);

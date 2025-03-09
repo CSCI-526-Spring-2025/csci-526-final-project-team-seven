@@ -79,7 +79,12 @@ public class PlayerManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         Debug.Log("kill player initiated");
+#if UNITY_EDITOR
         FindObjectOfType<SendToGoogle>().RecordEndTime();
+#endif
+#if UNITY_WEBGL
+        FindObjectOfType<SendToGoogle>().RecordEndTime();
+#endif
         deathMenuPanel.SetActive(true);
     }
     /*

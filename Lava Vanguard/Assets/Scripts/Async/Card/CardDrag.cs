@@ -115,7 +115,7 @@ namespace Async
                             }
                             else
                             {
-                                Debug.Log("RankData " + cardView.cardRankData.ID + " " + cardView.cardRankData.CardID);
+                                //Debug.Log("RankData " + cardView.cardRankData.ID + " " + cardView.cardRankData.CardID);
                                 sequence.Value.AddCardView(cardView, slot);
                             }
 

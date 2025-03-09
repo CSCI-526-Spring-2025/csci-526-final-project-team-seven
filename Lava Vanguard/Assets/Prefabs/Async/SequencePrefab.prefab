@@ -273,8 +273,5 @@ MonoBehaviour:
   backgroundRectTransform: {fileID: 8036596836909855347}
   slots: []
   slotContainer: {fileID: 8387662418636751989}
-  cardPrefabs:
-  - {fileID: 3373597543558504571, guid: 77230c972b440ff49a62f58d6f38c86b, type: 3}
-  - {fileID: 3373597543558504571, guid: 7358c13015a114f37ac42db845c42f86, type: 3}
-  - {fileID: 3373597543558504571, guid: 76c50651ac73b4031a1f4468f2c2c347, type: 3}
+  cardPrefab: {fileID: 3373597543558504571, guid: 77230c972b440ff49a62f58d6f38c86b, type: 3}
   slotPrefab: {fileID: 3373597543558504571, guid: a90b3f93eaac552438a9ca085a7a7490, type: 3}
