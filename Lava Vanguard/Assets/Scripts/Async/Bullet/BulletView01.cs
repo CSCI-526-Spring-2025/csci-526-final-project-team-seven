@@ -13,7 +13,7 @@ public class BulletView01 : BulletView
         lifeDistance = 8.0f;
         detectionRange = 8.0f;
         speed = 5f;
-        attack = 3;
+        attack = 1;
         FindClosestEnemy();
         ApplyInitialRotation();
     }
@@ -23,7 +23,7 @@ public class BulletView01 : BulletView
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, selfDetectionRange, enemyLayer);
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
-        Debug.Log($"Found {enemies.Length} enemies in range.");
+        //Debug.Log($"Found {enemies.Length} enemies in range.");
 
         foreach (Collider2D enemy in enemies)
         {   
@@ -56,7 +56,7 @@ public class BulletView01 : BulletView
             fireDirection = Vector2.right;
             hasTarget = false;
         }
-        Debug.Log("Final Fire Direction: " + fireDirection);
+        //Debug.Log("Final Fire Direction: " + fireDirection);
 
     }
 
@@ -80,21 +80,15 @@ public class BulletView01 : BulletView
 
         if (other.CompareTag("Enemy"))
         {
-
-            Debug.Log($"🛑 Bullet 碰到了 {other.gameObject.name}");
-
             PlayerManager.Instance.GainEXP(1);
             //Debug.Log("Enemy is dead");
 
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {
-                enemy.TakeHit(); // 让敌人自己处理受击
+                enemy.TakeHit(attack); // Enemy been hit
             }
-            
             Destroy(gameObject);
-            //Use EnemyView to destroy enemy, not by bullet
-            //Destroy(other.gameObject);
         }
     }
 }

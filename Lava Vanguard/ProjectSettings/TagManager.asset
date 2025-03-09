@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
+  - Bullet
   - 
   - 
   - 
@@ -49,9 +50,12 @@ TagManager:
   - name: Lava
     uniqueID: 2258600823
     locked: 0
-  - name: Player
-    uniqueID: 711064581
-    locked: 0
   - name: Enemy
     uniqueID: 2764511467
+    locked: 0
+  - name: Bullet
+    uniqueID: 111324311
+    locked: 0
+  - name: Player
+    uniqueID: 711064581
     locked: 0

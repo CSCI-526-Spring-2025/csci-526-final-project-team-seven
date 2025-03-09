@@ -22,7 +22,7 @@ public class BulletView03 : BulletView
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRange, enemyLayer);
         Transform closestEnemy = null;
         float closestDistance = Mathf.Infinity;
-        Debug.Log($"Found {enemies.Length} enemies in range.");
+        //Debug.Log($"Found {enemies.Length} enemies in range.");
 
         foreach (Collider2D enemy in enemies)
         {   
@@ -55,7 +55,7 @@ public class BulletView03 : BulletView
             fireDirection = Vector2.right;
             hasTarget = false;
         }
-        Debug.Log("Final Fire Direction: " + fireDirection);
+        //Debug.Log("Final Fire Direction: " + fireDirection);
 
     }
 
@@ -79,21 +79,14 @@ public class BulletView03 : BulletView
 
         if (other.CompareTag("Enemy"))
         {
-
-            Debug.Log($"🛑 Bullet 碰到了 {other.gameObject.name}");
-
             PlayerManager.Instance.GainEXP(1);
-            //Debug.Log("Ontrigger bullet3 Enemy is dead");
 
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {
-                enemy.TakeHit(); // 让敌人自己处理受击
+                enemy.TakeHit(attack); 
             }
-
             Destroy(gameObject);
-            //Use EnemyView to destroy enemy, not by bullet
-            //Destroy(other.gameObject);
         }
     }
 }

@@ -6,6 +6,14 @@ using UnityEngine;
 public abstract class EnemyView : MonoBehaviour
 {
     public EnemyData enemyData;
+    // Current health
+    protected int Health;
+    // Maximum health
+    protected int MaxHealth;
+    // How many health will player loose
+    protected int attack;
+    // How many exp will palyer gained when player killed this enemy
+    protected int expGained;
     public void Init(string ID)
     {
         enemyData = GameDataManager.EnemyData[ID];
@@ -14,27 +22,25 @@ public abstract class EnemyView : MonoBehaviour
     protected abstract void Approching();
     protected abstract Vector3 GetSpawnPosition();
     
-    // 🚀 抽象方法，让子类决定如何受击
-    public abstract void TakeHit();
-
-    // 🚀 抽象方法，让子类决定如何响应碰撞
-    //protected abstract void OnCollisionEnter2D(Collision2D collision);
-    private void OnTriggerStay2D(Collider2D collision)
+    // How enemy been hit
+    public virtual void TakeHit(int bulletAttack)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        Health -= bulletAttack;
+        if (Health <= 0)
         {
-            PlayerManager.Instance.GetHurt(1);
+            Health = 0;
+            Destroy(gameObject);
         }
     }
 
-    // private void OnTriggerEnter2D(Collider2D collision)
-    // {
-    //     if (collision.gameObject.CompareTag("Bullet")) // 碰到子弹
-    //     {
-    //         Debug.Log($"{gameObject.name} 被子弹击中！");
-    //         Destroy(gameObject); // 立即销毁自己
-    //     }
-    // }
+    // What will happen when enemy encountered player
+    protected virtual void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerManager.Instance.GetHurt(attack);
+        }
+    }
     private void Update()
     {
         Approching();

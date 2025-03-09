@@ -11,12 +11,15 @@ public class EnemyView_03 : EnemyView
     private Camera mainCamera;
     public float destroyY=-10f;
     
-    private int hitCount = 0; // 记录被击中的次数
-    public GameObject enemyView02Prefab; // EnemyView_02 预制体
+    public GameObject enemyView02Prefab;
 
     private void Start()
     {
         //hardcode!
+        Health = 6;
+        MaxHealth = 6;
+        expGained = 2;
+        attack = 1;
         leftLimit = transform.position.x - 1.2f;
         rightLimit = transform.position.x + 1.2f;
         mainCamera = Camera.main;
@@ -46,12 +49,12 @@ public class EnemyView_03 : EnemyView
 
         if (LevelGenerator.Instance.grounds == null || LevelGenerator.Instance.grounds.Count == 0)
         {
-            Debug.LogError("❌ LevelGenerator.Instance.grounds 为空，无法生成敌人！");
+            Debug.LogError("No level grounds");
             return Vector3.zero;
         }
 
         var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
-        Debug.Log("✅ EnemyView_03 生成在：" + g.transform.position);
+        Debug.Log("EnemyView_03 spawned on: " + g.transform.position);
         return g.transform.position + new Vector3(0, 0.5f, 0);
     }
 
@@ -64,39 +67,28 @@ public class EnemyView_03 : EnemyView
     private void SplitIntoSmallerEnemies()
     {
 
-        Vector3 parentPosition = transform.position; // 🔥 先存储当前位置
+        Vector3 parentPosition = transform.position;
 
         for (int i = 0; i < 3; i++)
         {
             //Vector3 spawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
             GameObject smallEnemy = Instantiate(enemyView02Prefab, parentPosition, Quaternion.identity);
-            Debug.Log("✅ 正在生成小敌人：" + enemyView02Prefab.name);
+            Debug.Log("Generate sub enemy: " + enemyView02Prefab.name);
             smallEnemy.GetComponent<EnemyView>().Init("Enemy_02");
-            Debug.Log("✅ 生成小敌人：" + smallEnemy.name + " 在 " + smallEnemy.transform.position);
         }
         Destroy(gameObject);
     }
 
-    public override void TakeHit()
+    public override void TakeHit(int bulletAttack)
     {
-        hitCount++;
-        Debug.Log("🔥 EnemyView_03 被击中，当前 hitCount = " + hitCount);
-        if (hitCount >= 3)
+        Health -= bulletAttack;
+        Debug.Log("Enemy03 been hit " + Health + " - " + bulletAttack);
+        if (Health<=0)
         {
+            Health = 0;
             SplitIntoSmallerEnemies();
+            Destroy(gameObject);
         }
+        
     }
-
-    // protected override void OnCollisionEnter2D(Collision2D collision)
-    // {
-
-    //     Debug.Log("⚡ EnemyView_03 碰撞到：" + collision.gameObject.name);
-
-    //     if (collision.gameObject.CompareTag("Bullet")) // 子弹击中
-    //     {
-    //         Debug.Log("💥 受到子弹攻击！");
-    //         TakeHit();
-    //         Destroy(collision.gameObject); // 销毁子弹
-    //     }
-    // }
 }

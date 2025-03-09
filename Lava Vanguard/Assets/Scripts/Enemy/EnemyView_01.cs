@@ -6,6 +6,14 @@ public class EnemyView_01 : EnemyView
 {
     private readonly float waveAmplitude = 2f;
     private readonly float waveFrequency = 2f;
+    private void Start()
+    {
+        //hardcode!
+        Health = 3;
+        MaxHealth = 3;
+        expGained = 1;
+        attack = 1;
+    }
     protected override void Approching()
     {
         var playerPos = PlayerManager.Instance.playerView.transform.position;
@@ -45,20 +53,4 @@ public class EnemyView_01 : EnemyView
         return camera.transform.position + spawnPosition;
     }
 
-    public override void TakeHit()
-    {
-        Debug.Log($"{gameObject.name} 被击中，死亡");
-        Destroy(gameObject);
-    }
-
-    // protected override void OnCollisionEnter2D(Collision2D collision)
-    // {
-
-    //     Debug.Log($"{gameObject.name} 碰撞到了 {collision.gameObject.name}");
-        
-    //     if (collision.gameObject.CompareTag("Bullet"))
-    //     {
-    //         TakeHit();
-    //     }
-    // }
 }

@@ -46,7 +46,7 @@ public class LevelGenerator : MonoBehaviour
     {
         Instantiate(wallPrefab, new Vector3(-17f, 0f, 0f), Quaternion.identity);
         Instantiate(wallPrefab, new Vector3(17f, 0f, 0f), Quaternion.identity);
-        GameObject upWall=Instantiate(wallPrefab, new Vector3(0f, 8f, 0f), Quaternion.identity);
+        GameObject upWall=Instantiate(wallPrefab, new Vector3(0f, 7.5f, 0f), Quaternion.identity);
         upWall.transform.localScale = new Vector3(32f, 4f, 1f);
 
         Instantiate(lavaPrefab, new Vector3(0f, -5f, 0f), Quaternion.identity);
@@ -167,7 +167,7 @@ public class LevelGenerator : MonoBehaviour
 
         for (int i = 0; i < current.Count; i++) {
             for (int j = 0; j < PreviousReachable.Count; j++) {
-                Debug.Log(PreviousReachable[j]);
+                //Debug.Log(PreviousReachable[j]);
                 var c = current[i];
                 var p = previousRowPlatforms[PreviousReachable[j]];
                 bool reachable = false;
