@@ -45,11 +45,11 @@ public class EnemyView_01 : EnemyView
         return camera.transform.position + spawnPosition;
     }
 
-    // protected override void TakeHit()
-    // {
-    //     Debug.Log($"{gameObject.name} 被击中，死亡");
-    //     Destroy(gameObject);
-    // }
+    public override void TakeHit()
+    {
+        Debug.Log($"{gameObject.name} 被击中，死亡");
+        Destroy(gameObject);
+    }
 
     // protected override void OnCollisionEnter2D(Collision2D collision)
     // {

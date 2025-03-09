@@ -61,26 +61,30 @@ public class EnemyView_03 : EnemyView
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
-    // protected override void TakeHit()
-    // {
-    //     hitCount++;
-    //     Debug.Log("🔥 EnemyView_03 被击中，当前 hitCount = " + hitCount);
-    //     if (hitCount >= 3)
-    //     {
-    //         SplitIntoSmallerEnemies();
-    //     }
-    // }
-
     private void SplitIntoSmallerEnemies()
     {
+
+        Vector3 parentPosition = transform.position; // 🔥 先存储当前位置
+
         for (int i = 0; i < 3; i++)
         {
-            Vector3 spawnOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
-            GameObject smallEnemy = Instantiate(enemyView02Prefab, transform.position + spawnOffset, Quaternion.identity);
+            //Vector3 spawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+            GameObject smallEnemy = Instantiate(enemyView02Prefab, parentPosition, Quaternion.identity);
+            Debug.Log("✅ 正在生成小敌人：" + enemyView02Prefab.name);
             smallEnemy.GetComponent<EnemyView>().Init("Enemy_02");
             Debug.Log("✅ 生成小敌人：" + smallEnemy.name + " 在 " + smallEnemy.transform.position);
         }
         Destroy(gameObject);
+    }
+
+    public override void TakeHit()
+    {
+        hitCount++;
+        Debug.Log("🔥 EnemyView_03 被击中，当前 hitCount = " + hitCount);
+        if (hitCount >= 3)
+        {
+            SplitIntoSmallerEnemies();
+        }
     }
 
     // protected override void OnCollisionEnter2D(Collision2D collision)
