@@ -6,14 +6,16 @@ using UnityEngine;
 public abstract class BulletView : MonoBehaviour
 {
     protected Vector2 startPosition;
-    public float speed = 1.0f;
-    public float lifeDistance = 30.0f;
     protected Vector2 fireDirection = Vector2.right;
     protected int attack = 1;
     protected bool hasTarget = false;
     protected float detectionRange = 10.0f;
+    protected bool hasHit = false;
+    public int damageMultiplier = 1;
+    public float speed = 1.0f;
+    public float lifeDistance = 30.0f;
     public LayerMask enemyLayer;
-    protected bool hasHit=false;
+    
 
     // Start is called before the first frame update
     void Start()

@@ -16,6 +16,8 @@ public class PlayerView : MonoBehaviour
     private int currentLevel = 1;
     private float invincibleTempTime = 0.0f;
 
+    [HideInInspector]
+    public float speedMultiplier = 1.0f;
     //GoD! JUst temP CoDe
 
 
@@ -32,7 +34,7 @@ public class PlayerView : MonoBehaviour
 
     public void MoveLeft()
     {
-        rb.velocity = new Vector2(-playerData.speed, rb.velocity.y);
+        rb.velocity = new Vector2(-playerData.speed * speedMultiplier, rb.velocity.y);
         if (transform.localScale.x > 0)
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -41,7 +43,7 @@ public class PlayerView : MonoBehaviour
 
     public void MoveRight()
     {
-        rb.velocity = new Vector2(playerData.speed, rb.velocity.y);
+        rb.velocity = new Vector2(playerData.speed * speedMultiplier, rb.velocity.y);
         if (transform.localScale.x < 0)
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);

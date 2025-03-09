@@ -30,6 +30,7 @@ namespace Async
             background.sprite = GameDataManager.BackgroundSprite[cardSpriteData.Background];
             outline.sprite = GameDataManager.OutlineSprite[cardSpriteData.Outline];
             content.sprite = GameDataManager.ContentSprite[cardSpriteData.Content];
+            content.color = ColorCenter.CardColors[cardSpriteData.Type];
         }
     }
 }

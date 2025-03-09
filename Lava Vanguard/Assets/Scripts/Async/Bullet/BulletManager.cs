@@ -14,43 +14,13 @@ namespace Async
             Instance = this;
         }
 
-        // Generate bullet by sequence manager
-        public void GenerateBullet(CardRankData cardRankData)
-        {
-            switch (cardRankData.CardID)
-            {
-                case "Card_Bullet01":
-                    GenerateBullet01();
-                    break;
-                case "Card_Bullet02":
-                    GenerateBullet02();
-                    break;
-                case "Card_Bullet03":
-                    GenerateBullet03();
-                    break;
-                default:
-                    Debug.LogWarning("Unrecognized type: " + cardRankData.CardID);
-                    break;
-            }
-        }
-        // Generate Bullet_01
-        private void GenerateBullet01()
+        public void GenerateBullet(CardRankData cardRankData, float damageMultiplier)
         {
             Vector3 spawnPos = PlayerManager.Instance.playerView.transform.position;
-            Instantiate(bulletPrefabs[0], spawnPos, Quaternion.identity, bulletContainer);
+            int index = cardRankData.CardID[^1] - '1';
+            Debug.Log(index);
+            var b = Instantiate(bulletPrefabs[index], spawnPos, Quaternion.identity, bulletContainer).GetComponent<BulletView>();
+            b.damageMultiplier = (int)damageMultiplier;
         }
-        // Generate Bullet_02
-        private void GenerateBullet02()
-        {
-            Vector3 spawnPos = PlayerManager.Instance.playerView.transform.position;
-            Instantiate(bulletPrefabs[1], spawnPos, Quaternion.identity, bulletContainer);
-        }
-        // Generate Bullet_03
-        private void GenerateBullet03()
-        {
-            Vector3 spawnPos = PlayerManager.Instance.playerView.transform.position;
-            Instantiate(bulletPrefabs[2], spawnPos, Quaternion.identity, bulletContainer);
-        }
-    
     }
 }

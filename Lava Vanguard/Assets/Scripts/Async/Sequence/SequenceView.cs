@@ -18,6 +18,9 @@ namespace Async
         public GameObject cardPrefab;
         public GameObject slotPrefab;
 
+        [HideInInspector]
+        public float damageMultiplier = 1.0f;// Damage Multiplier of this thread
+
         public void Init(Vector2 localAnchorPosition, SequenceData sequenceData)
         {
             //this.sequenceData = sequenceData;

@@ -122,10 +122,36 @@ namespace Async
                 return;
             }
 
-            StopAllCoroutines(); 
+            StopAllCoroutines();
+            UpdateGlobalEffect();
             StartCoroutine(RunSequence());
         }
-
+        private void UpdateGlobalEffect()
+        {
+            PlayerManager.Instance.playerView.speedMultiplier = 1.0f;
+            foreach (var sequenceView in sequenceViews)
+            {
+                sequenceView.Value.damageMultiplier = 1.0f;
+                foreach (var slot in sequenceView.Value.slots)
+                {
+                    if (slot.content != null)
+                    {
+                        if (slot.content.cardSpriteData.Type == "Functional")
+                        {
+                            var data = slot.content.cardSpriteData;
+                            if (data.ID == "Card_DamageUp")
+                            {
+                                sequenceView.Value.damageMultiplier *= 1.5f;
+                            }
+                            if (data.ID == "Card_SpeedUp")
+                            {
+                                PlayerManager.Instance.playerView.speedMultiplier *= 1.5f;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         private IEnumerator RunSequence()
         {
             List<(int, SequenceView)> threads = new List<(int, SequenceView)>();
@@ -151,13 +177,16 @@ namespace Async
                             yield return new WaitForSeconds(0.05f);
                             continue;
                         }
-                        CardRankData data = threads[j].Item2.slots[i - threads[j].Item1].content.cardRankData;
+                        CardRankData rankData = threads[j].Item2.slots[i - threads[j].Item1].content.cardRankData;
+                        CardSpriteData spriteData = threads[j].Item2.slots[i - threads[j].Item1].content.cardSpriteData;
                         //TODO: not only generate bullets
-                        BulletManager.Instance.GenerateBullet(data);
+                        if (spriteData.Type == "Bullet")
+                            BulletManager.Instance.GenerateBullet(rankData, threads[j].Item2.damageMultiplier);
+
                         yield return new WaitForSeconds(0.05f);
-                        if (data.LinkedSequenceID != null)
+                        if (rankData.LinkedSequenceID != null)
                         {
-                            threads.Add((i, sequenceViews[data.LinkedSequenceID]));
+                            threads.Add((i, sequenceViews[rankData.LinkedSequenceID]));
                         }
                     }
                 }
