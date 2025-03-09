@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using　Async;
+using Async;
 using UnityEngine.UI;
 using System.Linq;
 public class CardSelectorManager : MonoBehaviour
@@ -26,13 +26,6 @@ public class CardSelectorManager : MonoBehaviour
         for (int i = 0; i < optionNumber; i++) 
         {
             cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSeletorView>());
-        }
-    }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.T))
-        {
-            StartSelection();
         }
     }
     public void StartSelection(){

@@ -34,6 +34,7 @@ namespace Async
             var sequenceData = new SequenceData();
             sequenceData.ID = sequenceID;
             sequenceData.CardDatas = new List<CardRankData>();
+            //TODO
             sequenceData.CardDatas.Add(CardRankData.AsyncHead);
             for (int i = 1; i < count; i++)
             {
@@ -103,6 +104,15 @@ namespace Async
                 else
                     return res;
             }
+        }
+        public int GetCardNumber()
+        {
+            int c = 0;
+            foreach(var s in sequenceViews)
+                foreach(var slot in s.Value.slots)
+                    if (slot.content != null)
+                        c++;
+            return c;
         }
         public void UpdateCustomSequence()
         {
