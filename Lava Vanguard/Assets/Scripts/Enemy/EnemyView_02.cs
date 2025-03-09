@@ -50,7 +50,7 @@ public class EnemyView_02 : EnemyView
     {
         hitCount++;
         Debug.Log("🔥 EnemyView_02 被击中，当前 hitCount = " + hitCount);
-        if (hitCount >= 3)
+        if (hitCount >= 2)
         {
             Debug.Log($"{gameObject.name} 被击中，死亡");
             Destroy(gameObject);
