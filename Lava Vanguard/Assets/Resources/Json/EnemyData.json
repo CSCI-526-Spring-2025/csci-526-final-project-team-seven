@@ -10,5 +10,11 @@
         "Name": "Guard",
         "Health": 1,
         "Speed": 2
+    },
+    "Enemy_03": {
+        "ID": "Enemy_03",
+        "Name": "Split_Guard",
+        "Health": 3,
+        "Speed": 2
     }
 }

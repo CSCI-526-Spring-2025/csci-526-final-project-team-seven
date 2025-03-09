@@ -9,6 +9,7 @@ public class EnemyView_02 : EnemyView
     private float rightLimit;
     private Camera mainCamera;
     public float destroyY=-10f;
+    private int hitCount = 0; // 记录被击中的次数
 
     private void Start()
     {
@@ -44,5 +45,28 @@ public class EnemyView_02 : EnemyView
         movingRight = !movingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
+
+    public override void TakeHit()
+    {
+        hitCount++;
+        Debug.Log("🔥 EnemyView_02 被击中，当前 hitCount = " + hitCount);
+        if (hitCount >= 3)
+        {
+            Debug.Log($"{gameObject.name} 被击中，死亡");
+            Destroy(gameObject);
+        }
+        
+    }
+
+    // protected override void OnCollisionEnter2D(Collision2D collision)
+    // {
+
+    //     Debug.Log($"{gameObject.name} 碰撞到了 {collision.gameObject.name}");
+
+    //     if (collision.gameObject.CompareTag("Bullet"))
+    //     {
+    //         TakeHit();
+    //     }
+    // }
 }
 

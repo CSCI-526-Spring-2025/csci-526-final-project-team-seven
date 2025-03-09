@@ -6,7 +6,7 @@ public class EnemyManager : MonoBehaviour
     
     public static EnemyManager Instance { get; private set; }
     public Transform enemyContainer;
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject[] enemyPrefabs;
     private void Awake()
     {
