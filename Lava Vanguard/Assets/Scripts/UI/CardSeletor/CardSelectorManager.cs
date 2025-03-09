@@ -40,6 +40,11 @@ public class CardSelectorManager : MonoBehaviour
             var data = collectableCardsList[Random.Range(0, collectableCardsList.Count)];
             collectableCardsList.Remove(data);
             var rankData = new CardRankData(data);
+            if (rankData.CardID == "Card_Async")
+            {
+                rankData.LinkedSequenceID = "Not_Ready";
+                rankData.Level = Random.Range(3, 6);
+            }
             cardSeletorViews[i].Init(data, () => SelectCard(rankData));
         }
     }
