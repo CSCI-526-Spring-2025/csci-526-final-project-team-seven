@@ -44,5 +44,22 @@ public class EnemyView_02 : EnemyView
         movingRight = !movingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
+
+    // protected override void TakeHit()
+    // {
+    //     Debug.Log($"{gameObject.name} 被击中，死亡");
+    //     Destroy(gameObject);
+    // }
+
+    // protected override void OnCollisionEnter2D(Collision2D collision)
+    // {
+
+    //     Debug.Log($"{gameObject.name} 碰撞到了 {collision.gameObject.name}");
+
+    //     if (collision.gameObject.CompareTag("Bullet"))
+    //     {
+    //         TakeHit();
+    //     }
+    // }
 }
 

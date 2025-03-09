@@ -77,12 +77,23 @@ public class BulletView01 : BulletView
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
+
+        Debug.Log($"🛑 Bullet 碰到了 {other.gameObject.name}");
+        
         if (other.CompareTag("Enemy"))
         {
             PlayerManager.Instance.GainEXP(1);
-            Debug.Log("Enemy is dead");
+            //Debug.Log("Enemy is dead");
+
+            // EnemyView enemy = other.GetComponent<EnemyView>();
+            // if (enemy != null)
+            // {
+            //     enemy.TakeHit(); // 让敌人自己处理受击
+            // }
+            
             Destroy(gameObject);
-            Destroy(other.gameObject);
+            //Use EnemyView to destroy enemy, not by bullet
+            //Destroy(other.gameObject);
         }
     }
 }
