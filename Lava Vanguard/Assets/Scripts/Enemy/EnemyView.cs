@@ -14,10 +14,14 @@ public abstract class EnemyView : MonoBehaviour
     protected int attack;
     // How many exp will palyer gained when player killed this enemy
     protected int expGained;
+    protected float SpawnDistance = 1.2f;
     public void Init(string ID)
     {
         enemyData = GameDataManager.EnemyData[ID];
-        transform.position = GetSpawnPosition();
+        var playerPos = PlayerManager.Instance.playerView.transform.position;
+        Vector3 spawnPos;
+        while (Vector3.Distance(playerPos, spawnPos = GetSpawnPosition()) < SpawnDistance);
+        transform.position = spawnPos;
     }
     protected abstract void Approching();
     protected abstract Vector3 GetSpawnPosition();
