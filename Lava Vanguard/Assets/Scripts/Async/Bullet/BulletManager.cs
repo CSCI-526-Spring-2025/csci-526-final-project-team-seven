@@ -19,13 +19,13 @@ namespace Async
         {
             switch (cardRankData.CardID)
             {
-                case "Bullet_01":
+                case "Card_Bullet01":
                     GenerateBullet01();
                     break;
-                case "Bullet_02":
+                case "Card_Bullet02":
                     GenerateBullet02();
                     break;
-                case "Bullet_03":
+                case "Card_Bullet03":
                     GenerateBullet03();
                     break;
                 default:

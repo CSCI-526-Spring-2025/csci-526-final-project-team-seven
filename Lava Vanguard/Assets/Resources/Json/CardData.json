@@ -1,44 +1,62 @@
 {
     "Card_Async": {
         "ID": "Card_Async",
+        "Name": "Thread",
+        "Description": "Create a new thread.",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
         "Content": "Content_Async",
-        "Draggable": true
+        "Draggable": true,
+        "Collectable": true
     },
     "Card_Async2": {
         "ID": "Card_Async2",
+        "Name": "Thread Head",
+        "Description": "The head of one thread.",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
         "Content": "Content_Async2",
-        "Draggable": false
+        "Draggable": false,
+        "Collectable": false
     },
     "Card_Empty": {
         "ID": "Card_Empty",
+        "Name": "Empty",
+        "Description": "Nobody is here.",
         "Background": "Background_Normal",
         "Outline": "Outline_Empty",
         "Content": "Content_Empty",
-        "Draggable": false
+        "Draggable": false,
+        "Collectable": false
     },
-    "Bullet_01": {
-        "ID": "Bullet_01",
+    "Card_Bullet01": {
+        "ID": "Card_Bullet01",
+        "Name": "Bullet 01",
+        "Description": "Our first production.",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
-        "Content": "Content_01",
-        "Draggable": true
+        "Content": "Content_Bullet01",
+        "Draggable": true,
+        "Collectable": true
     },
-    "Bullet_02": {
-        "ID": "Bullet_02",
+    "Card_Bullet02": {
+        "ID": "Card_Bullet02",
+        "Name": "Bullet 02",
+        "Description": "Go big and go home.",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
-        "Content": "Content_02",
-        "Draggable": true
+        "Content": "Content_Bullet02",
+        "Draggable": true,
+        "Collectable": true
     },
-    "Bullet_03": {
-        "ID": "Bullet_03",
+    "Card_Bullet03": {
+        "ID": "Card_Bullet03",
+        "Name": "Bullet 03",
+        "Description": "Strike!",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
-        "Content": "Content_03",
-        "Draggable": true
+        "Content": "Content_Bullet03",
+        "Draggable": true,
+        "Collectable": true
     }
 }

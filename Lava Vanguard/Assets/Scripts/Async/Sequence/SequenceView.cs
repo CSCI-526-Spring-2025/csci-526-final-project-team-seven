@@ -37,7 +37,7 @@ namespace Async
                 var data = sequenceData.CardDatas[i];
                 if (data.CardID != "Card_Empty")
                 {
-                    CardView cardView = cardView = Instantiate(cardPrefab, slot.transform).GetComponent<CardView>();
+                    CardView cardView = Instantiate(cardPrefab, slot.transform).GetComponent<CardView>();
                     cardView.Init(slot, GameDataManager.CardData[data.CardID], data);
                     cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
                     slot.Init(this, cardView);

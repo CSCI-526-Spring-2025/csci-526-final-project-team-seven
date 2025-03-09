@@ -11,22 +11,22 @@ public class PlayerView : MonoBehaviour
     private bool isJumping = false;
     private float jumpTempTime = 0.0f;
     private int health;
-    private int exp=0;
-    private int currentLevelExp=2;
-    private int currentLevel=1;
-    private float invincibleTempTime=0.0f;
+    private int exp = 0;
+    private int currentLevelExp = 2;
+    private int currentLevel = 1;
+    private float invincibleTempTime = 0.0f;
 
     //GoD! JUst temP CoDe
-    
+
 
     public void Init()
     {
         playerData = PlayerData.DefaultData;
-        invincibleTempTime=0.0f;
+        invincibleTempTime = 0.0f;
         health = playerData.maxHealth;
-        currentLevel=1;
-        exp=0;
-        currentLevelExp=2;
+        currentLevel = 1;
+        exp = 0;
+        currentLevelExp = 2;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -89,34 +89,38 @@ public class PlayerView : MonoBehaviour
         }
     }
 
-    public void UpdateHealth(int damage,bool mustKilled=false)
+    public void UpdateHealth(int damage, bool mustKilled = false)
     {
-        if(mustKilled){
-            health=0;
+        if (mustKilled)
+        {
+            health = 0;
             PlayerManager.Instance.KillPlayer();
             return;
         }
-        if(invincibleTempTime>0){
+        if (invincibleTempTime > 0)
+        {
             return;
         }
-        invincibleTempTime=playerData.invincibleTime;
+        invincibleTempTime = playerData.invincibleTime;
         health -= damage;
-        if(health<=0){
-            health=0;
+        if (health <= 0)
+        {
+            health = 0;
             PlayerManager.Instance.KillPlayer();
         }
     }
 
     public void UpdateInvincible()
     {
-        if(invincibleTempTime>0){
-            invincibleTempTime-=Time.deltaTime;
+        if (invincibleTempTime > 0)
+        {
+            invincibleTempTime -= Time.deltaTime;
         }
     }
 
     public float GetHealthPercent()
     {
-        return 1.0f*health/playerData.maxHealth;
+        return 1.0f * health / playerData.maxHealth;
     }
 
     public float GetMaxHealth()
@@ -131,18 +135,19 @@ public class PlayerView : MonoBehaviour
 
     public void UpdateExp(int exp)
     {
-        this.exp+=exp;
-        while(this.exp>=currentLevelExp){
-            this.exp-=currentLevelExp;
-            currentLevelExp+=1;
-            currentLevel+=1;
-            CardSelectionManager.Instance.StartSelection();
+        this.exp += exp;
+        while (this.exp >= currentLevelExp)
+        {
+            this.exp -= currentLevelExp;
+            currentLevelExp += 1;
+            currentLevel += 1;
+            CardSelectorManager.Instance.StartSelection();
         }
     }
 
     public float GetEXPPercent()
     {
-        return 1.0f*exp/currentLevelExp;
+        return 1.0f * exp / currentLevelExp;
     }
 
     public int GetLevel()
