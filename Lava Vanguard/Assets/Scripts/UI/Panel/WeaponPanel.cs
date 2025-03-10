@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class WeaponPanel : UIPanel
 {
-
+    public override void Hide()
+    {
+        base.Hide();
+        Tooltip.Instance.HideTooltip();
+    }
 }
