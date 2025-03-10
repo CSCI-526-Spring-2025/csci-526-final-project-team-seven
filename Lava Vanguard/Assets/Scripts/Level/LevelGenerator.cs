@@ -31,7 +31,7 @@ public class LevelGenerator : MonoBehaviour
     public float xMin = -15f, xMax = 15f;
     private List<PlatformData> previousRowPlatforms = new List<PlatformData>();
     private List<int> PreviousReachable = new List<int>();
-
+    private bool generating = false;
     private struct PlatformData
     {
         public float centerX;
@@ -42,7 +42,7 @@ public class LevelGenerator : MonoBehaviour
     {
         Instance = this;
     }
-    void Start()
+    private void Start()
     {
         Instantiate(wallPrefab, new Vector3(-17f, 0f, 0f), Quaternion.identity);
         Instantiate(wallPrefab, new Vector3(17f, 0f, 0f), Quaternion.identity);
@@ -53,18 +53,25 @@ public class LevelGenerator : MonoBehaviour
         GameObject initalGround = Instantiate(groundPrefab, new Vector3(0, -5, 0), Quaternion.identity);
         initalGround.transform.localScale = new Vector3(30f, 5f, 1f);
         lastY = -2.5f;
-    }
 
-    void Update()
+        if (!Tutorial.Instance.tutorial)
+            StartGenerate();
+    }
+    public void StartGenerate()
     {
-        if (Camera.main.transform.position.y + cameraDistance > lastY)
+        generating = true;
+    }
+    private void Update()
+    {
+        if (generating && Camera.main.transform.position.y + cameraDistance > lastY) 
         {
             // GenerateGround();
+            
             RandomGround();
         }
     }
 
-    void GenerateGround()
+    private void GenerateGround()
     {
         lastY += yGap;
         if(groundType==0){
@@ -85,10 +92,7 @@ public class LevelGenerator : MonoBehaviour
         groundType = (groundType + 1) % typeCount;
     }
 
-    
-
-
-    void RandomGround() {
+    private void RandomGround() {
 
         lastY += yGap;
         List<PlatformData> current = new List<PlatformData>();
@@ -156,7 +160,7 @@ public class LevelGenerator : MonoBehaviour
         previousRowPlatforms = current;
     }
 
-    void GetReachablePlatforms(ref List<PlatformData> current) {
+    private void GetReachablePlatforms(ref List<PlatformData> current) {
         var currentReachable = new List<int>();
         if (PreviousReachable.Count == 0) {
             for (int i = 0; i < current.Count; i++) {

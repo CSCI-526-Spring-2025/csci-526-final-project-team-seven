@@ -39,10 +39,9 @@ public class EnemyManager : MonoBehaviour
         return enemyView;
     }
     private void Start()
-    {   
-        StartSpawn();
-        
-        // InvokeRepeating(nameof(GenerateRandomEnemy), 1f, repeatRate);
+    {
+        if (!Tutorial.Instance.tutorial)
+            StartSpawn();
     }
 
     public void StartSpawn()
