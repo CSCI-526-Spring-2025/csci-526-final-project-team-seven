@@ -11,7 +11,7 @@ public abstract class BulletView : MonoBehaviour
     protected bool hasTarget = false;
     protected float detectionRange = 10.0f;
     protected bool hasHit = false;
-    public int damageMultiplier = 1;
+    public float damageMultiplier = 1;
     public float speed = 1.0f;
     public float lifeDistance = 30.0f;
     public LayerMask enemyLayer;
