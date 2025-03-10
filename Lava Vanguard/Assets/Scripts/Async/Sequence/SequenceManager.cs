@@ -61,7 +61,6 @@ namespace Async
                 }
                 else
                 {
-
                     var cardView = sequenceView.slots[i].content;
                     cardRankData = cardView.cardRankData;
                     if (cardView.cardRankData.LinkedSequenceID != null)

@@ -65,10 +65,21 @@
         "Draggable": true,
         "Collectable": true
     },
+    "Card_Bullet04": {
+        "ID": "Card_Bullet04",
+        "Name": "Bullet 04",
+        "Description": "Area attack!",
+        "Type": "Bullet",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_Bullet04",
+        "Draggable": true,
+        "Collectable": true
+    },
     "Card_DamageUp": {
         "ID": "Card_DamageUp",
         "Name": "Damage Up",
-        "Description": "Increase all bullets' damage in its thread.",
+        "Description": "Increase all bullets' damage by 1.5 in its thread.",
         "Type": "Functional",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
@@ -79,12 +90,23 @@
     "Card_SpeedUp": {
         "ID": "Card_SpeedUp",
         "Name": "Speed Up",
-        "Description": "Increase player speed.",
+        "Description": "Increase player speed by 1.5",
         "Type": "Functional",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
         "Content": "Content_SpeedUp",
         "Draggable": true,
+        "Collectable": true
+    },
+    "Card_HealthUp": {
+        "ID": "Card_HealthUp",
+        "Name": "Health Up",
+        "Description": "Increase health limit by 2 and fully restore health.",
+        "Type": "Health",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_HealthUp",
+        "Draggable": false,
         "Collectable": true
     }
 }

@@ -61,7 +61,7 @@ public class PlayerManager : MonoBehaviour
     
     public void GainEXP(int exp)
     {
-        Debug.Log("Gain EXP"+exp);
+        //Debug.Log("Gain EXP"+exp);
         playerView.UpdateExp(exp);
     } 
 

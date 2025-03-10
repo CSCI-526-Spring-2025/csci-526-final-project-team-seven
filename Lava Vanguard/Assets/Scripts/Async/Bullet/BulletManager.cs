@@ -18,7 +18,7 @@ namespace Async
         {
             Vector3 spawnPos = PlayerManager.Instance.playerView.transform.position;
             int index = cardRankData.CardID[^1] - '1';
-            Debug.Log(index);
+            //Debug.Log(index);
             var b = Instantiate(bulletPrefabs[index], spawnPos, Quaternion.identity, bulletContainer).GetComponent<BulletView>();
             b.damageMultiplier = (int)damageMultiplier;
         }

@@ -80,7 +80,7 @@ public class EnemyView_03 : EnemyView
     public override void TakeHit(int bulletAttack)
     {
         Health -= bulletAttack;
-        Debug.Log("Enemy03 been hit " + Health + " - " + bulletAttack);
+        //Debug.Log("Enemy03 been hit " + Health + " - " + bulletAttack);
         if (Health<=0)
         {
             Health = 0;

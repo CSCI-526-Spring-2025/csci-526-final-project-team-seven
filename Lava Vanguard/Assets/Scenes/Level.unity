@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1211,6 +1210,7 @@ MonoBehaviour:
   - {fileID: 7397666833938694871, guid: 118d987b0cf6c064980c2e550b2fa8d3, type: 3}
   - {fileID: 7397666833938694871, guid: 27325eb101c0eed4e94420a4baf4f889, type: 3}
   - {fileID: 7397666833938694871, guid: d9b706d749baaf54d9990e8c2925be95, type: 3}
+  - {fileID: 7397666833938694871, guid: fa6d2d515f4bb85428949c40acfd00ff, type: 3}
 --- !u!1 &835831352
 GameObject:
   m_ObjectHideFlags: 0
@@ -4123,7 +4123,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4018315243681483767, guid: 7c37413ef3761244e800594c96d0d541, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4018315243681483767, guid: 7c37413ef3761244e800594c96d0d541, type: 3}
       propertyPath: m_SortingLayerID
@@ -4135,7 +4135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7875312116369761100, guid: 7c37413ef3761244e800594c96d0d541, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7875312116369761100, guid: 7c37413ef3761244e800594c96d0d541, type: 3}
       propertyPath: m_SortingLayerID

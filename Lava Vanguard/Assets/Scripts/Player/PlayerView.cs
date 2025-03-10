@@ -112,6 +112,11 @@ public class PlayerView : MonoBehaviour
         }
     }
 
+    public void HealthUp()
+    {
+        playerData.maxHealth += 2;
+        health = playerData.maxHealth;
+    }
     public void UpdateInvincible()
     {
         if (invincibleTempTime > 0)

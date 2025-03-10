@@ -19,6 +19,11 @@ namespace Async
         }
         public void GainCard(CardRankData data)
         {
+            if (data.CardID == "Card_HealthUp")
+            {
+                PlayerManager.Instance.playerView.HealthUp();
+                return;
+            }
             InventoryManager.Instance.inventoryView.AddCardView(data);
         }
     }
