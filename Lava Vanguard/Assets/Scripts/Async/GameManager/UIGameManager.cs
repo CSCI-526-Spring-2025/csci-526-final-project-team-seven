@@ -40,5 +40,10 @@ namespace Async
                 if (p is T) p.Switch();
             }
         }
+        public void SwitchWeaponPanel()
+        {
+            Switch<WeaponPanel>(); 
+        }
+
     }
 }

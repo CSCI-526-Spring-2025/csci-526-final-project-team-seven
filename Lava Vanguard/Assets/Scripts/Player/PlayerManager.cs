@@ -22,8 +22,24 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream
         Move();
         Jump();
+=======
+        if (SystemInfo.deviceType == DeviceType.Handheld  || true)
+        {
+            HandleMobileInput();
+            //Debug.Log("Touch Count: " + Input.touchCount);
+
+        }
+        else
+        {
+            Move();
+            Jump();
+        }
+        //Move();
+        //Jump();
+>>>>>>> Stashed changes
         UpdateInvincible();
     }
 
@@ -58,6 +74,96 @@ public class PlayerManager : MonoBehaviour
             playerView.JumpStop();
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    void HandleMobileInput()
+    {
+        if (Input.touchCount > 0) 
+        {
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.phase == TouchPhase.Began)
+                {
+                    touchStartTime = Time.time; 
+                    isJumping = false;
+                }
+                else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+                {
+                    MoveMobile(touch.position); 
+                    float touchDuration = Time.time - touchStartTime;
+
+                    if (touchDuration > 0.2f) 
+                    {
+                        if (!isJumping)
+                        {
+                            playerView.JumpStart();
+                            isJumping = true; 
+                        }
+                        else
+                        {
+                            playerView.JumpMaintain(); 
+                        }
+                    }
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    playerView.JumpStop(); 
+                    isJumping = false;
+                }
+            }
+        }
+        else if (Input.GetMouseButtonDown(0)) 
+        {
+            touchStartTime = Time.time;
+            isJumping = false;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            MoveMobile(Input.mousePosition);
+            float touchDuration = Time.time - touchStartTime;
+
+            if (touchDuration > 0.3f)
+            {
+                if (!isJumping)
+                {
+                    playerView.JumpStart();
+                    isJumping = true;
+                }
+                else
+                {
+                    playerView.JumpMaintain();
+                }
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            playerView.JumpStop();
+            isJumping = false;
+        }
+    }
+
+
+
+    void MoveMobile(Vector2 touchPosition)
+    {
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+
+        if (worldPosition.x < playerView.transform.position.x)
+        {
+            playerView.MoveLeft();
+        }
+        else if (worldPosition.x > playerView.transform.position.x)
+        {
+            playerView.MoveRight();
+        }
+        else
+        {
+            playerView.MoveStop();
+        }
+    }
+
+>>>>>>> Stashed changes
     
     public void GainEXP(int exp)
     {
