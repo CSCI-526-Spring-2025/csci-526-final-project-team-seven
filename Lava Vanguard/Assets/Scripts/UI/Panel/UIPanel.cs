@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class UIPanel : MonoBehaviour
 {
     public Button backButton;
+    [HideInInspector]
     public bool isOpen = false;
-    private void Start()
+    protected virtual void Start()
     {
-        //backButton.onClick.AddListener(Hide);
+        if (backButton != null) 
+            backButton.onClick.AddListener(Hide);
     }
     public virtual void Show()
     {

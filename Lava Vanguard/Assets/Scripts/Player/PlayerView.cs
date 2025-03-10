@@ -5,17 +5,15 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-    private PlayerData playerData;
+    [HideInInspector]
+    public PlayerData playerData;
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool isJumping = false;
     private float jumpTempTime = 0.0f;
-    private int health;
-    private int exp = 0;
-    private int currentLevelExp = 2;
-    private int currentLevel = 1;
-    private float invincibleTempTime = 0.0f;
 
+    
+    private float invincibleTempTime = 0.0f;
     [HideInInspector]
     public float speedMultiplier = 1.0f;
     //GoD! JUst temP CoDe
@@ -25,11 +23,13 @@ public class PlayerView : MonoBehaviour
     {
         playerData = PlayerData.DefaultData;
         invincibleTempTime = 0.0f;
-        health = playerData.maxHealth;
-        currentLevel = 1;
-        exp = 0;
-        currentLevelExp = 2;
+        playerData.health = playerData.maxHealth;
+        playerData.currentLevel = 1;
+        playerData.exp = 0;
+        playerData.currentLevelExp = 2;
         rb = GetComponent<Rigidbody2D>();
+        UIGameManager.Instance.UpdateHp();
+        UIGameManager.Instance.UpdateExp();
     }
 
     public void MoveLeft()
@@ -79,10 +79,7 @@ public class PlayerView : MonoBehaviour
     {
         isJumping = false;
     }
-    public void Shoot()
-    {
-        if (!Async.SequenceManager.Instance) return;
-    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -95,7 +92,7 @@ public class PlayerView : MonoBehaviour
     {
         if (mustKilled)
         {
-            health = 0;
+            playerData.health = 0;
             PlayerManager.Instance.KillPlayer();
             return;
         }
@@ -104,18 +101,19 @@ public class PlayerView : MonoBehaviour
             return;
         }
         invincibleTempTime = playerData.invincibleTime;
-        health -= damage;
-        if (health <= 0)
+        playerData.health -= damage;
+        if (playerData.health <= 0)
         {
-            health = 0;
+            playerData.health = 0;
             PlayerManager.Instance.KillPlayer();
         }
+        UIGameManager.Instance.UpdateHp();
     }
 
     public void HealthUp()
     {
         playerData.maxHealth += 2;
-        health = playerData.maxHealth;
+        playerData.health = playerData.maxHealth;
     }
     public void UpdateInvincible()
     {
@@ -125,40 +123,16 @@ public class PlayerView : MonoBehaviour
         }
     }
 
-    public float GetHealthPercent()
-    {
-        return 1.0f * health / playerData.maxHealth;
-    }
-
-    public float GetMaxHealth()
-    {
-        return playerData.maxHealth;
-    }
-
-    public float GetCurrentHealth()
-    {
-        return health;
-    }
-
     public void UpdateExp(int exp)
     {
-        this.exp += exp;
-        while (this.exp >= currentLevelExp)
+        playerData.exp += exp;
+        while (playerData.exp >= playerData.currentLevelExp) 
         {
-            this.exp -= currentLevelExp;
-            currentLevelExp += 1;
-            currentLevel += 1;
+            playerData.exp -= playerData.currentLevelExp;
+            playerData.currentLevelExp += 1;
+            playerData.currentLevel += 1;
             CardSelectorManager.Instance.StartSelection();
         }
-    }
-
-    public float GetEXPPercent()
-    {
-        return 1.0f * exp / currentLevelExp;
-    }
-
-    public int GetLevel()
-    {
-        return currentLevel;
+        UIGameManager.Instance.UpdateExp();
     }
 }

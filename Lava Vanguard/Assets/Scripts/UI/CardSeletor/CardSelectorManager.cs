@@ -23,12 +23,13 @@ public class CardSelectorManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < optionNumber; i++) 
+        for (int i = 0; i < optionNumber; i++)
         {
             cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSeletorView>());
         }
     }
-    public void StartSelection(){
+    public void StartSelection()
+    {
         Time.timeScale = 0;
         cardSelectorPanel.SetActive(true);
         var collectableCardsList = GameDataManager.CardData
@@ -49,7 +50,8 @@ public class CardSelectorManager : MonoBehaviour
         }
     }
 
-    private void SelectCard(CardRankData data){
+    private void SelectCard(CardRankData data)
+    {
         AsyncManager.Instance.GainCard(data);
         cardSelectorPanel.SetActive(false);
         Time.timeScale = 1;

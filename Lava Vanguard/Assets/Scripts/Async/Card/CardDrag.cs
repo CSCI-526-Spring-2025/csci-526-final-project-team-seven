@@ -108,7 +108,8 @@ namespace Async
                                 {
                                     var newLinkedSequence = SequenceManager.Instance.GetNextLinkedSequenceID();
                                     cardView.cardRankData.LinkedSequenceID = newLinkedSequence;
-                                    
+
+                                    //Do not use 10 directly.
                                     SequenceManager.Instance.GenerateAsyncSequence(slot.rectTransform.anchoredPosition, newLinkedSequence, cardView.cardRankData.Level);
                                     sequence.Value.AddCardView(cardView, slot);
                                 }

@@ -6,7 +6,6 @@ using System;
 public class PlayerManager : MonoBehaviour
 {
     public PlayerView playerView;
-    public GameObject deathMenuPanel;
     public static PlayerManager Instance { get; private set; }
     void Awake()
     {
@@ -79,22 +78,9 @@ public class PlayerManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         Debug.Log("kill player initiated");
-#if UNITY_EDITOR
         FindObjectOfType<SendToGoogle>().RecordEndTime();
-#endif
-#if UNITY_WEBGL
-        FindObjectOfType<SendToGoogle>().RecordEndTime();
-#endif
-        deathMenuPanel.SetActive(true);
+
+        UIGameManager.Instance.Show<DeathPanel>();
     }
-    /*
-        When the player leaves the ground, isGrounded is set to false
-        so that the player can't jump in the air.
-        */
-    // void OnCollisionExit2D(Collision2D collision){
-    //     if(collision.gameObject.CompareTag("Ground")){
-    //         isGrounded=false;
-    //     }
-    // }
 }
 

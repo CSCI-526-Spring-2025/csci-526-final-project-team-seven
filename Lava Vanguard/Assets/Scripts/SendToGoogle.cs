@@ -33,11 +33,8 @@ public class SendToGoogle : MonoBehaviour
     
     public void Send()
     {
-        PlayerView player = FindObjectOfType<PlayerView>();
-        expLevel = player.GetLevel();
-        finalHealth = player.GetCurrentHealth();
-
-
+        expLevel = PlayerManager.Instance.playerView.playerData.currentLevel;
+        finalHealth = PlayerManager.Instance.playerView.playerData.health;
 
         StartCoroutine(Post(sessionID.ToString(), startTime, endTime,expLevel.ToString(),finalHealth.ToString()));
     }

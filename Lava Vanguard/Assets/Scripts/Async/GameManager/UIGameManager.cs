@@ -1,45 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Async
+
+public class UIGameManager : MonoBehaviour
 {
-    public class UIGameManager : MonoBehaviour
-    {
-        public static UIGameManager Instance {  get; private set; }
-        private void Awake()
-        {
-            Instance = this;
-        }
-        public UIPanel[] UIPanels;
+    public static UIGameManager Instance { get; private set; }
 
-        private void Update()
+    //Panel buttons;
+    public Button pauseButton;
+    public Button weaponButton;
+
+
+    //HP and EXP
+    public Image expBarFill;
+    public TMP_Text expLabel;
+    public Image hpBarFill;
+    public TMP_Text hpLabel;
+    private void Awake()
+    {
+        Instance = this;
+    }
+    private void Start()
+    {
+        pauseButton.onClick.AddListener(() => Show<PausePanel>());
+        weaponButton.onClick.AddListener(() => Show<WeaponPanel>());
+    }
+    public UIPanel[] UIPanels;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && !(GetOpen<PausePanel>() || GetOpen<DeathPanel>())) 
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            Switch<WeaponPanel>();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Show<PausePanel>();
+        }
+        bool open = false;
+        foreach(var p in UIPanels)
+        {
+            if (p.isOpen)
             {
-                Switch<WeaponPanel>();
+                Time.timeScale = 0;
+                open = true;
             }
         }
-        public void Show<T>() where T : UIPanel
+        if (!open)
         {
-            foreach(var  p in UIPanels)
-            {
-                if (p is T) p.Show();
-            }
-        }
-        public void Hide<T>() where T : UIPanel
-        {
-            foreach (var p in UIPanels)
-            {
-                if (p is T) p.Hide();
-            }
-        }
-        public void Switch<T> () where T : UIPanel
-        {
-            foreach (var p in UIPanels)
-            {
-                if (p is T) p.Switch();
-            }
+            Time.timeScale = 1;
         }
     }
+    public void Show<T>() where T : UIPanel
+    {
+        foreach (var p in UIPanels)
+        {
+            if (p is T) p.Show();
+        }
+    }
+    public void Hide<T>() where T : UIPanel
+    {
+        foreach (var p in UIPanels)
+        {
+            if (p is T) p.Hide();
+        }
+    }
+    public bool GetOpen<T>() where T : UIPanel
+    {
+        foreach (var p in UIPanels)
+        {
+            if (p is T) return p.isOpen;
+        }
+        return false;
+    }
+    public void Switch<T>() where T : UIPanel
+    {
+        foreach (var p in UIPanels)
+        {
+            if (p is T) p.Switch();
+        }
+    }
+
+    public void UpdateExp()
+    {
+        int exp = PlayerManager.Instance.playerView.playerData.exp;
+        int maxEXP = PlayerManager.Instance.playerView.playerData.currentLevelExp;
+        float percentage = 1.0f * exp / maxEXP;
+        expLabel.text = "Level: " + exp;
+        expBarFill.fillAmount = percentage;
+    }
+    public void UpdateHp()
+    {
+        int hp = PlayerManager.Instance.playerView.playerData.health;
+        int maxHP = PlayerManager.Instance.playerView.playerData.maxHealth;
+        float percentage = 1.0f * hp / maxHP;
+        hpLabel.text = "HP: " + hp + "/" + maxHP;
+        hpBarFill.fillAmount = percentage;
+    }
+
+    
 }
