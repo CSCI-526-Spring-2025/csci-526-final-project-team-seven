@@ -114,6 +114,7 @@ public class PlayerView : MonoBehaviour
     {
         playerData.maxHealth += 2;
         playerData.health = playerData.maxHealth;
+        UIGameManager.Instance.UpdateHp();
     }
     public void UpdateInvincible()
     {
