@@ -14,7 +14,7 @@ public class BulletView01 : BulletView
         lifeDistance = 8.0f;
         detectionRange = 8.0f;
         speed = 15f;
-        attack = 1;
+        attack = 2;
         FindClosestEnemy();
         ApplyInitialRotation();
     }

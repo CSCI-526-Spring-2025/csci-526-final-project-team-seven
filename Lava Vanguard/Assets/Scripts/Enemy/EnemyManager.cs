@@ -14,10 +14,11 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
 
     [Header("Enemy Settings")]
-    public float baseSpawnInterval = 3.0f;
+    public float baseSpawnInterval = 2f;
     public float minSpawnInterval = 0.3f;
     public float maxSpawnInterval = 2f;
-    public float difficultyCurve = 0.3f;
+    public float difficultyCurve = 1f;
+    public float maxLevel = 30f;
     private Coroutine spawnCoroutine;
     private void Awake()
     {
@@ -67,11 +68,13 @@ public class EnemyManager : MonoBehaviour
 
     private float CalculateSpawnInterval()
     {
-        int cardCount = SequenceManager.Instance.GetCardNumber();
-        int safeCardCount = Mathf.Max(cardCount, 1);
-        
-        float calculatedInterval = baseSpawnInterval / (Mathf.Log10(safeCardCount) * difficultyCurve);
-    
-        return Mathf.Clamp(calculatedInterval, minSpawnInterval, maxSpawnInterval);
+        int currentlevel = PlayerManager.Instance.playerView.playerData.currentLevel;
+        float safeCardCount = Mathf.Clamp(currentlevel, 1f, maxLevel);
+        float minSpawnCount = 1f / maxSpawnInterval;
+        float maxSpawnCount = 1f / minSpawnInterval;
+
+        float calculatedInterval = minSpawnCount + (maxSpawnCount - minSpawnCount) * (safeCardCount - 1f) / (maxLevel - 1f);
+        //Debug.Log("currentlevel " + currentlevel + " --- "+calculatedInterval+" -- "+minSpawnCount+" -- "+maxSpawnCount);
+        return 1f/calculatedInterval;
     }
 }
