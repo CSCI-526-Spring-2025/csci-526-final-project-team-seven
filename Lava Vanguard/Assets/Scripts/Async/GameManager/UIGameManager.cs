@@ -88,9 +88,10 @@ public class UIGameManager : MonoBehaviour
     public void UpdateExp()
     {
         int exp = PlayerManager.Instance.playerView.playerData.exp;
+        int level = PlayerManager.Instance.playerView.playerData.currentLevel;
         int maxEXP = PlayerManager.Instance.playerView.playerData.currentLevelExp;
         float percentage = 1.0f * exp / maxEXP;
-        expLabel.text = "Level: " + exp;
+        expLabel.text = "Level: " + level;
         expBarFill.fillAmount = percentage;
     }
     public void UpdateHp()
