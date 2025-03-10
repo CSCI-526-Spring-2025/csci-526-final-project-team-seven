@@ -88,7 +88,7 @@ public class BulletView01 : BulletView
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {
-                enemy.TakeHit(attack); // Enemy been hit
+                enemy.TakeHit(attack * damageMultiplier); // Enemy been hit
             }
             Destroy(gameObject);
         }

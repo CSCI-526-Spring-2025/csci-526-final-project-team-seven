@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class WeaponPanel : UIPanel
 {
-    protected override void Start()
-    {
-        base.Start();
-    }
+
 }

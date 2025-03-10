@@ -9,9 +9,9 @@ public class UIPanel : MonoBehaviour
     public Button backButton;
     [HideInInspector]
     public bool isOpen = false;
-    protected virtual void Start()
+    public virtual void Init()
     {
-        if (backButton != null) 
+        if (backButton != null)
             backButton.onClick.AddListener(Hide);
     }
     public virtual void Show()

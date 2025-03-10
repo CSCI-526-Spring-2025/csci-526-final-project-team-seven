@@ -25,6 +25,8 @@ public class UIGameManager : MonoBehaviour
     }
     private void Start()
     {
+        foreach (var p in UIPanels)
+            p.Init();
         pauseButton.onClick.AddListener(() => Show<PausePanel>());
         weaponButton.onClick.AddListener(() => Show<WeaponPanel>());
     }

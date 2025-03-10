@@ -8,9 +8,9 @@ public class DeathPanel : UIPanel
 {
     public Button restartButton;
     public Button exitButton;
-    protected override void Start()
+    public override void Init()
     {
-        base.Start();
+        base.Init();
         restartButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
         exitButton.onClick.AddListener(() => SceneManager.LoadScene("Menu"));
     }

@@ -5,33 +5,25 @@ using TMPro;
 using Async;
 using UnityEngine.UI;
 using System.Linq;
-public class CardSelectorManager : MonoBehaviour
-{
-    public static CardSelectorManager Instance { get; private set; }
+public class CardSelectorPanel : UIPanel
+{ 
     public int optionNumber = 3;
-    public GameObject cardSelectorPanel;
 
     public Transform cardSelectorContainer;
     public GameObject cardSeletorPrefab;
 
     private List<CardSeletorView> cardSeletorViews = new List<CardSeletorView>();
-
-    private void Awake()
+    public override void Init()
     {
-        Instance = this;
-    }
-
-    private void Start()
-    {
+        base.Init();
         for (int i = 0; i < optionNumber; i++)
         {
             cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSeletorView>());
         }
     }
-    public void StartSelection()
+    public override void Show()
     {
-        Time.timeScale = 0;
-        cardSelectorPanel.SetActive(true);
+        base.Show();
         var collectableCardsList = GameDataManager.CardData
             .Where(kv => kv.Value.Collectable)
             .Select(kv => kv.Value)
@@ -53,7 +45,6 @@ public class CardSelectorManager : MonoBehaviour
     private void SelectCard(CardRankData data)
     {
         AsyncManager.Instance.GainCard(data);
-        cardSelectorPanel.SetActive(false);
-        Time.timeScale = 1;
+        Hide();
     }
 }
