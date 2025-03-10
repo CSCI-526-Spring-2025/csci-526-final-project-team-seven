@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace Async
 {
-
     public class CardView : MonoBehaviour
     {
         public CardSpriteData cardSpriteData;

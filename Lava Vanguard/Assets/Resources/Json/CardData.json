@@ -1,7 +1,7 @@
 {
     "Card_Async": {
         "ID": "Card_Async",
-        "Name": "Thread",
+        "Title": "Thread",
         "Description": "Create a new thread.",
         "Type": "Async",
         "Background": "Background_Normal",
@@ -12,7 +12,7 @@
     },
     "Card_Async2": {
         "ID": "Card_Async2",
-        "Name": "Thread Head",
+        "Title": "Thread Head",
         "Description": "The head of one thread.",
         "Type": "Async",
         "Background": "Background_Normal",
@@ -23,7 +23,7 @@
     },
     "Card_Empty": {
         "ID": "Card_Empty",
-        "Name": "Empty",
+        "Title": "Empty",
         "Description": "Nobody is here.",
         "Type": "Empty",
         "Background": "Background_Normal",
@@ -34,7 +34,7 @@
     },
     "Card_Bullet01": {
         "ID": "Card_Bullet01",
-        "Name": "Bullet 01",
+        "Title": "Bullet 01",
         "Description": "Our first production.",
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -45,7 +45,7 @@
     },
     "Card_Bullet02": {
         "ID": "Card_Bullet02",
-        "Name": "Bullet 02",
+        "Title": "Bullet 02",
         "Description": "Go big and go home.",
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -56,7 +56,7 @@
     },
     "Card_Bullet03": {
         "ID": "Card_Bullet03",
-        "Name": "Bullet 03",
+        "Title": "Bullet 03",
         "Description": "Strike!",
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -67,7 +67,7 @@
     },
     "Card_Bullet04": {
         "ID": "Card_Bullet04",
-        "Name": "Bullet 04",
+        "Title": "Bullet 04",
         "Description": "Area attack!",
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -78,7 +78,7 @@
     },
     "Card_DamageUp": {
         "ID": "Card_DamageUp",
-        "Name": "Damage Up",
+        "Title": "Damage Up",
         "Description": "Increase all bullets' damage by 1.5 in its thread.",
         "Type": "Functional",
         "Background": "Background_Normal",
@@ -89,7 +89,7 @@
     },
     "Card_SpeedUp": {
         "ID": "Card_SpeedUp",
-        "Name": "Speed Up",
+        "Title": "Speed Up",
         "Description": "Increase player speed by 1.5",
         "Type": "Functional",
         "Background": "Background_Normal",
@@ -100,7 +100,7 @@
     },
     "Card_HealthUp": {
         "ID": "Card_HealthUp",
-        "Name": "Health Up",
+        "Title": "Health Up",
         "Description": "Increase health limit by 2 and fully restore health.",
         "Type": "Health",
         "Background": "Background_Normal",

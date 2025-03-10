@@ -4,7 +4,7 @@ namespace Async
 {
 
     [RequireComponent(typeof(CardView))]
-    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler,IPointerExitHandler
     {
         private CardView cardView;
         private RectTransform rectTransform;
@@ -166,6 +166,16 @@ namespace Async
                     }
                 }
             }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Tooltip.Instance.ShowTooltip(cardView.cardSpriteData);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            Tooltip.Instance.HideTooltip();
         }
     }
 }

@@ -15,7 +15,7 @@ public class CardSeletorView : MonoBehaviour
 
     public void Init(CardSpriteData data, UnityAction action)
     {
-        this.title.text = data.Name;
+        this.title.text = data.Title;
         this.description.text = data.Description;
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(action);
