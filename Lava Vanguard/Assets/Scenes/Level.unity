@@ -2199,10 +2199,10 @@ MonoBehaviour:
   grounds: []
   cameraDistance: 5
   yGap: 1.5
-  minPlatformsPerRow: 2
-  maxPlatformsPerRow: 4
-  minPlatformLength: 2
-  maxPlatformLength: 5
+  minPlatformsPerRow: 4
+  maxPlatformsPerRow: 7
+  minPlatformLength: 1.5
+  maxPlatformLength: 3.5
   maxHorizontalJump: 2.5
   xMin: -15
   xMax: 15
