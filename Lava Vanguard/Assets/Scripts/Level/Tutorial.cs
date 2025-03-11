@@ -56,7 +56,7 @@ public class Tutorial : MonoBehaviour
         }
         if (cnt == 5 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
         {
-            tutorialText.text = "Now avoid lava, shot enemies, keep going up and get high score!";
+            tutorialText.text = "Now avoid lava, shoot enemies, keep going up and survive as long as you can!";
             CameraController.Instance.StartMove();
             cnt++;
         }
