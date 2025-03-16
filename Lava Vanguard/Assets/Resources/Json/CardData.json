@@ -101,11 +101,22 @@
     "Card_HealthUp": {
         "ID": "Card_HealthUp",
         "Title": "Health Up",
-        "Description": "Increase health limit by 2 and fully restore health.",
-        "Type": "Health",
+        "Description": "Increase health limit by 2.",
+        "Type": "Functional",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
         "Content": "Content_HealthUp",
+        "Draggable": true,
+        "Collectable": true
+    },
+    "Card_RestoreHealth": {
+        "ID": "Card_RestoreHealth",
+        "Title": "Restore Health",
+        "Description": "Fully restore health.",
+        "Type": "Health",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_RestoreHealth",
         "Draggable": false,
         "Collectable": true
     }

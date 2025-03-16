@@ -97,7 +97,7 @@ public class UIGameManager : MonoBehaviour
     public void UpdateHp()
     {
         int hp = PlayerManager.Instance.playerView.playerData.health;
-        int maxHP = PlayerManager.Instance.playerView.playerData.maxHealth;
+        int maxHP = PlayerManager.Instance.playerView.playerData.currentHealthLimit;
         float percentage = 1.0f * hp / maxHP;
         hpLabel.text = "HP: " + hp + "/" + maxHP;
         hpBarFill.fillAmount = percentage;

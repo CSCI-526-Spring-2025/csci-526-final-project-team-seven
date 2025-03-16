@@ -23,7 +23,8 @@ public class PlayerView : MonoBehaviour
     {
         playerData = PlayerData.DefaultData;
         invincibleTempTime = 0.0f;
-        playerData.health = playerData.maxHealth;
+        playerData.health = playerData.healthLimit;
+        playerData.currentHealthLimit = playerData.healthLimit;
         playerData.currentLevel = 1;
         playerData.exp = 0;
         playerData.currentLevelExp = 2;
@@ -109,11 +110,27 @@ public class PlayerView : MonoBehaviour
         }
         UIGameManager.Instance.UpdateHp();
     }
-
+    public void ResetHealthLimit()
+    {
+        playerData.currentHealthLimit = playerData.healthLimit;
+        UIGameManager.Instance.UpdateHp();
+    }
+    public void ResetHealth()
+    {
+        if (playerData.health > playerData.currentHealthLimit)
+        {
+            playerData.health= playerData.currentHealthLimit;
+        }
+        UIGameManager.Instance.UpdateHp();
+    }
     public void HealthUp()
     {
-        playerData.maxHealth += 2;
-        playerData.health = playerData.maxHealth;
+        playerData.currentHealthLimit += playerData.healthUpValue;
+        UIGameManager.Instance.UpdateHp();
+    }
+    public void RestoreHealth()
+    {
+        playerData.health=playerData.currentHealthLimit;
         UIGameManager.Instance.UpdateHp();
     }
     public void UpdateInvincible()

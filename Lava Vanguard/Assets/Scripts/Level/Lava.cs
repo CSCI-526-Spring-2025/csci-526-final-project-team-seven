@@ -12,11 +12,11 @@ public class Lava : MonoBehaviour
     {
         mainCamera = Camera.main;
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player")){
             Debug.Log("Player is dead");
-            PlayerManager.Instance.GetHurt(10000,true);
+            PlayerManager.Instance.GetHurt(5);
         }else if (other.CompareTag("Enemy")){
             Debug.Log("Enemy is dead in lava");
             Destroy(other.gameObject, deathDelay);

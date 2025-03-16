@@ -127,6 +127,7 @@ namespace Async
         }
         private void UpdateGlobalEffect()
         {
+            PlayerManager.Instance.playerView.ResetHealthLimit();
             PlayerManager.Instance.playerView.speedMultiplier = 1.0f;
             foreach (var sequenceView in sequenceViews)
             {
@@ -146,10 +147,15 @@ namespace Async
                             {
                                 PlayerManager.Instance.playerView.speedMultiplier *= 1.5f;
                             }
+                            if (data.ID == "Card_HealthUp")
+                            {
+                                PlayerManager.Instance.playerView.HealthUp();
+                            }
                         }
                     }
                 }
             }
+            PlayerManager.Instance.playerView.ResetHealth();
         }
         private IEnumerator RunSequence()
         {
