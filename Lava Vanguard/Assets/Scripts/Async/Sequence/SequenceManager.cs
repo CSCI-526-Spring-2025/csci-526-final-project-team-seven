@@ -12,7 +12,8 @@ namespace Async
         public SequenceView MainSequence { get => sequenceViews["Sequence_Main"]; }
         public Dictionary<string, SequenceView> sequenceViews = new Dictionary<string, SequenceView>();
         public Dictionary<string, SequenceData> savedData = new Dictionary<string, SequenceData>();
-        
+        public static Dictionary<string, SequenceData> savedDataCopy = new Dictionary<string, SequenceData>();//can get card id even ondestory is called
+
         private void Awake()
         {
             Instance = this;
@@ -89,6 +90,7 @@ namespace Async
             }
             sequenceViews.Clear();
             Init();
+            savedDataCopy = new Dictionary<string, SequenceData>(savedData);
             savedData.Clear();
         }
         public string GetNextLinkedSequenceID()
@@ -204,5 +206,33 @@ namespace Async
         {
             StopAllCoroutines();
         }
+
+        //fetch sequence info for data analysis
+        public string GetAllFormattedSequenceData()
+        {
+            if (savedData.Count == 0 && savedDataCopy.Count == 0)
+            {
+                Debug.LogWarning("Both savedData and savedDataCopy are empty");
+                return "No Sequence Data Available";
+            }
+
+            
+            Dictionary<string, SequenceData> dataSource = savedData.Count > 0 ? savedData : savedDataCopy;
+
+            string formattedData = "All Cards in Sequences: ";
+
+            foreach (var sequence in dataSource)
+            {
+                foreach (var card in sequence.Value.CardDatas)
+                {
+                    formattedData += $"[{card.CardID}], ";
+                }
+            }
+
+            return formattedData.TrimEnd(',', ' ');
+        }
+
+
+
     }
 }
