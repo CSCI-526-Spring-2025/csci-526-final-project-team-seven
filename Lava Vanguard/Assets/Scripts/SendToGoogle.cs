@@ -16,19 +16,11 @@ public class SendToGoogle : MonoBehaviour
     public float finalHealth = 0;
     public string sequenceData = "";
 
-    private Async.SequenceManager sequenceManager; 
-
     void Start()
     {
         sessionID = DateTime.Now.Ticks; 
         startTime = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
-        sequenceManager = FindObjectOfType<Async.SequenceManager>(); 
-
-        if (sequenceManager == null)
-        {
-            //Debug.LogError("SequenceManager not found in the scene! Make sure it is added to a GameObject.");
-        }
     }
 
     public void RecordEndTime()
@@ -52,7 +44,7 @@ public class SendToGoogle : MonoBehaviour
         finalHealth = PlayerManager.Instance.playerView.playerData.health;
 
 
-        sequenceData = sequenceManager != null ? sequenceManager.GetAllFormattedSequenceData() : "No Sequence Data Available";
+        sequenceData =  "No Sequence Data Available";
 
 
         StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), finalHealth.ToString(), sequenceData));
