@@ -27,7 +27,7 @@ namespace Async
         {
             var sequenceData = GameDataManager.SequenceData[sequenceID];
             var sequenceView = Instantiate(sequencePrefab, sequenceContainer).GetComponent<SequenceView>();
-            sequenceView.Init(localAnchorPosition, sequenceData);
+            sequenceView.Init(localAnchorPosition, sequenceData, sequenceID);
             sequenceViews.Add(sequenceID, sequenceView);
         }
         public void GenerateAsyncSequence(Vector2 localAnchorPosition, string sequenceID, int count)
@@ -42,7 +42,7 @@ namespace Async
                 sequenceData.CardDatas.Add(CardRankData.Empty);
             }
             var sequenceView = Instantiate(sequencePrefab, sequenceContainer).GetComponent<SequenceView>();
-            sequenceView.Init(localAnchorPosition, sequenceData);
+            sequenceView.Init(localAnchorPosition, sequenceData, sequenceID);
             sequenceViews.Add(sequenceID, sequenceView);
         }
         public void SaveSequenceData(string sequenceID)

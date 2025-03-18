@@ -153,7 +153,7 @@ namespace Async
         public void BackToInventory(CardView cardView)
         {
             InventoryManager.Instance.inventoryView.AddCardView(cardView);
-            cardView.ClearSequenceID();
+            cardView.ClearThreadID();
             if (cardView.slot != null)
                 cardView.slot.content = null;
             cardView.slot = null;

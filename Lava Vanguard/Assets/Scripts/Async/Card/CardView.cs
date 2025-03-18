@@ -38,13 +38,15 @@ namespace Async
             else
                 threadID.text = cardRankData.LinkedSequenceID[^1].ToString();
         }
-        public void ClearSequenceID()
+        public void UpdateThreadID(string ID)
+        {
+            threadID.text = ID[^1].ToString();
+        }
+        public void ClearThreadID()
         {
             if (cardRankData.LinkedSequenceID != null)
-            {
                 cardRankData.LinkedSequenceID = "Not_Ready";
-                threadID.text = "";
-            }
+            threadID.text = "";
         }
     }
 }
