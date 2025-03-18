@@ -1,24 +1,6 @@
 {
     "CardDatas": [
         {
-            "ID": 2,
-            "CardID": "Card_Async",
-            "Level": 5,
-            "LinkedSequenceID": "Not_Ready"
-        },
-        {
-            "ID": 2,
-            "CardID": "Card_Async",
-            "Level": 5,
-            "LinkedSequenceID": "Not_Ready"
-        },
-        {
-            "ID": 2,
-            "CardID": "Card_Async",
-            "Level": 5,
-            "LinkedSequenceID": "Not_Ready"
-        },
-        {
             "ID": 0,
             "CardID": "Card_Bullet03",
             "Level": 1

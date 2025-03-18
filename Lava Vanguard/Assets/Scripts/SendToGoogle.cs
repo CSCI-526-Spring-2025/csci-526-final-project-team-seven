@@ -27,7 +27,7 @@ public class SendToGoogle : MonoBehaviour
 
         if (sequenceManager == null)
         {
-            Debug.LogError("SequenceManager not found in the scene! Make sure it is added to a GameObject.");
+            //Debug.LogError("SequenceManager not found in the scene! Make sure it is added to a GameObject.");
         }
     }
 

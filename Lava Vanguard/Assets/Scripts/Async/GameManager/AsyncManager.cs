@@ -14,7 +14,8 @@ namespace Async
         }
         private void Start()
         {
-            SequenceManager.Instance.Init();
+            //SequenceManager.Instance.Init();
+            SlotManager.Instance.Init();
             InventoryManager.Instance.Init();
         }
         public void GainCard(CardRankData data)
