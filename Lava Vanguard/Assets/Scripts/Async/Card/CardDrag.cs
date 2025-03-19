@@ -80,6 +80,7 @@ namespace Async
                 if (cardView.slot != null) 
                     cardView.slot.RemoveCardView();
                 InventoryManager.Instance.inventoryView.AddCardView(cardView);
+                SlotManager.Instance.UpdateAndRunSequence();
                 return;
             }
             // 2. Drag to another empty slot.
@@ -99,7 +100,7 @@ namespace Async
             // 5. Drag to somewhere else.
             transform.SetParent(originalParent);
             rectTransform.anchoredPosition = originalPosition;
-
+           
         }
 
         public void OnPointerDown(PointerEventData eventData)

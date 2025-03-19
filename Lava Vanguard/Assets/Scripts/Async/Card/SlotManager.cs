@@ -50,16 +50,45 @@ public class SlotManager : MonoBehaviour
     {
         sequence.Kill();
         sequence = DOTween.Sequence();
+
+        for (int i = 0; i < ROW; i++)
+            for (int j = 0; j < COL; j++)
+                slotViews[i, j].damageMultiplier = 1.0f;
         for (int i = 0; i < ROW; i++)
         {
             for (int j = 0; j < COL; j++)
             {
-                if (slotViews[i, j].content != null)
+                var content = slotViews[i, j].content;
+                if (content != null && content.cardSpriteData.Type == "Functional") 
                 {
-                    var content = slotViews[i, j].content;
+                    if (content.cardSpriteData.ID == "Card_DamageUp")
+                    {
+                        for (int k = i - 1; k <= i + 1; k++)
+                        {
+                            for (int l = j - 1; l <= j + 1; l++) 
+                            {
+                                if (k < 0 || l < 0 || k >= ROW || l >= COL)
+                                    continue;
+                                slotViews[k, l].damageMultiplier *= 2f;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        for (int i = 0; i < ROW; i++)
+        {
+            for (int j = 0; j < COL; j++)
+            {
+                var slot = slotViews[i, j];
+                if (slot.content != null)
+                {
+                    var content = slot.content;
                     if (content.cardSpriteData.Type == "Bullet")
                     {
-                        sequence.AppendCallback(() => BulletManager.Instance.GenerateBullet(content.cardRankData, 1));
+                        sequence.AppendCallback(() => BulletManager.Instance.GenerateBullet(content.cardRankData, slot.damageMultiplier));
                     }
                 }
                 sequence.AppendInterval(0.05f);

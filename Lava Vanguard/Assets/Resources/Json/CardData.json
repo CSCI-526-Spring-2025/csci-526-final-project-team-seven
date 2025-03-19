@@ -57,7 +57,7 @@
     "Card_DamageUp": {
         "ID": "Card_DamageUp",
         "Title": "Damage Up",
-        "Description": "Increase all bullets' damage by 1.5 whithin its thread.",
+        "Description": "Increase all bullets' damage by 2 whithin its 3x3 area.",
         "Type": "Functional",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",

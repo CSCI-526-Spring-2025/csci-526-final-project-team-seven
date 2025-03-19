@@ -8,6 +8,7 @@ namespace Async
     {
         public CardView content;
         public RectTransform rectTransform;
+        public float damageMultiplier;
         public void Init(CardView content = null)
         {
             this.content = content;

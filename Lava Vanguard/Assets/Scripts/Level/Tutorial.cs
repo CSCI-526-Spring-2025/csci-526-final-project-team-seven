@@ -21,9 +21,11 @@ public class Tutorial : MonoBehaviour
             basicUI.SetActive(true);
             cnt = 7;
             tutorialText.text = "";
+            LevelManager.Instance.NextWave();
         }
 
     }
+    //TODO: If we have waves, we should update this tutorial.
     private void Update()
     {
         if (cnt == 0 && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
@@ -47,11 +49,12 @@ public class Tutorial : MonoBehaviour
         {
             tutorialText.text = "Destroy thoes enemies to get EXP!\nThe bullet will fire automatically at regular intervals.";
             EnemyManager.Instance.StartSpawn();
+            LevelManager.Instance.NextWave();
             cnt++;
         }
-        if (cnt == 4 && PlayerManager.Instance.playerView.playerData.currentLevel == 2)
+        if (cnt == 4 && UIGameManager.Instance.GetOpen<CardSelectorPanel>()) 
         {
-            tutorialText.text = "Once you leveled up, you got a new module. Choose one to continue.";
+            tutorialText.text = "Once you survived one wave, you got a new module. Choose one to continue.";
             cnt++;
         }
         if (cnt == 5 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())

@@ -150,7 +150,7 @@ public class PlayerView : MonoBehaviour
             playerData.currentLevelExp += 1;
             playerData.currentLevel += 1;
 
-            UIGameManager.Instance.Show<CardSelectorPanel>();
+            //UIGameManager.Instance.Show<CardSelectorPanel>();
         }
         UIGameManager.Instance.UpdateExp();
     }

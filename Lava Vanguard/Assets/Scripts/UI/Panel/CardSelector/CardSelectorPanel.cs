@@ -41,6 +41,11 @@ public class CardSelectorPanel : UIPanel
             cardSeletorViews[i].Init(data, () => SelectCard(rankData));
         }
     }
+    public override void Hide()
+    {
+        base.Hide();
+        LevelManager.Instance.NextWave();
+    }
 
     private void SelectCard(CardRankData data)
     {
