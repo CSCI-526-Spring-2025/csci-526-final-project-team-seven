@@ -15,6 +15,7 @@ public abstract class EnemyView : MonoBehaviour
     // How many exp will palyer gained when player killed this enemy
     protected int expGained;
     protected float SpawnDistance = 1.2f;
+    public GameObject deathEffect;
     public void Init(string ID)
     {
         enemyData = GameDataManager.EnemyData[ID];
@@ -34,6 +35,7 @@ public abstract class EnemyView : MonoBehaviour
         {
             Health = 0;
             PlayerManager.Instance.GainEXP(expGained);
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
