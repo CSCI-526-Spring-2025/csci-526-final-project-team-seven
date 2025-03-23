@@ -96,4 +96,29 @@ public class SlotManager : MonoBehaviour
         }
         sequence.SetLoops(-1);
     }
+
+    public string GetAllSlotCardData()
+    {
+        string formattedData = "All Cards in Slots: ";
+
+        for (int i = 0; i < ROW; i++)
+        {
+            for (int j = 0; j < COL; j++)
+            {
+                var slot = slotViews[i, j];
+                if (slot.content != null)
+                {
+                    formattedData += $"[{slot.content.cardRankData.CardID}], ";
+                }
+            }
+        }
+
+        if (formattedData == "All Cards in Slots: ")
+        {
+            return "No cards found in any slot.";
+        }
+
+        return formattedData.TrimEnd(',', ' '); 
+    }
+
 }

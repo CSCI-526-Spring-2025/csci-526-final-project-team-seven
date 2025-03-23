@@ -15,6 +15,7 @@ public class SendToGoogle : MonoBehaviour
     public float maxRange = 0;
     public float finalHealth = 0;
     public string sequenceData = "";
+    
 
     void Start()
     {
@@ -43,12 +44,14 @@ public class SendToGoogle : MonoBehaviour
         expLevel = PlayerManager.Instance.playerView.playerData.currentLevel;
         finalHealth = PlayerManager.Instance.playerView.playerData.health;
 
-
-        sequenceData =  "No Sequence Data Available";
-
+        
+        sequenceData = SlotManager.Instance != null
+            ? SlotManager.Instance.GetAllSlotCardData()
+            : "No Slot Data Available";
 
         StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), finalHealth.ToString(), sequenceData));
     }
+
 
     private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string finalHealth, string sequenceData)
     {
