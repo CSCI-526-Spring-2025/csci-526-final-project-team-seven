@@ -19,7 +19,7 @@ public class Tooltip : MonoBehaviour
         tooltip.SetActive(true);
         title.text = data.Title;
         description.text = data.Description;
-        tooltip.transform.position = Input.mousePosition;
+        tooltip.transform.position = Input.mousePosition + new Vector3(0, -150, 0);
     }
     public void HideTooltip()
     {

@@ -21,7 +21,7 @@ namespace Async
         [HideInInspector]
         public float damageMultiplier = 1.0f;// Damage Multiplier of this thread
 
-        public void Init(Vector2 localAnchorPosition, SequenceData sequenceData)
+        public void Init(Vector2 localAnchorPosition, SequenceData sequenceData, string sequenceID)
         {
             //this.sequenceData = sequenceData;
 
@@ -44,6 +44,10 @@ namespace Async
                     cardView.Init(slot, GameDataManager.CardData[data.CardID], data);
                     cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
                     slot.Init(this, cardView);
+                    if (data.CardID == "Card_Async2")
+                    {
+                        cardView.UpdateThreadID(sequenceID);
+                    }
                 }
 
                 if (data.LinkedSequenceID != null)

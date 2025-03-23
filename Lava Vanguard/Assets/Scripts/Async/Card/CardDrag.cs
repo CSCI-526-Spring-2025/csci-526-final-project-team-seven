@@ -4,7 +4,7 @@ namespace Async
 {
 
     [RequireComponent(typeof(CardView))]
-    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler,IPointerExitHandler
+    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler,IPointerExitHandler,IPointerDownHandler
     {
         private CardView cardView;
         private RectTransform rectTransform;
@@ -40,6 +40,8 @@ namespace Async
         {
             if (!draggable)
                 return;
+
+           
             originalParent = transform.parent;
             originalPosition = rectTransform.anchoredPosition;
             transform.SetParent(draggingParent);
@@ -55,6 +57,7 @@ namespace Async
         {
             if (!draggable)
                 return;
+            
             if (canvas == null) return;
 
             Vector2 delta = eventData.delta / canvas.scaleFactor;
@@ -133,7 +136,6 @@ namespace Async
             transform.SetParent(originalParent);
             rectTransform.anchoredPosition = originalPosition;
 
-            
         }
         private bool find = false;
         public void CheckRemoveAsync(CardView cardView, SlotView slotView)
@@ -151,6 +153,7 @@ namespace Async
         public void BackToInventory(CardView cardView)
         {
             InventoryManager.Instance.inventoryView.AddCardView(cardView);
+            cardView.ClearThreadID();
             if (cardView.slot != null)
                 cardView.slot.content = null;
             cardView.slot = null;
@@ -168,14 +171,23 @@ namespace Async
             }
         }
 
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            originalPosition = rectTransform.anchoredPosition;
+        }
         public void OnPointerClick(PointerEventData eventData)
         {
-            Tooltip.Instance.ShowTooltip(cardView.cardSpriteData);
+            float e = 0.001f;
+            if (Vector3.Distance(originalPosition, rectTransform.anchoredPosition) < e)
+            {
+                Tooltip.Instance.ShowTooltip(cardView.cardSpriteData);
+            }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             Tooltip.Instance.HideTooltip();
         }
+
     }
 }
