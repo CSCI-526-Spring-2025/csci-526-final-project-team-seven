@@ -12,16 +12,28 @@ public class EnemyManager : MonoBehaviour
     public Transform enemyContainer;
     //[HideInInspector]
     public GameObject[] enemyPrefabs;
+    public GameObject bossPrefab;
 
     [Header("Enemy Settings")]
     private float minSpawnInterval = 0.18f;
     private float maxSpawnInterval = 2f;
     private float maxLevel = 20f;
     private Coroutine spawnCoroutine;
+    private bool bossSpawned = false;
     private void Awake()
     {
         Instance = this;
     }
+
+    private void Update()
+    {
+        if (!bossSpawned && PlayerManager.Instance.playerView.playerData.currentLevel >= 2)
+        {
+            bossSpawned = true;
+            spawnBoss();
+        }
+    }
+
     public EnemyView GenerateRandomEnemy()
     {
         int suffix = Random.Range(0, enemyPrefabs.Length);
@@ -71,7 +83,13 @@ public class EnemyManager : MonoBehaviour
         float maxSpawnCount = 1f / minSpawnInterval;
 
         float calculatedInterval = minSpawnCount + (maxSpawnCount - minSpawnCount) * (safeCardCount - 1f) / (maxLevel - 1f);
-        Debug.Log("currentlevel " + currentlevel + " --- "+calculatedInterval+" -- "+minSpawnCount+" -- "+maxSpawnCount);
+        //Debug.Log("currentlevel " + currentlevel + " --- "+calculatedInterval+" -- "+minSpawnCount+" -- "+maxSpawnCount);
         return 1f/calculatedInterval;
+    }
+
+    private void spawnBoss()
+    {
+        var bossView= Instantiate(bossPrefab, enemyContainer).GetComponent<EnemyView>();
+        bossView.Init("Enemy_Boss_01");
     }
 }

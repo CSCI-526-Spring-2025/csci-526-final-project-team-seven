@@ -7,5 +7,8 @@ public struct EnemyData {
     public string Name { get; set; }
     public int Health { get; set; }
     public float Speed { get; set; }
+    public int MaxHealth { get; set; }
+    public int Attack {  get; set; }
+    public int ExpGained {  get; set; }
 }
 

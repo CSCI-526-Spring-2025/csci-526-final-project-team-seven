@@ -4310,6 +4310,7 @@ MonoBehaviour:
   - {fileID: 8250159389298320699, guid: 6443cb9c7d0146c40b144f72d804b829, type: 3}
   - {fileID: 605145247464328758, guid: d6b380be8cb8c794fae54a8b94318b65, type: 3}
   - {fileID: 2611334319756937351, guid: a164e5f3a35f04dc18129b735329b6f9, type: 3}
+  bossPrefab: {fileID: 0}
 --- !u!1 &1648615842
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,32 +7,35 @@ public abstract class EnemyView : MonoBehaviour
 {
     public EnemyData enemyData;
     // Current health
-    protected int Health;
+    protected int health;
     // Maximum health
-    protected int MaxHealth;
+    protected int maxHealth;
     // How many health will player loose
     protected int attack;
     // How many exp will palyer gained when player killed this enemy
     protected int expGained;
+    // Minimum spawn distance between enemy and player
     protected float SpawnDistance = 1.2f;
-    public void Init(string ID)
+    public virtual void Init(string ID)
     {
         enemyData = GameDataManager.EnemyData[ID];
-        var playerPos = PlayerManager.Instance.playerView.transform.position;
-        Vector3 spawnPos;
-        while (Vector3.Distance(playerPos, spawnPos = GetSpawnPosition()) < SpawnDistance);
-        transform.position = spawnPos;
+        health = enemyData.Health;
+        maxHealth = enemyData.MaxHealth;
+        attack = enemyData.Attack;
+        expGained = enemyData.ExpGained;
+        transform.position = GetSpawnPosition();
     }
+
     protected abstract void Approching();
     protected abstract Vector3 GetSpawnPosition();
     
     // How enemy been hit
     public virtual void TakeHit(int bulletAttack)
     {
-        Health -= bulletAttack;
-        if (Health <= 0)
+        health -= bulletAttack;
+        if (health <= 0)
         {
-            Health = 0;
+            health = 0;
             PlayerManager.Instance.GainEXP(expGained);
             Destroy(gameObject);
         }

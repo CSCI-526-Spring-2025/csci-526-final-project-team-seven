@@ -20,11 +20,6 @@ public class EnemyView_03 : EnemyView
 
     private void Start()
     {
-        //hardcode!
-        Health = 6;
-        MaxHealth = 6;
-        expGained = 2;
-        attack = 1;
         leftLimit = transform.position.x - 1.2f;
         rightLimit = transform.position.x + 1.2f;
         mainCamera = Camera.main;
@@ -49,13 +44,14 @@ public class EnemyView_03 : EnemyView
 
     protected override Vector3 GetSpawnPosition()
     {
-        if (LevelGenerator.Instance.grounds == null || LevelGenerator.Instance.grounds.Count == 0)
+        var playerPos = PlayerManager.Instance.playerView.transform.position;
+        Vector3 spawnPosition;
+        do
         {
-            return Vector3.zero;
-        }
-
-        var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
-        return g.transform.position + new Vector3(0, 0.6f, 0);
+            var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
+            spawnPosition = g.transform.position + new Vector3(0, 0.6f, 0);
+        } while (Vector3.Distance(playerPos, spawnPosition) < SpawnDistance);
+        return spawnPosition;
     }
 
     void Flip()
@@ -79,11 +75,11 @@ public class EnemyView_03 : EnemyView
 
     public override void TakeHit(int bulletAttack)
     {
-        Health -= bulletAttack;
+        health -= bulletAttack;
         //Debug.Log("Enemy03 been hit " + Health + " - " + bulletAttack);
-        if (Health<=0)
+        if (health<=0)
         {
-            Health = 0;
+            health = 0;
             SplitIntoSmallerEnemies();
             Destroy(gameObject);
         }

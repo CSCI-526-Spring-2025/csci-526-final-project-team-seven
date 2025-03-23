@@ -12,11 +12,6 @@ public class EnemyView_02 : EnemyView
 
     private void Start()
     {
-        //hardcode!
-        Health = 3;
-        MaxHealth = 3;
-        expGained = 1;
-        attack = 1;
         leftLimit = transform.position.x - 1.2f;
         rightLimit = transform.position.x + 1.2f;
         mainCamera = Camera.main;
@@ -40,8 +35,14 @@ public class EnemyView_02 : EnemyView
     }
     protected override Vector3 GetSpawnPosition()
     {
-        var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
-        return g.transform.position + new Vector3(0, 0.25f, 0);
+        var playerPos = PlayerManager.Instance.playerView.transform.position;
+        Vector3 spawnPosition;
+        do
+        {
+            var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
+            spawnPosition = g.transform.position + new Vector3(0, 0.25f, 0);
+        } while (Vector3.Distance(playerPos, spawnPosition) < SpawnDistance);
+        return spawnPosition;
     }
     void Flip()
     {
