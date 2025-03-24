@@ -48,7 +48,9 @@ public class EnemyView_01 : EnemyView
                     break;
             }
         }while (Vector3.Distance(playerPos, spawnPosition) < SpawnDistance);
-        return camera.transform.position + spawnPosition;
+        Vector3 returnPosition = camera.transform.position + spawnPosition;
+        returnPosition.z = 0f;
+        return returnPosition;
     }
 
 }

@@ -11,7 +11,8 @@ public class EnemyView_Boss_01 : EnemyView
     public Vector3 endPosition = new Vector3(8, 0, 0);
 
     public Slider healthBar;
-    public GameObject highlightPrebab;
+    public GameObject exclamationPrebab;
+    public Vector3 exclamationPosition = new Vector3(8, 0, 0);
 
     private bool startAttack = false;
 
@@ -30,27 +31,33 @@ public class EnemyView_Boss_01 : EnemyView
     }
     protected override void Approching()
     {
-        transform.position = Camera.main.transform.position + endPosition;
+        Vector3 cameraPosition = Camera.main.transform.position;
+        cameraPosition.z = 0;
+
+        transform.position = cameraPosition + endPosition;
     }
     protected override Vector3 GetSpawnPosition()
     {
-        Camera camera = Camera.main;
-        return camera.transform.position+startPosition;
+        Vector3 cameraPosition = Camera.main.transform.position;
+        cameraPosition.z = 0;
+        return cameraPosition + startPosition;
     }
     private IEnumerator BossEntrance()
     {
         yield return null;
-        // 1. 显示红色感叹号提示
-        //GameObject exclamation = null;
-        //if (highlightPrebab != null)
-        //{
-        //    exclamation = Instantiate(exclamationPrefab, transform.position, Quaternion.identity, transform);
-        //}
-        //yield return new WaitForSeconds(1f);
-        //if (exclamation != null)
-        //{
-        //    Destroy(exclamation);
-        //}
+        Debug.Log("Show Exclamation");
+        GameObject exclamation = null;
+        if (exclamationPrebab != null)
+        {
+            Vector3 cameraPosition = Camera.main.transform.position;
+            cameraPosition.z = 0;
+            exclamation = Instantiate(exclamationPrebab, cameraPosition + exclamationPosition, Quaternion.identity,transform);
+        }
+        yield return new WaitForSeconds(10f);
+        if (exclamation != null)
+        {
+            Destroy(exclamation);
+        }
         //// 2. 进场动画：Boss从当前位置移动到目标位置
         //Vector3 startPos = transform.position;
         //float elapsed = 0f;
