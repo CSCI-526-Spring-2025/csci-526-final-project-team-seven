@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
         if (!bossSpawned && PlayerManager.Instance.playerView.playerData.currentLevel >= 2)
         {
             bossSpawned = true;
-            spawnBoss();
+            //spawnBoss();
         }
     }
 
@@ -89,7 +89,7 @@ public class EnemyManager : MonoBehaviour
 
     private void spawnBoss()
     {
-        var bossView= Instantiate(bossPrefab, enemyContainer).GetComponent<EnemyView>();
+        var bossView = Instantiate(bossPrefab, enemyContainer).GetComponent<EnemyView>();
         bossView.Init("Enemy_Boss_01");
     }
 }

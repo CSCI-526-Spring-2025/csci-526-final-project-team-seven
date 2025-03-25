@@ -17,7 +17,7 @@ public abstract class EnemyView : MonoBehaviour
     // Minimum spawn distance between enemy and player
     protected float SpawnDistance = 1.2f;
     public GameObject deathEffect;
-    public void Init(string ID)
+    public virtual void Init(string ID)
     {
         enemyData = GameDataManager.EnemyData[ID];
         health = enemyData.Health;

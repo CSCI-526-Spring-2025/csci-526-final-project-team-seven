@@ -2373,6 +2373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dcda9ff722ae0647a736b40422676ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wave: -1
+  time: 0
   timeText: {fileID: 766054777}
   waveText: {fileID: 1516530264}
 --- !u!1 &1038361674
@@ -4597,7 +4599,7 @@ MonoBehaviour:
   - {fileID: 8250159389298320699, guid: 6443cb9c7d0146c40b144f72d804b829, type: 3}
   - {fileID: 605145247464328758, guid: d6b380be8cb8c794fae54a8b94318b65, type: 3}
   - {fileID: 2611334319756937351, guid: a164e5f3a35f04dc18129b735329b6f9, type: 3}
-  bossPrefab: {fileID: 0}
+  bossPrefab: {fileID: 8595671058716664287, guid: ca1a21cdc2cf3a94491d3def71b8f1d5, type: 3}
 --- !u!1 &1648615842
 GameObject:
   m_ObjectHideFlags: 0
