@@ -12,13 +12,13 @@ public class CardSelectorPanel : UIPanel
     public Transform cardSelectorContainer;
     public GameObject cardSeletorPrefab;
 
-    private List<CardSeletorView> cardSeletorViews = new List<CardSeletorView>();
+    private List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
     public override void Init()
     {
         base.Init();
         for (int i = 0; i < optionNumber; i++)
         {
-            cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSeletorView>());
+            cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSelectorView>());
         }
     }
     public override void Show()
@@ -40,6 +40,11 @@ public class CardSelectorPanel : UIPanel
             }
             cardSeletorViews[i].Init(data, () => SelectCard(rankData));
         }
+    }
+    public override void Hide()
+    {
+        base.Hide();
+        LevelManager.Instance.NextWave();
     }
 
     private void SelectCard(CardRankData data)

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class CardSeletorView : MonoBehaviour
+public class CardSelectorView : MonoBehaviour
 {
     public TMP_Text title;
     public TMP_Text description;

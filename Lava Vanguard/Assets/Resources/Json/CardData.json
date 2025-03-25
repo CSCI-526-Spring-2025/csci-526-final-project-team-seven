@@ -1,26 +1,4 @@
 {
-    "Card_Async": {
-        "ID": "Card_Async",
-        "Title": "Thread",
-        "Description": "Create a new thread.",
-        "Type": "Async",
-        "Background": "Background_Normal",
-        "Outline": "Outline_Normal",
-        "Content": "Content_Async",
-        "Draggable": true,
-        "Collectable": true
-    },
-    "Card_Async2": {
-        "ID": "Card_Async2",
-        "Title": "Thread Head",
-        "Description": "The head of one thread.",
-        "Type": "Async",
-        "Background": "Background_Normal",
-        "Outline": "Outline_Normal",
-        "Content": "Content_Async2",
-        "Draggable": false,
-        "Collectable": false
-    },
     "Card_Empty": {
         "ID": "Card_Empty",
         "Title": "Empty",
@@ -79,7 +57,7 @@
     "Card_DamageUp": {
         "ID": "Card_DamageUp",
         "Title": "Damage Up",
-        "Description": "Increase all bullets' damage by 1.5 whithin its thread.",
+        "Description": "Increase all bullets' damage by 2 whithin its 3x3 area.",
         "Type": "Functional",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",

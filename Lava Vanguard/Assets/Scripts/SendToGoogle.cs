@@ -15,20 +15,13 @@ public class SendToGoogle : MonoBehaviour
     public float maxRange = 0;
     public float finalHealth = 0;
     public string sequenceData = "";
-
-    private Async.SequenceManager sequenceManager; 
+    
 
     void Start()
     {
         sessionID = DateTime.Now.Ticks; 
         startTime = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
-        sequenceManager = FindObjectOfType<Async.SequenceManager>(); 
-
-        if (sequenceManager == null)
-        {
-            Debug.LogError("SequenceManager not found in the scene! Make sure it is added to a GameObject.");
-        }
     }
 
     public void RecordEndTime()
@@ -51,12 +44,14 @@ public class SendToGoogle : MonoBehaviour
         expLevel = PlayerManager.Instance.playerView.playerData.currentLevel;
         finalHealth = PlayerManager.Instance.playerView.playerData.health;
 
-
-        sequenceData = sequenceManager != null ? sequenceManager.GetAllFormattedSequenceData() : "No Sequence Data Available";
-
+        
+        sequenceData = SlotManager.Instance != null
+            ? SlotManager.Instance.GetAllSlotCardData()
+            : "No Slot Data Available";
 
         StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), finalHealth.ToString(), sequenceData));
     }
+
 
     private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string finalHealth, string sequenceData)
     {

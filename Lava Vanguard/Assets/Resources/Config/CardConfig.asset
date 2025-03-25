@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CardConfig
   m_EditorClassIdentifier: 
   MainNum: 10
-  CardSize: 80
-  LeftRightPadding: 10
+  CardSize: 100
+  LeftRightPadding: 20
