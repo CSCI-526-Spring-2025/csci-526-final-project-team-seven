@@ -38,8 +38,10 @@ public abstract class EnemyView : MonoBehaviour
         {
             health = 0;
             PlayerManager.Instance.GainEXP(expGained);
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            StartCoroutine(DeathEffect());
             Destroy(gameObject);
+        } else {
+            HitEffect();
         }
     }
 
@@ -54,6 +56,31 @@ public abstract class EnemyView : MonoBehaviour
     private void Update()
     {
         Approching();
+    }
+
+    protected IEnumerator DeathEffect()
+    {
+        var e = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Debug.Log("Destroy");
+        Destroy(e, 1.0f);
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public void HitEffect()
+    {
+        StartCoroutine(ChangeColorTemporarily(Color.red, 0.05f)); // Change to desired color and duration
+    }
+
+    protected IEnumerator ChangeColorTemporarily(Color color, float duration)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.color = originalColor;
+        }
     }
 }
 

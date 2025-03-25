@@ -80,8 +80,12 @@ public class EnemyView_03 : EnemyView
         if (health<=0)
         {
             health = 0;
+            PlayerManager.Instance.GainEXP(expGained);
+            StartCoroutine(DeathEffect());
             SplitIntoSmallerEnemies();
             Destroy(gameObject);
+        } else {
+            HitEffect();
         }
         
     }

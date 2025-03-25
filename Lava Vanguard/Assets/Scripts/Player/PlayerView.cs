@@ -101,6 +101,7 @@ public class PlayerView : MonoBehaviour
         {
             return;
         }
+        HitEffect();
         invincibleTempTime = playerData.invincibleTime;
         playerData.health -= damage;
         if (playerData.health <= 0)
@@ -153,5 +154,26 @@ public class PlayerView : MonoBehaviour
             //UIGameManager.Instance.Show<CardSelectorPanel>();
         }
         UIGameManager.Instance.UpdateExp();
+    }
+
+    public void HitEffect()
+    {
+        StartCoroutine(ChangeColorTemporarily(Color.red, 0.05f)); // Change to desired color and duration
+    }
+
+    private IEnumerator ChangeColorTemporarily(Color color, float duration)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.color = originalColor;
+        }
     }
 }
