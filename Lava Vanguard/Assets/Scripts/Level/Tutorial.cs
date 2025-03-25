@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -47,7 +47,7 @@ public class Tutorial : MonoBehaviour
         }
         if (cnt == 3 && !UIGameManager.Instance.GetOpen<WeaponPanel>())
         {
-            tutorialText.text = "Destroy thoes enemies to get EXP!\nThe bullet will fire automatically at regular intervals.";
+            tutorialText.text = "Survive as long as possible!\nThe bullet will aim automatically.";
             EnemyManager.Instance.StartSpawn();
             LevelManager.Instance.NextWave();
             cnt++;
@@ -59,7 +59,7 @@ public class Tutorial : MonoBehaviour
         }
         if (cnt == 5 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
         {
-            tutorialText.text = "Now avoid lava, shoot enemies, keep going up and survive as long as you can!";
+            tutorialText.text = "Now avoid lava, shoot enemies, keep going up and stay alive!";
             CameraController.Instance.StartMove();
             cnt++;
         }
