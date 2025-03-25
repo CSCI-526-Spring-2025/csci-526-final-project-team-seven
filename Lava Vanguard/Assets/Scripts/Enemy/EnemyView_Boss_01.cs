@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class EnemyView_Boss_01 : EnemyView
 {
-    public float entranceDuration = 2f;
-    public Vector3 startPosition = new Vector3(15, 0, 0);
-    public Vector3 endPosition = new Vector3(0, 0, 0);
+    public float entranceDuration = 4f;
+    private Vector3 startPosition = new Vector3(20.5f, 0, 0);
+    private Vector3 endPosition = new Vector3(0, 0, 0);
 
     public Slider healthBar;
     public GameObject exclamationPrebab;
@@ -38,8 +38,7 @@ public class EnemyView_Boss_01 : EnemyView
     protected override Vector3 GetSpawnPosition()
     {
         Vector3 cameraPosition = Camera.main.transform.position;
-        cameraPosition.z = 0;
-        return cameraPosition + startPosition;
+        return new Vector3(startPosition.x,cameraPosition.y,0);
     }
     private IEnumerator BossEntrance()
     {

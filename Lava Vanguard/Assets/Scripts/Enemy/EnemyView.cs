@@ -52,10 +52,25 @@ public abstract class EnemyView : MonoBehaviour
         }
     }
 
-    public virtual void OnChildTriggerStay2D(Collider2D collision)
+    public virtual void OnChildTriggerStay2D(Collider2D other)
     {
-        if (collision.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
+            Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                Vector2 bossPos = transform.position;
+                Vector2 playerPos = other.transform.position;
+
+                Vector2 pushDir = (playerPos - bossPos);
+                pushDir.y = 0f;
+                if (pushDir == Vector2.zero)
+                    pushDir = Vector2.right;
+                pushDir.Normalize();
+
+                float pushSpeed = 3f;
+                playerRb.velocity = pushDir * pushSpeed;
+            }
             PlayerManager.Instance.GetHurt(attack);
         }
     }

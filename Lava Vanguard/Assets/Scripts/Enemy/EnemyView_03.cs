@@ -80,6 +80,7 @@ public class EnemyView_03 : EnemyView
         if (health<=0)
         {
             health = 0;
+            PlayerManager.Instance.GainEXP(expGained);
             SplitIntoSmallerEnemies();
             Destroy(gameObject);
         }
