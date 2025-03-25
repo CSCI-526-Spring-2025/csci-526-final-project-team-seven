@@ -45,7 +45,7 @@ public class Tutorial : MonoBehaviour
         }
         if (cnt == 3 && !UIGameManager.Instance.GetOpen<WeaponPanel>())
         {
-            tutorialText.text = "Destroy thoes enemies to get EXP!\nThe bullet will fire automatically at regular intervals.";
+            tutorialText.text = "Destroy those enemies to get EXP!\nThe bullet will fire automatically at regular intervals.";
             EnemyManager.Instance.StartSpawn();
             cnt++;
         }

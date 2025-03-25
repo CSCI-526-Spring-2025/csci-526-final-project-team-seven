@@ -51,6 +51,15 @@ public abstract class EnemyView : MonoBehaviour
             PlayerManager.Instance.GetHurt(attack);
         }
     }
+
+    public virtual void OnChildTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            PlayerManager.Instance.GetHurt(attack);
+        }
+    }
+
     private void Update()
     {
         Approching();

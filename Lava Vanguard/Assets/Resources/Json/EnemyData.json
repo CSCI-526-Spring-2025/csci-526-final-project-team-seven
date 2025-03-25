@@ -32,7 +32,7 @@
         "Health": 100,
         "Speed": 2,        
         "MaxHealth":100,
-        "Attack":2,
+        "Attack":100,
         "ExpGained":100
     }
 }

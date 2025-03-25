@@ -7,13 +7,16 @@ using UnityEngine.UI;
 public class EnemyView_Boss_01 : EnemyView
 {
     public float entranceDuration = 2f;
-    public Vector3 startPosition = new Vector3(12, 0, 0);
-    public Vector3 endPosition = new Vector3(8, 0, 0);
+    public Vector3 startPosition = new Vector3(15, 0, 0);
+    public Vector3 endPosition = new Vector3(0, 0, 0);
 
     public Slider healthBar;
     public GameObject exclamationPrebab;
+    public GameObject currentExclamation;
     public Vector3 exclamationPosition = new Vector3(8, 0, 0);
-
+    float exclamationFlashTime = 3f;
+    float exclamationFlashInterval = 0.3f;
+    
     private bool startAttack = false;
 
     public override void Init(string ID)
@@ -31,10 +34,6 @@ public class EnemyView_Boss_01 : EnemyView
     }
     protected override void Approching()
     {
-        Vector3 cameraPosition = Camera.main.transform.position;
-        cameraPosition.z = 0;
-
-        transform.position = cameraPosition + endPosition;
     }
     protected override Vector3 GetSpawnPosition()
     {
@@ -45,33 +44,61 @@ public class EnemyView_Boss_01 : EnemyView
     private IEnumerator BossEntrance()
     {
         yield return null;
-        Debug.Log("Show Exclamation");
-        GameObject exclamation = null;
+
+        // Show exclamation mark
         if (exclamationPrebab != null)
         {
             Vector3 cameraPosition = Camera.main.transform.position;
             cameraPosition.z = 0;
-            exclamation = Instantiate(exclamationPrebab, cameraPosition + exclamationPosition, Quaternion.identity,transform);
+            currentExclamation = Instantiate(exclamationPrebab, cameraPosition + exclamationPosition, Quaternion.identity,transform);
         }
-        yield return new WaitForSeconds(10f);
-        if (exclamation != null)
+
+        SpriteRenderer[] exclamationRenderers = currentExclamation.GetComponentsInChildren<SpriteRenderer>();
+
+        // Flash excalamation mark
+        float timeElapsed = 0f;
+        while (timeElapsed < exclamationFlashTime)
         {
-            Destroy(exclamation);
+            foreach (var renderer in exclamationRenderers)
+                renderer.enabled = !renderer.enabled;
+
+            yield return new WaitForSeconds(exclamationFlashInterval);
+            timeElapsed += exclamationFlashInterval;
         }
-        //// 2. ½ø³¡¶¯»­£ºBoss´Óµ±Ç°Î»ÖÃÒÆ¶¯µ½Ä¿±êÎ»ÖÃ
+        if (currentExclamation != null)
+        {
+            Destroy(currentExclamation);
+        }
+
+        // Boss entrance
+        timeElapsed = 0f;
+        while (timeElapsed < entranceDuration)
+        {
+           transform.position = Vector3.Lerp(startPosition, endPosition, timeElapsed / entranceDuration);
+           transform.position=new Vector3(transform.position.x,Camera.main.transform.position.y,0);
+           timeElapsed += Time.deltaTime;
+           yield return null;
+        }
+
+        startAttack = true;
+        //// 2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bossï¿½Óµï¿½Ç°Î»ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Î»ï¿½ï¿½
         //Vector3 startPos = transform.position;
-        //float elapsed = 0f;
-        //while (elapsed < entranceDuration)
-        //{
-        //    transform.position = Vector3.Lerp(startPos, targetPosition, elapsed / entranceDuration);
-        //    elapsed += Time.deltaTime;
-        //    yield return null;
-        //}
+  
         //transform.position = targetPosition;
-        //// 3. ½ø³¡Íê³Éºó¿ªÊ¼¹¥»÷
+        //// 3. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
         //isAttacking = true;
         //StartCoroutine(BulletAttack());
         //StartCoroutine(MinionSummon());
+    }
+
+    private void LateUpdate()
+    {
+        if (currentExclamation != null)
+        {
+            Vector3 cameraPosition = Camera.main.transform.position;
+            cameraPosition.z = 0;
+            currentExclamation.transform.position = cameraPosition + exclamationPosition;
+        }
     }
 
 }
