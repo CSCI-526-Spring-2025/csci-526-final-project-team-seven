@@ -120,5 +120,9 @@ public class SlotManager : MonoBehaviour
 
         return formattedData.TrimEnd(',', ' '); 
     }
+    private void OnDestroy()
+    {
+        sequence.Kill();
+    }
 
 }
