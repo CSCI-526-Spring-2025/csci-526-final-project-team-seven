@@ -4,7 +4,7 @@ namespace Async
 {
 
     [RequireComponent(typeof(CardView))]
-    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerClickHandler,IPointerExitHandler,IPointerDownHandler
+    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler
     {
         private CardView cardView;
         private RectTransform rectTransform;
@@ -103,12 +103,9 @@ namespace Async
            
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        public void OnPointerEnter(PointerEventData eventData)
         {
             originalPosition = rectTransform.anchoredPosition;
-        }
-        public void OnPointerClick(PointerEventData eventData)
-        {
             float e = 0.001f;
             if (Vector3.Distance(originalPosition, rectTransform.anchoredPosition) < e)
             {
@@ -120,5 +117,9 @@ namespace Async
             Tooltip.Instance.HideTooltip();
         }
 
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            Tooltip.Instance.HideTooltip();
+        }
     }
 }
