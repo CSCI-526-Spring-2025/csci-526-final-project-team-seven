@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace Async
 {
 
     public class SlotView : MonoBehaviour
     {
-        public SequenceView sequenceView;
         public CardView content;
         public RectTransform rectTransform;
-        public void Init(SequenceView sequenceView, CardView content = null)
+        public float damageMultiplier;
+        public void Init(CardView content = null)
         {
-            this.sequenceView = sequenceView;
             this.content = content;
             rectTransform = GetComponent<RectTransform>();
             rectTransform.sizeDelta = Vector2.one * GameDataManager.CardConfig.CardSize;
@@ -29,5 +27,18 @@ namespace Async
             else
                 return false;
         }
+        public void AddCardView(CardView cardView)
+        {
+            content = cardView;
+            content.slot = this;
+            cardView.transform.SetParent(rectTransform, false);
+            cardView.transform.localPosition = Vector3.zero;
+        }
+        public void RemoveCardView()
+        {
+            content.slot = null;
+            content = null;
+        }
+
     }
 }

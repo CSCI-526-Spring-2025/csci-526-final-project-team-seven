@@ -8,6 +8,7 @@ namespace Async
         public string ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public int Cost {  get; set; }
         public string Type { get; set; }
         public string Background { get; set; }
         public string Outline { get; set; }

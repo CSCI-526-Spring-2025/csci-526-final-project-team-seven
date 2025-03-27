@@ -58,11 +58,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
     
-    public void GainEXP(int exp)
-    {
-        //Debug.Log("Gain EXP"+exp);
-        playerView.UpdateExp(exp);
-    } 
 
     public void GetHurt(int damage,bool mustKilled=false)
     {

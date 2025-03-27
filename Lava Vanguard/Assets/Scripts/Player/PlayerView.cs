@@ -25,12 +25,9 @@ public class PlayerView : MonoBehaviour
         invincibleTempTime = 0.0f;
         playerData.health = playerData.healthLimit;
         playerData.currentHealthLimit = playerData.healthLimit;
-        playerData.currentLevel = 1;
-        playerData.exp = 0;
-        playerData.currentLevelExp = 2;
         rb = GetComponent<Rigidbody2D>();
         UIGameManager.Instance.UpdateHp();
-        UIGameManager.Instance.UpdateExp();
+        UIGameManager.Instance.UpdateCoin();
     }
 
     public void MoveLeft()
@@ -101,6 +98,7 @@ public class PlayerView : MonoBehaviour
         {
             return;
         }
+        HitEffect();
         invincibleTempTime = playerData.invincibleTime;
         playerData.health -= damage;
         if (playerData.health <= 0)
@@ -141,17 +139,24 @@ public class PlayerView : MonoBehaviour
         }
     }
 
-    public void UpdateExp(int exp)
+    public void HitEffect()
     {
-        playerData.exp += exp;
-        while (playerData.exp >= playerData.currentLevelExp) 
+        StartCoroutine(ChangeColorTemporarily(Color.red, 0.05f)); // Change to desired color and duration
+    }
+
+    private IEnumerator ChangeColorTemporarily(Color color, float duration)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            playerData.exp -= playerData.currentLevelExp;
-            playerData.currentLevelExp += 1;
-            playerData.currentLevel += 1;
-            UIGameManager.Instance.UpdateExp();
-            UIGameManager.Instance.Show<CardSelectorPanel>();
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(duration);
+            spriteRenderer.color = originalColor;
         }
-        UIGameManager.Instance.UpdateExp();
     }
 }

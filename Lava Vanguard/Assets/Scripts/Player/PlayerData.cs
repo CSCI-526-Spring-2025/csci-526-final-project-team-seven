@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerData
 {
 
-    public PlayerData(float speed, float jumpForce, float jumpAirTime, float jumpAirForce, int healthLimit, float invincibleTime, int healthUpValue)
+    public PlayerData(float speed, float jumpForce, float jumpAirTime, float jumpAirForce, int healthLimit, float invincibleTime, int healthUpValue,int coin)
     {
         this.speed = speed;
         this.jumpForce = jumpForce;
@@ -14,6 +14,7 @@ public class PlayerData
         this.healthLimit = healthLimit;
         this.invincibleTime = invincibleTime;
         this.healthUpValue = healthUpValue;
+        this.coin = coin;
     }
     public static PlayerData DefaultData = new PlayerData(
         speed: 5f,
@@ -22,13 +23,12 @@ public class PlayerData
         jumpAirForce: 5f,
         healthLimit: 10,
         invincibleTime: 1f,
-        healthUpValue:2
+        healthUpValue: 2,
+        coin: 10
     );
     public int health;
     public int currentHealthLimit;
-    public int exp;
-    public int currentLevelExp = 2;
-    public int currentLevel = 1;
+    public int coin;
 
     public float speed;
     public float jumpForce;

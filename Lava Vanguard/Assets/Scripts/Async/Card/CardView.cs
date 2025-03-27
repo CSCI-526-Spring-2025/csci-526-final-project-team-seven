@@ -17,7 +17,6 @@ namespace Async
         public Image background;
         public Image outline;
         public Image content;
-        public TMP_Text threadID;
         public void Init(SlotView slot, CardSpriteData cardSpriteData, CardRankData cardRankData)//Consider using inheritance and other data like atk.
         {
             this.slot = slot;
@@ -32,21 +31,6 @@ namespace Async
             outline.sprite = GameDataManager.OutlineSprite[cardSpriteData.Outline];
             content.sprite = GameDataManager.ContentSprite[cardSpriteData.Content];
             content.color = ColorCenter.CardColors[cardSpriteData.Type];
-
-            if (cardRankData.LinkedSequenceID == null || cardRankData.LinkedSequenceID == "Not_Ready")
-                threadID.text = "";
-            else
-                threadID.text = cardRankData.LinkedSequenceID[^1].ToString();
-        }
-        public void UpdateThreadID(string ID)
-        {
-            threadID.text = ID[^1].ToString();
-        }
-        public void ClearThreadID()
-        {
-            if (cardRankData.LinkedSequenceID != null)
-                cardRankData.LinkedSequenceID = "Not_Ready";
-            threadID.text = "";
         }
     }
 }

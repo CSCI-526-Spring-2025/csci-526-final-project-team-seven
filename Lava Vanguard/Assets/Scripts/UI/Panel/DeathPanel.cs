@@ -19,8 +19,6 @@ public class DeathPanel : UIPanel
 
     public override void Show()
     {
-        Debug.Log("DeathPanel Show: "+PlayerManager.Instance.playerView.playerData.currentLevel);
         base.Show();
-        survivalTime.text="Survival Level: "+PlayerManager.Instance.playerView.playerData.currentLevel;
     }
 }
