@@ -11,6 +11,7 @@ namespace Async
         private Canvas canvas;
         private Vector2 originalPosition;
         private bool draggable = false;
+        private bool dragging = false;
         private Transform originalParent;
         private Transform draggingParent;
 
@@ -40,8 +41,7 @@ namespace Async
         {
             if (!draggable)
                 return;
-
-           
+            dragging = true;
             originalParent = transform.parent;
             originalPosition = rectTransform.anchoredPosition;
             transform.SetParent(draggingParent);
@@ -68,7 +68,7 @@ namespace Async
         {
             if (!draggable)
                 return;
-
+            dragging = false;
             //Remove from old position
             if (dragStartType == DragType.Inventory)
             {
@@ -105,6 +105,8 @@ namespace Async
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (dragging)
+                return;
             originalPosition = rectTransform.anchoredPosition;
             float e = 0.001f;
             if (Vector3.Distance(originalPosition, rectTransform.anchoredPosition) < e)
