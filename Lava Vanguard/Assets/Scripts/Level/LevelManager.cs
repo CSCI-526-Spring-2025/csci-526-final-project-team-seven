@@ -46,6 +46,6 @@ public class LevelManager : MonoBehaviour
             time--;
         }
         timeText.text = "Time's Up!";
-        UIGameManager.Instance.Show<CardSelectorPanel>();
+        UIGameManager.Instance.Open<CardSelectorPanel>();
     }
 }

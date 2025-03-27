@@ -75,7 +75,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("kill player initiated");
         FindObjectOfType<SendToGoogle>().RecordEndTime();
 
-        UIGameManager.Instance.Show<DeathPanel>();
+        UIGameManager.Instance.Open<DeathPanel>();
     }
 }
 

@@ -258,7 +258,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!224 &119191016
 RectTransform:
@@ -1004,6 +1004,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 727886953}
   isOpen: 0
+  canOpen: 1
+  canClose: 1
   restartButton: {fileID: 1486662293}
   exitButton: {fileID: 1105232757}
 --- !u!1 &517390730
@@ -2193,6 +2195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 0}
   isOpen: 0
+  canOpen: 1
+  canClose: 1
   survivalTime: {fileID: 1469252505}
   restartButton: {fileID: 492835184}
   exitButton: {fileID: 510358720}
@@ -3688,6 +3692,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 0}
   isOpen: 0
+  canOpen: 1
+  canClose: 1
   optionNumber: 3
   cardSelectorContainer: {fileID: 1767393070}
   cardSeletorPrefab: {fileID: 12189454680901933, guid: fabe349dbe638ca448826d43f0a57f83, type: 3}
@@ -4996,6 +5002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorial: 1
   tutorialText: {fileID: 582901170}
+  tutorialCanvas: {fileID: 1220686402}
   basicUI: {fileID: 494574888}
 --- !u!1001 &1722034901
 PrefabInstance:
@@ -5284,7 +5291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1861182430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5629,7 +5636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2028207240
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6343,6 +6350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backButton: {fileID: 1861182431}
   isOpen: 0
+  canOpen: 1
+  canClose: 1
 --- !u!224 &7154726496972624866
 RectTransform:
   m_ObjectHideFlags: 0

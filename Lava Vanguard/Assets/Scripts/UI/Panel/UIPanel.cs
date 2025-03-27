@@ -9,27 +9,34 @@ public class UIPanel : MonoBehaviour
     public Button backButton;
     [HideInInspector]
     public bool isOpen = false;
+    [HideInInspector]
+    public bool canOpen = true;
+    [HideInInspector]
+    public bool canClose = true;
     public virtual void Init()
     {
         if (backButton != null)
-            backButton.onClick.AddListener(Hide);
+            backButton.onClick.AddListener(Close);
     }
-    public virtual void Show()
+    public virtual void Open()
     {
         isOpen = true;
         gameObject.SetActive(true);
     }
-    public virtual void Hide()
+    public virtual void Close()
     {
         isOpen = false;
         gameObject.SetActive(false);
     }
     public virtual void Switch()
     {
-        isOpen = !isOpen;
-        if (isOpen)
-            Show();
-        else
-            Hide();
+        if (!isOpen && canOpen)
+        {
+            Open();
+        }
+        else if (isOpen && canClose)
+        {
+            Close();
+        }
     }
 }
