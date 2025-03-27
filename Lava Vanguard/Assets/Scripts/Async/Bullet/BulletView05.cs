@@ -96,7 +96,6 @@ public class BulletView05 : BulletView
             {
                 return;
             }
-            Debug.Log(killed);
             if (killed)
             {
                 PlayerManager.Instance.playerView.playerData.coin += 1;//do not hard code
