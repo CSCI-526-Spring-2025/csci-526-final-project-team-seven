@@ -59,6 +59,18 @@
         "Draggable": true,
         "Collectable": true
     },
+    "Card_Bullet05": {
+        "ID": "Card_Bullet05",
+        "Title": "Money Welder",
+        "Description": "Gain 1 coin if THIS bullet killed one enemy.",
+        "Cost": 15,
+        "Type": "Bullet",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_Bullet05",
+        "Draggable": true,
+        "Collectable": true
+    },
     "Card_DamageUp": {
         "ID": "Card_DamageUp",
         "Title": "Damage Up",

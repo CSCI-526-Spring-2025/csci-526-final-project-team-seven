@@ -73,12 +73,14 @@ public class EnemyView_03 : EnemyView
         }
     }
 
-    public override void TakeHit(int bulletAttack)
+    public override bool TakeHit(int bulletAttack)
     {
         base.TakeHit(bulletAttack);
         if (enemyData.Health <= 0) 
         {
             SplitIntoSmallerEnemies();
+            return true;
         }
+        return false;
     }
 }

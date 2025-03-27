@@ -19,7 +19,7 @@ public abstract class EnemyView : MonoBehaviour
     protected abstract Vector3 GetSpawnPosition();
 
     // How enemy been hit
-    public virtual void TakeHit(int bulletAttack)
+    public virtual bool TakeHit(int bulletAttack)
     {
         enemyData.Health -= bulletAttack;
         if (enemyData.Health <= 0)
@@ -29,10 +29,12 @@ public abstract class EnemyView : MonoBehaviour
             PlayerManager.Instance.playerView.playerData.coin += enemyData.Coin;
             UIGameManager.Instance.UpdateCoin();
             Destroy(gameObject);
+            return true;
         }
         else
         {
             HitEffect();
+            return false;
         }
     }
 

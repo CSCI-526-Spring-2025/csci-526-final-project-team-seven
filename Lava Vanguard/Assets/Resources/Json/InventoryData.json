@@ -14,6 +14,11 @@
             "ID": 0,
             "CardID": "Card_DamageUp",
             "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_Bullet05",
+            "Level": 1
         }
     ]
 }
