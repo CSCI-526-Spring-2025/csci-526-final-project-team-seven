@@ -25,7 +25,6 @@ public class Tutorial : MonoBehaviour
         }
 
     }
-    //TODO: If we have waves, we should update this tutorial.
     private void Update()
     {
         if (cnt == 0 && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
@@ -61,6 +60,7 @@ public class Tutorial : MonoBehaviour
         {
             tutorialText.text = "Now avoid lava, shoot enemies, keep going up and stay alive!";
             CameraController.Instance.StartMove();
+            LevelGenerator.Instance.lava.SetCameraDistance(5);
             cnt++;
         }
         if (cnt == 6)

@@ -2333,6 +2333,7 @@ MonoBehaviour:
   lavaPrefab: {fileID: 6679329835680864068, guid: c857e41392e82c94b876ed98b0b8a994, type: 3}
   wallPrefab: {fileID: 876835128869875949, guid: 4def44e5b9383024295f391cbadb2d3f, type: 3}
   groundContainer: {fileID: 691565543}
+  lava: {fileID: 0}
   grounds: []
   cameraDistance: 5
   yGap: 1.5
