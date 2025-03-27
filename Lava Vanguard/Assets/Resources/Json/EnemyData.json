@@ -26,9 +26,9 @@
         "MaxHealth": 6,
         "Attack": 1
     },
-    "Boss_01": {
-        "ID": "Boss_01",
-        "Name": "Boss_01",
+    "Enemy_Boss_01": {
+        "ID": "Enemy_Boss_01",
+        "Name": "Enemy_Boss_01",
         "Health": 100,
         "Coin": 30,
         "Speed": 2,

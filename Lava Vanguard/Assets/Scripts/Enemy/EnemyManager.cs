@@ -27,11 +27,11 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        //if (!bossSpawned && PlayerManager.Instance.playerView.playerData.currentLevel >= 2)
-        //{
-        //    bossSpawned = true;
-        //    //spawnBoss();
-        //}
+        if (!bossSpawned && LevelManager.Instance.wave >= 1)
+        {
+            bossSpawned = true;
+            spawnBoss();
+        }
     }
 
     public EnemyView GenerateRandomEnemy()

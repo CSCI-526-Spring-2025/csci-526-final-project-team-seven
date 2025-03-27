@@ -6,13 +6,17 @@ using UnityEngine.UI;
 
 public class EnemyView_Boss_01 : EnemyView
 {
-    public float entranceDuration = 2f;
-    public Vector3 startPosition = new Vector3(12, 0, 0);
-    public Vector3 endPosition = new Vector3(8, 0, 0);
+    public float entranceDuration = 4f;
+    private Vector3 startPosition = new Vector3(20.5f, 0, 0);
+    private Vector3 endPosition = new Vector3(0, 0, 0);
 
     public Slider healthBar;
-    public GameObject highlightPrebab;
-
+    public GameObject exclamationPrebab;
+    public GameObject currentExclamation;
+    public Vector3 exclamationPosition = new Vector3(8, 0, 0);
+    float exclamationFlashTime = 3f;
+    float exclamationFlashInterval = 0.3f;
+    
     private bool startAttack = false;
 
     public override void Init(string ID)
@@ -30,41 +34,68 @@ public class EnemyView_Boss_01 : EnemyView
     }
     protected override void Approching()
     {
-        transform.position = Camera.main.transform.position + endPosition;
     }
     protected override Vector3 GetSpawnPosition()
     {
-        Camera camera = Camera.main;
-        return camera.transform.position+startPosition;
+        Vector3 cameraPosition = Camera.main.transform.position;
+        return new Vector3(startPosition.x,cameraPosition.y,0);
     }
     private IEnumerator BossEntrance()
     {
         yield return null;
-        // 1. 显示红色感叹号提示
-        //GameObject exclamation = null;
-        //if (highlightPrebab != null)
-        //{
-        //    exclamation = Instantiate(exclamationPrefab, transform.position, Quaternion.identity, transform);
-        //}
-        //yield return new WaitForSeconds(1f);
-        //if (exclamation != null)
-        //{
-        //    Destroy(exclamation);
-        //}
-        //// 2. 进场动画：Boss从当前位置移动到目标位置
-        //Vector3 startPos = transform.position;
-        //float elapsed = 0f;
-        //while (elapsed < entranceDuration)
-        //{
-        //    transform.position = Vector3.Lerp(startPos, targetPosition, elapsed / entranceDuration);
-        //    elapsed += Time.deltaTime;
-        //    yield return null;
-        //}
-        //transform.position = targetPosition;
-        //// 3. 进场完成后开始攻击
-        //isAttacking = true;
+
+        // Show exclamation mark
+        if (exclamationPrebab != null)
+        {
+            Vector3 cameraPosition = Camera.main.transform.position;
+            cameraPosition.z = 0;
+            currentExclamation = Instantiate(exclamationPrebab, cameraPosition + exclamationPosition, Quaternion.identity,transform);
+        }
+
+        SpriteRenderer[] exclamationRenderers = currentExclamation.GetComponentsInChildren<SpriteRenderer>();
+
+        // Flash excalamation mark
+        float timeElapsed = 0f;
+        while (timeElapsed < exclamationFlashTime)
+        {
+            foreach (var renderer in exclamationRenderers)
+                renderer.enabled = !renderer.enabled;
+
+            yield return new WaitForSeconds(exclamationFlashInterval);
+            timeElapsed += exclamationFlashInterval;
+        }
+        if (currentExclamation != null)
+        {
+            Destroy(currentExclamation);
+        }
+
+        // Boss entrance
+        timeElapsed = 0f;
+        while (timeElapsed < entranceDuration)
+        {
+           transform.position = Vector3.Lerp(startPosition, endPosition, timeElapsed / entranceDuration);
+           transform.position=new Vector3(transform.position.x,Camera.main.transform.position.y,0);
+           timeElapsed += Time.deltaTime;
+           yield return null;
+        }
+
+        startAttack = true;
         //StartCoroutine(BulletAttack());
         //StartCoroutine(MinionSummon());
+    }
+
+    private void LateUpdate()
+    {
+        if (currentExclamation != null)
+        {
+            Vector3 cameraPosition = Camera.main.transform.position;
+            cameraPosition.z = 0;
+            currentExclamation.transform.position = cameraPosition + exclamationPosition;
+        }
+        if (startAttack)
+        {
+            transform.position = new Vector3(endPosition.x, Camera.main.transform.position.y + endPosition.y, 0) ;
+        }
     }
 
 }
