@@ -105,5 +105,4 @@ public class UIGameManager : MonoBehaviour
         int coin = PlayerManager.Instance.playerView.playerData.coin;
         coinText.text = "Coin: " + coin;
     }
-    
 }

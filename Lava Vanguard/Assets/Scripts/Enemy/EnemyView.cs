@@ -64,7 +64,7 @@ public abstract class EnemyView : MonoBehaviour
                 float pushSpeed = 3f;
                 playerRb.velocity = pushDir * pushSpeed;
             }
-            PlayerManager.Instance.GetHurt(attack);
+            PlayerManager.Instance.GetHurt(enemyData.Attack);
         }
     }
 
