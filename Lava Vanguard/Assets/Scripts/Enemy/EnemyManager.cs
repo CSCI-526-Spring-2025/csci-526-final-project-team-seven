@@ -27,11 +27,11 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if (!bossSpawned && PlayerManager.Instance.playerView.playerData.currentLevel >= 2)
-        {
-            bossSpawned = true;
-            //spawnBoss();
-        }
+        //if (!bossSpawned && PlayerManager.Instance.playerView.playerData.currentLevel >= 2)
+        //{
+        //    bossSpawned = true;
+        //    //spawnBoss();
+        //}
     }
 
     public EnemyView GenerateRandomEnemy()
@@ -77,7 +77,7 @@ public class EnemyManager : MonoBehaviour
 
     private float CalculateSpawnInterval()
     {
-        int currentlevel = PlayerManager.Instance.playerView.playerData.currentLevel;
+        int currentlevel = LevelManager.Instance.wave;
         float safeCardCount = Mathf.Clamp(currentlevel, 1f, maxLevel);
         float minSpawnCount = 1f / maxSpawnInterval;
         float maxSpawnCount = 1f / minSpawnInterval;

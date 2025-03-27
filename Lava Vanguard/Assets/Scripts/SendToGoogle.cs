@@ -41,7 +41,7 @@ public class SendToGoogle : MonoBehaviour
 
     public void Send()
     {
-        expLevel = PlayerManager.Instance.playerView.playerData.currentLevel;
+        expLevel = -1234;
         finalHealth = PlayerManager.Instance.playerView.playerData.health;
 
         

@@ -11,7 +11,7 @@ public class CardSelectorPanel : UIPanel
 
     public Transform cardSelectorContainer;
     public GameObject cardSeletorPrefab;
-
+    public Button nextWaveButton;
     private List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
     public override void Init()
     {
@@ -20,6 +20,11 @@ public class CardSelectorPanel : UIPanel
         {
             cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSelectorView>());
         }
+        nextWaveButton.onClick.AddListener(() =>
+        {
+            LevelManager.Instance.NextWave();
+            Hide();
+        });
     }
     public override void Show()
     {
@@ -33,23 +38,16 @@ public class CardSelectorPanel : UIPanel
             var data = collectableCardsList[Random.Range(0, collectableCardsList.Count)];
             collectableCardsList.Remove(data);
             var rankData = new CardRankData(data);
-            if (rankData.CardID == "Card_Async")
-            {
-                rankData.LinkedSequenceID = "Not_Ready";
-                rankData.Level = Random.Range(3, 6);
-            }
-            cardSeletorViews[i].Init(data, () => SelectCard(rankData));
+            cardSeletorViews[i].Init(data, rankData);
         }
     }
     public override void Hide()
     {
         base.Hide();
-        LevelManager.Instance.NextWave();
     }
-
-    private void SelectCard(CardRankData data)
+    public void UpdateSelectButton()
     {
-        AsyncManager.Instance.GainCard(data);
-        Hide();
+        foreach (var v in cardSeletorViews)
+            v.UpdateSelectButton();
     }
 }

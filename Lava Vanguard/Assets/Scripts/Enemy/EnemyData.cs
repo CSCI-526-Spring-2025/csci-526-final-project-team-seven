@@ -10,6 +10,5 @@ public struct EnemyData {
     public float Speed { get; set; }
     public int MaxHealth { get; set; }
     public int Attack {  get; set; }
-    public int ExpGained {  get; set; }
 }
 

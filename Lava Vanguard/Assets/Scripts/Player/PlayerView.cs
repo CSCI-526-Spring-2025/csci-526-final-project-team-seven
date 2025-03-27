@@ -25,12 +25,9 @@ public class PlayerView : MonoBehaviour
         invincibleTempTime = 0.0f;
         playerData.health = playerData.healthLimit;
         playerData.currentHealthLimit = playerData.healthLimit;
-        playerData.currentLevel = 1;
-        playerData.exp = 0;
-        playerData.currentLevelExp = 2;
         rb = GetComponent<Rigidbody2D>();
         UIGameManager.Instance.UpdateHp();
-        UIGameManager.Instance.UpdateExp();
+        UIGameManager.Instance.UpdateCoin();
     }
 
     public void MoveLeft()
@@ -140,20 +137,6 @@ public class PlayerView : MonoBehaviour
         {
             invincibleTempTime -= Time.deltaTime;
         }
-    }
-
-    public void UpdateExp(int exp)
-    {
-        playerData.exp += exp;
-        while (playerData.exp >= playerData.currentLevelExp) 
-        {
-            playerData.exp -= playerData.currentLevelExp;
-            playerData.currentLevelExp += 1;
-            playerData.currentLevel += 1;
-
-            //UIGameManager.Instance.Show<CardSelectorPanel>();
-        }
-        UIGameManager.Instance.UpdateExp();
     }
 
     public void HitEffect()

@@ -12,4 +12,9 @@ public class ColorCenter
         {"Functional", new Color(22/255f,196/255f,255/255f) },
         {"Health",new Color(1f,0f,0f) }
     };
+    public static Dictionary<string, Color> SelectorPanelColors = new Dictionary<string, Color>()
+    {
+        {"Green",new Color(89/255f,160/255f,49/255f) },
+        {"Red",new Color(209/255f,43/255f,28/255f) }
+    };
 }

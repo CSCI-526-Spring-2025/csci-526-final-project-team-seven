@@ -14,9 +14,8 @@ public class UIGameManager : MonoBehaviour
     public Button weaponButton;
 
 
-    //HP and EXP
-    public Image expBarFill;
-    public TMP_Text expLabel;
+    //HP and Coin
+    public TMP_Text coinText;
     public Image hpBarFill;
     public TMP_Text hpLabel;
     private void Awake()
@@ -84,16 +83,15 @@ public class UIGameManager : MonoBehaviour
             if (p is T) p.Switch();
         }
     }
-
-    public void UpdateExp()
+    public T GetPanel<T>() where T : UIPanel
     {
-        int exp = PlayerManager.Instance.playerView.playerData.exp;
-        int level = PlayerManager.Instance.playerView.playerData.currentLevel;
-        int maxEXP = PlayerManager.Instance.playerView.playerData.currentLevelExp;
-        float percentage = 1.0f * exp / maxEXP;
-        expLabel.text = "Level: " + level;
-        expBarFill.fillAmount = percentage;
+        foreach (var p in UIPanels)
+        {
+            if (p is T) return p as T; 
+        }
+        return null; 
     }
+
     public void UpdateHp()
     {
         int hp = PlayerManager.Instance.playerView.playerData.health;
@@ -102,6 +100,10 @@ public class UIGameManager : MonoBehaviour
         hpLabel.text = "HP: " + hp + "/" + maxHP;
         hpBarFill.fillAmount = percentage;
     }
-
+    public void UpdateCoin()
+    {
+        int coin = PlayerManager.Instance.playerView.playerData.coin;
+        coinText.text = "Coin: " + coin;
+    }
     
 }

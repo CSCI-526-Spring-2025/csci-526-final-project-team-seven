@@ -75,18 +75,10 @@ public class EnemyView_03 : EnemyView
 
     public override void TakeHit(int bulletAttack)
     {
-        health -= bulletAttack;
-        //Debug.Log("Enemy03 been hit " + Health + " - " + bulletAttack);
-        if (health<=0)
+        base.TakeHit(bulletAttack);
+        if (enemyData.Health <= 0) 
         {
-            health = 0;
-            PlayerManager.Instance.GainEXP(expGained);
-            StartCoroutine(DeathEffect());
             SplitIntoSmallerEnemies();
-            Destroy(gameObject);
-        } else {
-            HitEffect();
         }
-        
     }
 }

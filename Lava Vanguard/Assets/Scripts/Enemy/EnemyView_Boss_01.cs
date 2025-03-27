@@ -20,8 +20,8 @@ public class EnemyView_Boss_01 : EnemyView
         base.Init(ID);
         if (healthBar != null)
         {
-            healthBar.maxValue = maxHealth;
-            healthBar.value = health;
+            healthBar.maxValue = enemyData.MaxHealth;
+            healthBar.value = enemyData.Health;
         }
         StartCoroutine(BossEntrance());
     }

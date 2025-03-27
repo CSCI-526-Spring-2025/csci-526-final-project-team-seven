@@ -3,36 +3,36 @@
         "ID": "Enemy_01",
         "Name": "Flying Danger",
         "Health": 3,
+        "Coin": 2,
         "Speed": 2,
-        "MaxHealth":3,
-        "Attack":1,
-        "ExpGained":1
+        "MaxHealth": 3,
+        "Attack": 1
     },
     "Enemy_02": {
         "ID": "Enemy_02",
         "Name": "Guard",
         "Health": 3,
+        "Coin": 2,
         "Speed": 2,
-        "MaxHealth":3,
-        "Attack":1,
-        "ExpGained":1
+        "MaxHealth": 3,
+        "Attack": 1
     },
     "Enemy_03": {
         "ID": "Enemy_03",
         "Name": "Split_Guard",
         "Health": 6,
+        "Coin": 4,
         "Speed": 2,
-        "MaxHealth":6,
-        "Attack":1,
-        "ExpGained":2
+        "MaxHealth": 6,
+        "Attack": 1
     },
     "Boss_01": {
         "ID": "Boss_01",
         "Name": "Boss_01",
         "Health": 100,
-        "Speed": 2,        
-        "MaxHealth":100,
-        "Attack":2,
-        "ExpGained":100
+        "Coin": 30,
+        "Speed": 2,
+        "MaxHealth": 100,
+        "Attack": 2
     }
 }
