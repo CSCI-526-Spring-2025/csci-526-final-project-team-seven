@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
     public float cameraFollowDistance = 5.0f;
 
     public CinemachineVirtualCamera virtualCamera;
+    private CinemachineBasicMultiChannelPerlin noiseProfile;
+
     private bool moving = false;
 
     private void Awake()
@@ -21,6 +23,7 @@ public class CameraController : MonoBehaviour
     {
         if (!Tutorial.Instance.tutorial)
             StartMove();
+        noiseProfile = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     public void StartMove()
@@ -52,4 +55,39 @@ public class CameraController : MonoBehaviour
             cameraTransform.position = targetPosition;
         }
     }
+    private void Update()
+    {
+        // Check if the 'R' key is pressed down
+        if (Input.GetKeyDown(KeyCode.R))
+            CameraShake(0.25f, 0.3f, 10);
+    }
+
+    /// <summary>
+    /// Triggers a camera shake effect.
+    /// </summary>
+    /// <param name="duration">Duration of the shake effect.</param>
+    /// <param name="amplitude">Amplitude of the shake (intensity).</param>
+    /// <param name="frequency">Frequency of the shake (speed of oscillation).</param>
+    public void CameraShake(float duration = 0.25f, float amplitude = 1f, float frequency = 1f)
+    {
+        if (noiseProfile != null)
+        {
+            noiseProfile.m_AmplitudeGain = amplitude;
+            noiseProfile.m_FrequencyGain = frequency;
+            Invoke(nameof(StopShaking), duration);
+        }
+    }
+
+    /// <summary>
+    /// Stops the camera shake effect.
+    /// </summary>
+    private void StopShaking()
+    {
+        if (noiseProfile != null)
+        {
+            noiseProfile.m_AmplitudeGain = 0f;
+            noiseProfile.m_FrequencyGain = 0f;
+        }
+    }
+
 }
