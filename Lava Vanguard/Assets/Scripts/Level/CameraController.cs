@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance { get; private set; }
 
     public GameObject player;
+    public float currentCamSpeedY;
     public float cameraSpeedY = 0.3f;
     public float cameraFollowDistance = 5.0f;
 
@@ -22,6 +23,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        currentCamSpeedY = cameraSpeedY;
         if (!Tutorial.Instance.tutorial)
             StartMove();
         noiseProfile = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -38,10 +40,17 @@ public class CameraController : MonoBehaviour
         Vector3 targetPosition = cameraTransform.position;
         if (moving)
         {
-            // ÈÃÏà»úÑØ×Å Y ÖáÆ½»¬ÉÏÒÆ
-            targetPosition.y += cameraSpeedY * Time.deltaTime;
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Y ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            targetPosition.y += currentCamSpeedY * Time.deltaTime;
+
+            if (LevelGenerator.Instance.WavePlatform) {
+                var p = LevelGenerator.Instance.WavePlatform;
+                if (p.transform.position.y < cameraTransform.position.y - 3.5) {
+                    currentCamSpeedY = 0;
+                }
+            }
         }
-        // ¸ù¾ÝÍæ¼ÒÎ»ÖÃµ÷Õû X ÖáµÄÆ«ÒÆ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ X ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
         if (player.transform.position.x > targetPosition.x + cameraFollowDistance)
         {
             targetPosition.x = player.transform.position.x - cameraFollowDistance;
@@ -50,7 +59,7 @@ public class CameraController : MonoBehaviour
         {
             targetPosition.x = player.transform.position.x + cameraFollowDistance;
         }
-        // Ö±½ÓÐÞ¸Ä Virtual Camera µÄÎ»ÖÃ
+        // Ö±ï¿½ï¿½ï¿½Þ¸ï¿½ Virtual Camera ï¿½ï¿½Î»ï¿½ï¿½
         cameraTransform.position = targetPosition;
     }
     private void Update()
@@ -88,4 +97,13 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    public void stopCamera()
+    {
+        currentCamSpeedY = 0;
+    }
+
+    public void resumeCamera()
+    {
+        currentCamSpeedY = cameraSpeedY;
+    }
 }

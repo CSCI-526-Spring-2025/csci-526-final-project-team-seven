@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public static readonly int[] TotalTime = new int[] { 15, 15, 25, 30, 45, 60 };
     public TMP_Text timeText;
     public TMP_Text waveText;
+    public bool BreakTime = true;
     private Coroutine countdownCoroutine;
     private void Awake()
     {
@@ -17,6 +18,13 @@ public class LevelManager : MonoBehaviour
     }
     public void NextWave()
     {
+        var p = LevelGenerator.Instance.WavePlatform;
+        if (LevelGenerator.Instance.WavePlatform)
+        {
+            LevelGenerator.Instance.WavePlatform.name = "";
+            LevelGenerator.Instance.WavePlatform = null;
+        }
+        BreakTime = false;
         wave++;
         UpdateWave();
         ResetTimer();
@@ -39,11 +47,17 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator CountdownTimer()
     {
+        bool flag = false;
         while (time > 0)
         {
             timeText.text = "Time: " + time;
             yield return new WaitForSeconds(1f);
             time--;
+            if (time < 7 && !flag) // .... to make sure the long platform appear when time is up
+            {
+                BreakTime = true;
+                flag = true;
+            }
         }
         timeText.text = "Time's Up!";
         UIGameManager.Instance.Open<CardSelectorPanel>();
