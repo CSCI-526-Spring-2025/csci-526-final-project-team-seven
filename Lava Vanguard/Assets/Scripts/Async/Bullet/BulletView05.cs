@@ -38,7 +38,6 @@ public class BulletView05 : BulletView
         }
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy " + other.gameObject.name);
             hasHit = true;
             EnemyView enemy = other.GetComponent<EnemyView>();
             bool killed = false;

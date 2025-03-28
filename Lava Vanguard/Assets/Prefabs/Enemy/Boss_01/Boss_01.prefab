@@ -121,7 +121,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3810121536562890197}
   - component: {fileID: 7708775622762799980}
-  - component: {fileID: 5392228239848500049}
   m_Layer: 6
   m_Name: BossBody
   m_TagString: Enemy
@@ -139,7 +138,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1632550588707575478}
@@ -196,19 +195,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5392228239848500049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4009209470739418600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1199b7088b0ee4079a20d657a9c4161c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 3852180170144055714}
 --- !u!1 &4602101218522324882
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,11 +546,9 @@ MonoBehaviour:
   healthBar: {fileID: 8872268078838900470}
   healthText: {fileID: 4714963999632229931}
   exclamationPrebab: {fileID: 7976581346364600480, guid: 33fe70104766e7c47927c53ced1c29eb, type: 3}
-  exclamationPosition: {x: 8, y: 0, z: 0}
+  exclamationRightPosition: {x: 8, y: 2, z: 0}
+  exclamationLeftPosition: {x: -8, y: -2, z: 0}
   bulletPrefab: {fileID: 1979978664916055597, guid: 8abba4631ec82e54f8f5d2842686ad6f, type: 3}
-  bulletSpawnPoint: {fileID: 0}
-  bulletInterval: 1
-  bulletAttackDuration: 5
 --- !u!60 &4604268191394519710
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -609,20 +593,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.035059165, y: 3.506807}
-      - {x: -0.59168804, y: 3.166426}
-      - {x: -1.142834, y: 2.1641178}
+    - - {x: 0.027733278, y: 2.9573996}
+      - {x: -0.52575886, y: 2.829456}
+      - {x: -1.0622542, y: 2.0981889}
       - {x: -1.4945091, y: 0.42074275}
-      - {x: -1.3766406, y: -1.3699809}
-      - {x: -0.9732712, y: -2.7114117}
-      - {x: -0.56089973, y: -3.288706}
-      - {x: 0.004420927, y: -3.5175714}
-      - {x: 0.46862507, y: -3.3060045}
-      - {x: 0.85073715, y: -2.912631}
+      - {x: -1.3033862, y: -1.3480046}
+      - {x: -0.79746085, y: -2.5062995}
+      - {x: -0.36311316, y: -2.8858073}
+      - {x: 0.019071508, y: -2.9828153}
+      - {x: 0.3807199, y: -2.8591535}
+      - {x: 0.8580616, y: -2.4804304}
       - {x: 1.372932, y: -1.2141981}
-      - {x: 1.5069575, y: 0.5672962}
-      - {x: 1.1594335, y: 2.147525}
-      - {x: 0.6968688, y: 3.08754}
+      - {x: 1.4556804, y: 0.55264574}
+      - {x: 1.1301317, y: 2.0229933}
+      - {x: 0.58698833, y: 2.713943}
   m_UseDelaunayMesh: 0
 --- !u!1 &9051811226895163296
 GameObject:
