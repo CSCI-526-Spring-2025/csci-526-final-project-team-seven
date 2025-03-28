@@ -57,7 +57,6 @@ MonoBehaviour:
   background: {fileID: 7912219090419079943}
   outline: {fileID: 2460176421573436116}
   content: {fileID: 9117093275296417152}
-  threadID: {fileID: 0}
 --- !u!114 &1633804420224392780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6000578, g: 0.7596991, b: 0.8537735, a: 1}
+  m_Color: {r: 0.27162677, g: 0.43079606, b: 0.5283017, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
