@@ -33,7 +33,8 @@ public class LevelGenerator : MonoBehaviour
     private List<PlatformData> previousRowPlatforms = new List<PlatformData>();
     private List<int> PreviousReachable = new List<int>();
 
-    public GameObject WavePlatform= null;
+    public GameObject WavePlatform = null;
+    public bool GenWavePlatform = false;
     private bool generating = false;
     private struct PlatformData
     {
@@ -66,9 +67,10 @@ public class LevelGenerator : MonoBehaviour
     }
     private void Update()
     {
-        if (LevelManager.Instance.BreakTime)
+        if (GenWavePlatform)
         {
-            GenerateBreakTimeGround();
+            GenWavePlatform = false;
+            GenerateWavePlatform();
         }
         else if (generating && Camera.main.transform.position.y + cameraDistance > lastY)
         {
@@ -206,7 +208,7 @@ public class LevelGenerator : MonoBehaviour
         PreviousReachable = currentReachable;
     }
 
-    private void GenerateBreakTimeGround()
+    private void GenerateWavePlatform()
     {
         lastY += yGap;
         previousRowPlatforms.Clear();
@@ -215,6 +217,7 @@ public class LevelGenerator : MonoBehaviour
         wavePlatform.name = "wave_platform";
         Vector3 scale = wavePlatform.transform.localScale;
         scale.x = 30f;
+        scale.y *= 1.5f;
         wavePlatform.transform.localScale = scale;
         LevelManager.Instance.BreakTime = false;
         WavePlatform = wavePlatform;

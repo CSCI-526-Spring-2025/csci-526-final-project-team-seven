@@ -18,7 +18,6 @@ public class PlayerView : MonoBehaviour
     public float speedMultiplier = 1.0f;
     //GoD! JUst temP CoDe
 
-    private bool playerOnWavePlatform = false;
 
 
     public void Init()
@@ -90,22 +89,24 @@ public class PlayerView : MonoBehaviour
             if (collision.gameObject.name == "wave_platform")
             {
                 // should be safe
-                if (collision.GetContact(0).normal.y > 0.5f)
+                if (collision.GetContact(0).normal.y > 0.5f && !LevelManager.Instance.BreakTime)
                 {
                     Debug.Log("Player on the wave platform");
-                    playerOnWavePlatform = true;
+                    LevelManager.Instance.BreakTime = true;
+                    LevelManager.Instance.BeforeNextWave();
+                    CameraController.Instance.UpdateDistance(LevelGenerator.Instance.WavePlatform.transform);
                 }
             }
-            else if (LevelGenerator.Instance.WavePlatform && playerOnWavePlatform)
+            else if (LevelGenerator.Instance.WavePlatform && LevelManager.Instance.BreakTime)
             {
-                // Once the player jumps on the first ground, start the next wave
+                // Once the player jumps on the first ground, start next wave
                 var p = LevelGenerator.Instance.WavePlatform;
                 foreach (var contact in collision.contacts)
                 {
                     if (contact.normal.y > 0.5f) {
-                        CameraController.Instance.resumeCamera();
+                        CameraController.Instance.ResumeCamera();
                         LevelManager.Instance.NextWave();
-                        playerOnWavePlatform = false;
+                        LevelManager.Instance.BreakTime = false;
                         break;
                     }
                 }

@@ -23,6 +23,7 @@ public class Tutorial : MonoBehaviour
             basicUI.SetActive(true);
             cnt = 8;
             tutorialText.text = "";
+            LevelManager.Instance.BeforeNextWave();
             LevelManager.Instance.NextWave();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
         }
@@ -61,6 +62,7 @@ public class Tutorial : MonoBehaviour
             tutorialCanvas.sortingOrder = 1;
             tutorialText.text = "Survive as long as possible!\nThe bullet will aim automatically.";
             EnemyManager.Instance.StartSpawn();
+            LevelManager.Instance.BeforeNextWave();
             LevelManager.Instance.NextWave();
             cnt++;
         }

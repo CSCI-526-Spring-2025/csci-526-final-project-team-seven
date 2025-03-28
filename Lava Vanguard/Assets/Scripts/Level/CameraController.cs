@@ -7,10 +7,13 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance { get; private set; }
 
     public GameObject player;
-    public float currentCamSpeedY;
+    private float currentCamSpeedY;
     public float cameraSpeedY = 0.3f;
     public float cameraFollowDistance = 5.0f;
-
+    private float remainingDistance = -1f;
+    public float initialSpeed = 30f;
+    private float totalDistance;
+    public AnimationCurve speedCurve;
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin noiseProfile;
 
@@ -41,7 +44,18 @@ public class CameraController : MonoBehaviour
         if (moving)
         {
             // ��������� Y ��ƽ������
-            targetPosition.y += currentCamSpeedY * Time.deltaTime;
+            if (remainingDistance > 0)
+            {
+                float speed = initialSpeed * speedCurve.Evaluate(remainingDistance / totalDistance);
+                targetPosition.y += speed * Time.deltaTime;
+                remainingDistance -= speed * Time.deltaTime;
+                // Debug.Log("speed" + speed);
+                // Debug.Log(remainingDistance);
+            }
+            else
+            {
+                targetPosition.y += currentCamSpeedY * Time.deltaTime;
+            }
 
             if (LevelGenerator.Instance.WavePlatform) {
                 var p = LevelGenerator.Instance.WavePlatform;
@@ -97,13 +111,19 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void stopCamera()
+    public void StopCamera()
     {
         currentCamSpeedY = 0;
     }
 
-    public void resumeCamera()
+    public void ResumeCamera()
     {
         currentCamSpeedY = cameraSpeedY;
+    }
+
+    public void UpdateDistance(Transform transform)
+    {
+        remainingDistance = transform.position.y - (virtualCamera.transform.position.y - 3.5f);
+        totalDistance = remainingDistance;
     }
 }
