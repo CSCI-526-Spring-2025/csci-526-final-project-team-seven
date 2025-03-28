@@ -17,46 +17,11 @@ public class BulletView02 : BulletView
         attack = 3;
         if (!isSplited)
         {
-            FindClosestEnemy();
+            SetFireDirection();
             ApplyInitialRotation();
         }
     }
-
-    private void FindClosestEnemy()
-    {
-        // Get all enemies
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRange, enemyLayer);
-        Transform closestEnemy = null;
-        float closestDistance = Mathf.Infinity;
-        // Find the clothest enemy
-        foreach (Collider2D enemy in enemies)
-        {
-            if (enemy.CompareTag("Enemy") && enemy.gameObject.activeInHierarchy)
-            {
-                float distance = Vector2.Distance(transform.position, enemy.transform.position);
-                Rigidbody2D targetRb = enemy.GetComponent<Rigidbody2D>();
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestEnemy = enemy.transform;
-                }
-            }
-        }
-        // If have enemy then fire that direction
-        if (closestEnemy != null)
-        {
-            fireDirection = ((Vector2)closestEnemy.position - (Vector2)transform.position).normalized;
-            hasTarget = true;
-        }
-        else
-        {
-            // no enemy then go right
-            fireDirection = Vector3.right;
-            hasTarget = false;
-        }
-        //Debug.Log("Final Fire Direction: " + fireDirection);
-
-    }
+    
     // Rotate the bullet
     private void ApplyInitialRotation()
     {

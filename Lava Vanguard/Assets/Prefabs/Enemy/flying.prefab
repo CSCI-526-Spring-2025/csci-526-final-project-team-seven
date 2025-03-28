@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 5926649643258282195, guid: 35aeb8ae9bbd18b4e933750e7b969dc9, type: 3}
+  spriteRenderer: {fileID: -4607368078299766034}
 --- !u!60 &7069560204174760060
 PolygonCollider2D:
   m_ObjectHideFlags: 0

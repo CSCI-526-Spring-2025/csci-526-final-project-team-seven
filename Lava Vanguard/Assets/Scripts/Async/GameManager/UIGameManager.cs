@@ -26,8 +26,8 @@ public class UIGameManager : MonoBehaviour
     {
         foreach (var p in UIPanels)
             p.Init();
-        pauseButton.onClick.AddListener(() => Show<PausePanel>());
-        weaponButton.onClick.AddListener(() => Show<WeaponPanel>());
+        pauseButton.onClick.AddListener(() => Open<PausePanel>());
+        weaponButton.onClick.AddListener(() => Open<WeaponPanel>());
     }
     public UIPanel[] UIPanels;
 
@@ -38,7 +38,7 @@ public class UIGameManager : MonoBehaviour
             Switch<WeaponPanel>();
         }
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            Show<PausePanel>();
+            Open<PausePanel>();
         }
         bool open = false;
         foreach(var p in UIPanels)
@@ -54,18 +54,18 @@ public class UIGameManager : MonoBehaviour
             Time.timeScale = 1;
         }
     }
-    public void Show<T>() where T : UIPanel
+    public void Open<T>() where T : UIPanel
     {
         foreach (var p in UIPanels)
         {
-            if (p is T) p.Show();
+            if (p is T && p.canOpen) p.Open();
         }
     }
-    public void Hide<T>() where T : UIPanel
+    public void Close<T>() where T : UIPanel
     {
         foreach (var p in UIPanels)
         {
-            if (p is T) p.Hide();
+            if (p is T && p.canClose) p.Close();
         }
     }
     public bool GetOpen<T>() where T : UIPanel
@@ -75,6 +75,20 @@ public class UIGameManager : MonoBehaviour
             if (p is T) return p.isOpen;
         }
         return false;
+    }
+    public void SetCanOpen<T>(bool canOpen) where T : UIPanel
+    {
+        foreach (var p in UIPanels)
+        {
+            if (p is T) p.canOpen = canOpen;
+        }
+    }
+    public void SetCanClose<T>(bool canClose) where T : UIPanel
+    {
+        foreach (var p in UIPanels)
+        {
+            if (p is T) p.canClose = canClose;
+        }
     }
     public void Switch<T>() where T : UIPanel
     {

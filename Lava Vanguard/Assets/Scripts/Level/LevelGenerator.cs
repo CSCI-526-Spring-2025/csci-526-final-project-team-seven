@@ -9,6 +9,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject lavaPrefab;
     public GameObject wallPrefab;
     public Transform groundContainer;
+    public Lava lava;
     public List<GameObject> grounds = new List<GameObject>();
 
 
@@ -49,7 +50,7 @@ public class LevelGenerator : MonoBehaviour
         GameObject upWall=Instantiate(wallPrefab, new Vector3(0f, 7.5f, 0f), Quaternion.identity);
         upWall.transform.localScale = new Vector3(32f, 4f, 1f);
 
-        Instantiate(lavaPrefab, new Vector3(0f, -5f, 0f), Quaternion.identity);
+        lava = Instantiate(lavaPrefab, new Vector3(0f, -10f, 0f), Quaternion.identity).GetComponent<Lava>();
         GameObject initalGround = Instantiate(groundPrefab, new Vector3(0, -5, 0), Quaternion.identity);
         initalGround.transform.localScale = new Vector3(30f, 5f, 1f);
         lastY = -2.5f;

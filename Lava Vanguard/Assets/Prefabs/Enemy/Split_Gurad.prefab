@@ -134,5 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 5926649643258282195, guid: 35aeb8ae9bbd18b4e933750e7b969dc9, type: 3}
+  spriteRenderer: {fileID: 7768120249520056315}
   destroyY: -10
   enemyView02Prefab: {fileID: 605145247464328758, guid: d6b380be8cb8c794fae54a8b94318b65, type: 3}

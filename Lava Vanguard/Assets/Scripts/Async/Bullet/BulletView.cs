@@ -37,6 +37,49 @@ public abstract class BulletView : MonoBehaviour
         MoveBullet();
     }
 
+    protected virtual Transform FindClosestEnemy()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRange, enemyLayer);
+        Transform closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+        //Debug.Log($"Found {enemies.Length} enemies in range.");
+
+        foreach (Collider2D enemy in enemies)
+        {   
+            if (enemy.CompareTag("Enemy") && enemy.gameObject.activeInHierarchy)
+            {
+                Rigidbody2D targetRb = enemy.GetComponent<Rigidbody2D>();
+                Vector3 targetVelocity = targetRb != null ? targetRb.velocity : Vector3.zero;
+
+                Vector3 targetPosition = enemy.transform.position;
+                float timeToHit = Vector3.Distance(transform.position, targetPosition) / speed;
+                // Vector3 predictedPosition = targetPosition + targetVelocity * timeToHit;
+
+                float distance = Vector3.Distance(targetPosition, transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy.transform;
+                }
+            }
+        }
+        return closestEnemy;
+    }
+
+    protected virtual void SetFireDirection()
+    {        
+        Transform closestEnemy= FindClosestEnemy();
+        if (closestEnemy != null)
+        {
+            fireDirection = ((Vector2)closestEnemy.position - (Vector2)transform.position).normalized;
+            hasTarget = true;
+        }
+        else
+        {
+            fireDirection = Vector2.right;
+            hasTarget = false;
+        }
+    }
     protected abstract void MoveBullet();
 
     protected abstract void OnTriggerEnter2D(Collider2D other);

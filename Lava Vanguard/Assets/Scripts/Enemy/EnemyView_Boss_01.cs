@@ -12,7 +12,7 @@ public class EnemyView_Boss_01 : EnemyView
 
     public Slider healthBar;
     public GameObject exclamationPrebab;
-    public GameObject currentExclamation;
+    private GameObject currentExclamation;
     public Vector3 exclamationPosition = new Vector3(8, 0, 0);
     float exclamationFlashTime = 3f;
     float exclamationFlashInterval = 0.3f;
@@ -94,8 +94,7 @@ public class EnemyView_Boss_01 : EnemyView
         }
         if (startAttack)
         {
-            transform.position = new Vector3(endPosition.x, Camera.main.transform.position.y + endPosition.y, 0) ;
+            transform.position = new Vector3(transform.position.x, Camera.main.transform.position.y, 0) ;
         }
     }
-
 }

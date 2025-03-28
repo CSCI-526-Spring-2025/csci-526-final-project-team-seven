@@ -2,10 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData
+public struct PlayerData
 {
+    public float speed;
+    public float jumpForce;
+    public float jumpAirTime;
+    public float jumpAirForce;
+    public int healthLimit;
+    public float invincibleTime;
+    public int healthUpValue;
 
-    public PlayerData(float speed, float jumpForce, float jumpAirTime, float jumpAirForce, int healthLimit, float invincibleTime, int healthUpValue,int coin)
+    public int health;
+    public int currentHealthLimit;
+    public int coin;
+
+    public PlayerData(float speed, float jumpForce, float jumpAirTime, float jumpAirForce, int healthLimit, float invincibleTime, int healthUpValue, int coin)
     {
         this.speed = speed;
         this.jumpForce = jumpForce;
@@ -15,7 +26,11 @@ public class PlayerData
         this.invincibleTime = invincibleTime;
         this.healthUpValue = healthUpValue;
         this.coin = coin;
+
+        this.health = healthLimit;  
+        this.currentHealthLimit = healthLimit;
     }
+
     public static PlayerData DefaultData = new PlayerData(
         speed: 5f,
         jumpForce: 5f,
@@ -26,15 +41,5 @@ public class PlayerData
         healthUpValue: 2,
         coin: 10
     );
-    public int health;
-    public int currentHealthLimit;
-    public int coin;
-
-    public float speed;
-    public float jumpForce;
-    public float jumpAirTime;
-    public float jumpAirForce;
-    public int healthLimit;
-    public float invincibleTime;
-    public int healthUpValue;
 }
+

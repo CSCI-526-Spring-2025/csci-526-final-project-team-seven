@@ -9,6 +9,7 @@ public abstract class EnemyView : MonoBehaviour
     // Minimum spawn distance between enemy and player
     protected float SpawnDistance = 1.2f;
     public GameObject deathEffect;
+    public SpriteRenderer spriteRenderer;
     public virtual void Init(string ID)
     {
         enemyData = GameDataManager.EnemyData[ID];
@@ -63,19 +64,18 @@ public abstract class EnemyView : MonoBehaviour
     protected IEnumerator DeathEffect()
     {
         var e = Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Debug.Log("Destroy");
+        //Debug.Log("Destroy");
         Destroy(e, 1.0f);
         yield return new WaitForSeconds(0.5f);
     }
 
-    public void HitEffect()
+    protected virtual void HitEffect()
     {
         StartCoroutine(ChangeColorTemporarily(Color.red, 0.05f)); // Change to desired color and duration
     }
 
-    protected IEnumerator ChangeColorTemporarily(Color color, float duration)
+    protected virtual IEnumerator ChangeColorTemporarily(Color color, float duration)
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             Color originalColor = spriteRenderer.color;

@@ -210,10 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 5926649643258282195, guid: 35aeb8ae9bbd18b4e933750e7b969dc9, type: 3}
+  spriteRenderer: {fileID: 7708775622762799980}
   entranceDuration: 2
-  startPosition: {x: 15, y: 0, z: 0}
-  endPosition: {x: 0, y: 0, z: 0}
   healthBar: {fileID: 0}
   exclamationPrebab: {fileID: 7976581346364600480, guid: 33fe70104766e7c47927c53ced1c29eb, type: 3}
-  currentExclamation: {fileID: 0}
   exclamationPosition: {x: 8, y: 0, z: 0}

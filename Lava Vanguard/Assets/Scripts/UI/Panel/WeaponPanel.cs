@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class WeaponPanel : UIPanel
 {
-    public override void Hide()
+    public override void Init()
     {
-        base.Hide();
+        base.Init();
+        canOpen = false;
+    }
+    public override void Close()
+    {
+        base.Close();
         Tooltip.Instance.HideTooltip();
     }
 }

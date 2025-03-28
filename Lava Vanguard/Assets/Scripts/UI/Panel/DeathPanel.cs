@@ -17,8 +17,8 @@ public class DeathPanel : UIPanel
         exitButton.onClick.AddListener(() => SceneManager.LoadScene("Menu"));
     }
 
-    public override void Show()
+    public override void Open()
     {
-        base.Show();
+        base.Open();
     }
 }

@@ -18,6 +18,7 @@ public class PlayerView : MonoBehaviour
     public float speedMultiplier = 1.0f;
     //GoD! JUst temP CoDe
 
+    public CameraController cameraController; 
 
     public void Init()
     {
@@ -28,6 +29,10 @@ public class PlayerView : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         UIGameManager.Instance.UpdateHp();
         UIGameManager.Instance.UpdateCoin();
+        if (cameraController == null)
+        {
+            cameraController = GameObject.Find("CameraController").GetComponent<CameraController>();
+        }
     }
 
     public void MoveLeft()
@@ -142,6 +147,7 @@ public class PlayerView : MonoBehaviour
     public void HitEffect()
     {
         StartCoroutine(ChangeColorTemporarily(Color.red, 0.05f)); // Change to desired color and duration
+        cameraController.CameraShake(0.2f, 0.8f, 1f);
     }
 
     private IEnumerator ChangeColorTemporarily(Color color, float duration)

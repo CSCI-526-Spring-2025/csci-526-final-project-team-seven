@@ -23,12 +23,12 @@ public class CardSelectorPanel : UIPanel
         nextWaveButton.onClick.AddListener(() =>
         {
             LevelManager.Instance.NextWave();
-            Hide();
+            Close();
         });
     }
-    public override void Show()
+    public override void Open()
     {
-        base.Show();
+        base.Open();
         var collectableCardsList = GameDataManager.CardData
             .Where(kv => kv.Value.Collectable)
             .Select(kv => kv.Value)
@@ -41,9 +41,9 @@ public class CardSelectorPanel : UIPanel
             cardSeletorViews[i].Init(data, rankData);
         }
     }
-    public override void Hide()
+    public override void Close()
     {
-        base.Hide();
+        base.Close();
     }
     public void UpdateSelectButton()
     {
