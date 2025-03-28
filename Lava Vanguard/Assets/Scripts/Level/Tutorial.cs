@@ -36,7 +36,7 @@ public class Tutorial : MonoBehaviour
         }
         if (cnt == 1 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Space)))
         {
-            tutorialText.text = "Press E to open your weapon editor.";
+            tutorialText.text = "Press E to open your weapon editor.\nYou could drag card to customize your weapon.";
             cnt++;
         }
         if (cnt == 2 && UIGameManager.Instance.GetOpen<WeaponPanel>()) 
@@ -47,19 +47,19 @@ public class Tutorial : MonoBehaviour
         }
         if (cnt == 3 && !UIGameManager.Instance.GetOpen<WeaponPanel>())
         {
-            tutorialText.text = "Survive as long as possible!\nThe bullet will aim automatically.";
+            tutorialText.text = "Once you survived one wave, the store will show up.\nBuy anything you want if you have enough money.";
             EnemyManager.Instance.StartSpawn();
             LevelManager.Instance.NextWave();
             cnt++;
         }
         if (cnt == 4 && UIGameManager.Instance.GetOpen<CardSelectorPanel>()) 
         {
-            tutorialText.text = "Once you survived one wave, you got a new module. Choose one to continue.";
+            tutorialText.text = "Survive as long as possible!";
             cnt++;
         }
         if (cnt == 5 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
         {
-            tutorialText.text = "Now avoid lava, shoot enemies, keep going up and stay alive!";
+            tutorialText.text = "Now avoid lava, kill enemies, keep going up and stay alive!";
             CameraController.Instance.StartMove();
             cnt++;
         }
