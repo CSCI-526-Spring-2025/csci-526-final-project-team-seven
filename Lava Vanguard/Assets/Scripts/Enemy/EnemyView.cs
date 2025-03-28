@@ -28,10 +28,12 @@ public abstract class EnemyView : MonoBehaviour
             PlayerManager.Instance.playerView.playerData.coin += enemyData.Coin;
             UIGameManager.Instance.UpdateCoin();
             Destroy(gameObject);
+            CameraController.Instance.CameraShake(0.25f, 0.3f, 10);
             return true;
         }
         else
         {
+            CameraController.Instance.CameraShake(0.25f, 0.3f, 4);
             HitEffect();
             return false;
         }
