@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5000,7 +4999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9281ffccd1cc7d4eb821e5dcf453471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorial: 1
+  tutorial: 0
   tutorialText: {fileID: 582901170}
   tutorialCanvas: {fileID: 1220686402}
   basicUI: {fileID: 494574888}

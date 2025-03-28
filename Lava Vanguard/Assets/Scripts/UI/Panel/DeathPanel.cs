@@ -13,6 +13,7 @@ public class DeathPanel : UIPanel
     public override void Init()
     {
         base.Init();
+        survivalTime.text = "Survival Wave: " + LevelManager.Instance.wave;
         restartButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
         exitButton.onClick.AddListener(() => SceneManager.LoadScene("Menu"));
     }

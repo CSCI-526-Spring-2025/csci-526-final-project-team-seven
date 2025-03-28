@@ -5,7 +5,7 @@ using UnityEngine;
 // 散射
 public class BulletView02 : BulletView
 {
-    protected float splitDistance = 5f;
+    protected float splitDistance = 1f;
     protected bool isSplited = false;
     protected float splitAngle = 30f;
 

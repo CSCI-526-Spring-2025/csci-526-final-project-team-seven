@@ -11,6 +11,8 @@ public class EnemyView_Boss_01 : EnemyView
     private Vector3 endPosition = new Vector3(0, 0, 0);
 
     public Slider healthBar;
+    public TextMeshProUGUI healthText;
+
     public GameObject exclamationPrebab;
     private GameObject currentExclamation;
     public Vector3 exclamationPosition = new Vector3(8, 0, 0);
@@ -19,6 +21,10 @@ public class EnemyView_Boss_01 : EnemyView
     
     private bool startAttack = false;
 
+    [Header("Boss Attack Settings")]
+    public GameObject bulletPrefab;
+    private float bulletInterval = 0.1f;
+    private int bulletCount = 36;
     public override void Init(string ID)
     {
         base.Init(ID);
@@ -26,6 +32,12 @@ public class EnemyView_Boss_01 : EnemyView
         {
             healthBar.maxValue = enemyData.MaxHealth;
             healthBar.value = enemyData.Health;
+            healthBar.gameObject.SetActive(false);
+        }
+        if (healthText != null)
+        {
+            healthText.text = "Boss";
+            healthText.gameObject.SetActive(false);
         }
         StartCoroutine(BossEntrance());
     }
@@ -54,6 +66,8 @@ public class EnemyView_Boss_01 : EnemyView
 
         SpriteRenderer[] exclamationRenderers = currentExclamation.GetComponentsInChildren<SpriteRenderer>();
 
+        StartCoroutine(ShowHealthBar());
+
         // Flash excalamation mark
         float timeElapsed = 0f;
         while (timeElapsed < exclamationFlashTime)
@@ -80,8 +94,92 @@ public class EnemyView_Boss_01 : EnemyView
         }
 
         startAttack = true;
-        //StartCoroutine(BulletAttack());
-        //StartCoroutine(MinionSummon());
+
+        StartCoroutine(AttackCycle());
+    }
+
+    private IEnumerator AttackCycle()
+    {
+        while (true)
+        {
+            Debug.Log("StartCycle");
+            //Start bullet attack
+            yield return StartCoroutine(BulletAttackRoutine());
+
+            //yield return StartCoroutine(RectMovementRoutine(moveDuration));
+        }
+    }
+
+    private IEnumerator BulletAttackRoutine()
+    {
+        for (int i = 0; i < bulletCount; i++)
+        {
+            float angleDeg = (360f / bulletCount) * i;
+            float angleRad = angleDeg * Mathf.Deg2Rad;
+
+            Quaternion bulletRotation = Quaternion.Euler(0, 0, angleDeg - 90f);
+            Vector3 direction = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0);
+
+            var bullet = Instantiate(bulletPrefab, transform).GetComponent<EnemyView_Boss_01_Bullet>();
+            bullet.Init("Enemy_Boss_01_Bullet", transform.position,direction,bulletRotation);
+
+            yield return new WaitForSeconds(bulletInterval);
+        }
+    }
+
+    private IEnumerator ShowHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(true);
+        }
+        if (healthText != null)
+        {
+            healthText.gameObject.SetActive(true);
+        }
+
+        float elapsed = 0f;
+
+        healthBar.value = 0;
+
+        while (elapsed < exclamationFlashTime)
+        {
+            float t = elapsed / exclamationFlashTime;
+            healthBar.value =t* healthBar.maxValue;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        healthBar.value = healthBar.maxValue;
+    }
+
+    public override bool TakeHit(int bulletAttack)
+    {
+        if(!startAttack) { return false; }
+        enemyData.Health -= bulletAttack;
+        Debug.Log("Been hit");
+        healthBar.value = enemyData.Health;
+        if (enemyData.Health <= 0)
+        {
+            enemyData.Health = 0;
+            StartCoroutine(DeathEffect());
+            PlayerManager.Instance.playerView.playerData.coin += enemyData.Coin;
+            UIGameManager.Instance.UpdateCoin();
+            Destroy(gameObject);
+            if (healthBar != null)
+            {
+                healthBar.gameObject.SetActive(false);
+            }
+            if (healthText != null)
+            {
+                healthText.gameObject.SetActive(false);
+            }
+            return true;
+        }
+        else
+        {
+            HitEffect();
+            return false;
+        }
     }
 
     private void LateUpdate()
