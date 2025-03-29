@@ -54,24 +54,35 @@ public class SlotManager : MonoBehaviour
         for (int i = 0; i < ROW; i++)
             for (int j = 0; j < COL; j++)
                 slotViews[i, j].damageMultiplier = 1.0f;
+        PlayerManager.Instance.playerView.ResetSpeed();
+        int currentHP = PlayerManager.Instance.playerView.GetHP();
+        PlayerManager.Instance.playerView.ResetHealthLimit();
         for (int i = 0; i < ROW; i++)
         {
             for (int j = 0; j < COL; j++)
             {
                 var content = slotViews[i, j].content;
-                if (content != null && content.cardSpriteData.Type == "Functional") 
+                if (content != null && content.cardSpriteData.Type == "Functional")
                 {
-                    if (content.cardSpriteData.ID == "Card_DamageUp")
+                    switch (content.cardSpriteData.ID) 
                     {
-                        for (int k = i - 1; k <= i + 1; k++)
-                        {
-                            for (int l = j - 1; l <= j + 1; l++) 
+                        case "Card_DamageUp":
+                            for (int k = i - 1; k <= i + 1; k++)
                             {
-                                if (k < 0 || l < 0 || k >= ROW || l >= COL)
-                                    continue;
-                                slotViews[k, l].damageMultiplier *= 2f;
+                                for (int l = j - 1; l <= j + 1; l++)
+                                {
+                                    if (k < 0 || l < 0 || k >= ROW || l >= COL)
+                                        continue;
+                                    slotViews[k, l].damageMultiplier *= 2f;
+                                }
                             }
-                        }
+                            break;
+                        case "Card_SpeedUp":
+                            PlayerManager.Instance.playerView.SpeedUp();
+                            break;
+                        case "Card_HealthUp":
+                            PlayerManager.Instance.playerView.HealthUp(currentHP);
+                            break;
                     }
                 }
             }

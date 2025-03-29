@@ -12,13 +12,15 @@ public struct PlayerData
     public float invincibleTime;
     public int healthUpValue;
 
+    public float speedUpValue;
+    public float speedLimit;
+
     public int health;
     public int currentHealthLimit;
     public int coin;
 
-    public PlayerData(float speed, float jumpForce, float jumpAirTime, float jumpAirForce, int healthLimit, float invincibleTime, int healthUpValue, int coin)
+    public PlayerData(float jumpForce, float jumpAirTime, float jumpAirForce, int healthLimit, float invincibleTime, int healthUpValue,float speed, float speedUpValue,float speedLimit, int coin)
     {
-        this.speed = speed;
         this.jumpForce = jumpForce;
         this.jumpAirTime = jumpAirTime;
         this.jumpAirForce = jumpAirForce;
@@ -26,19 +28,24 @@ public struct PlayerData
         this.invincibleTime = invincibleTime;
         this.healthUpValue = healthUpValue;
         this.coin = coin;
+        this.speed = speed;
+        this.speedUpValue = speedUpValue;
+        this.speedLimit = speedLimit;
 
         this.health = healthLimit;  
         this.currentHealthLimit = healthLimit;
     }
 
     public static PlayerData DefaultData = new PlayerData(
-        speed: 5f,
         jumpForce: 5f,
         jumpAirTime: 0.3f,
         jumpAirForce: 5f,
         healthLimit: 10,
         invincibleTime: 1f,
         healthUpValue: 2,
+        speed: 5f,
+        speedUpValue: 1f,
+        speedLimit: 10f,
         coin: 10
     );
 }

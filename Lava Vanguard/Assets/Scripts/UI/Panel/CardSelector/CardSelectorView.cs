@@ -36,7 +36,7 @@ public class CardSelectorView : MonoBehaviour
         if (sold)
             return;
         this.cost.text = data.Cost + "$";
-        bool affordable = PlayerManager.Instance.playerView.playerData.coin >= data.Cost;
+        bool affordable = PlayerManager.Instance.playerView.GetCoin() >= data.Cost;
         this.cost.color = affordable ? ColorCenter.SelectorPanelColors["Green"] : ColorCenter.SelectorPanelColors["Red"];
         this.selectButton.interactable = affordable;
         this.selectButton.onClick.RemoveAllListeners();
@@ -46,7 +46,7 @@ public class CardSelectorView : MonoBehaviour
             selectButton.interactable = false;
             cost.text = "Sold";
             sold = true;
-            PlayerManager.Instance.playerView.playerData.coin -= data.Cost;
+            PlayerManager.Instance.playerView.GainCoin(data.Cost);
             UIGameManager.Instance.UpdateCoin();
             UIGameManager.Instance.GetPanel<CardSelectorPanel>().UpdateSelectButton();
         });

@@ -52,7 +52,7 @@ public class BulletView05 : BulletView
             }
             if (killed)
             {
-                PlayerManager.Instance.playerView.playerData.coin += 1;//do not hard code
+                PlayerManager.Instance.playerView.GainCoin(1);//do not hard code
                 UIGameManager.Instance.UpdateCoin();
             }
             Destroy(gameObject);

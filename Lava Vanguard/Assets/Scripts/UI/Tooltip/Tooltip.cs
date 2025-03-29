@@ -14,11 +14,11 @@ public class Tooltip : MonoBehaviour
     {
         Instance = this; 
     }
-    public void ShowTooltip(CardSpriteData data)
+    public void ShowTooltip(CardView data)
     {
         tooltip.SetActive(true);
-        title.text = data.Title;
-        description.text = data.Description;
+        title.text = data.cardSpriteData.Title+" (Level: "+data.cardRankData.Level+")";
+        description.text = data.cardSpriteData.Description;
         tooltip.transform.position = Input.mousePosition + new Vector3(0, -150, 0);
     }
     public void HideTooltip()

@@ -111,7 +111,7 @@ namespace Async
             float e = 0.001f;
             if (Vector3.Distance(originalPosition, rectTransform.anchoredPosition) < e)
             {
-                Tooltip.Instance.ShowTooltip(cardView.cardSpriteData);
+                Tooltip.Instance.ShowTooltip(cardView);
             }
         }
         public void OnPointerExit(PointerEventData eventData)

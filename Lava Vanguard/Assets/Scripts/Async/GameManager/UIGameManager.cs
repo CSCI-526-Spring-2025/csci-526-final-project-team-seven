@@ -113,15 +113,15 @@ public class UIGameManager : MonoBehaviour
 
     public void UpdateHp()
     {
-        int hp = PlayerManager.Instance.playerView.playerData.health;
-        int maxHP = PlayerManager.Instance.playerView.playerData.currentHealthLimit;
+        int hp = PlayerManager.Instance.playerView.GetHP();
+        int maxHP = PlayerManager.Instance.playerView.GetHPLimit();
         float percentage = 1.0f * hp / maxHP;
         hpLabel.text = "HP: " + hp + "/" + maxHP;
         hpBarFill.fillAmount = percentage;
     }
     public void UpdateCoin()
     {
-        int coin = PlayerManager.Instance.playerView.playerData.coin;
+        int coin = PlayerManager.Instance.playerView.GetCoin();
         coinText.text = "Coin: " + coin;
     }
     

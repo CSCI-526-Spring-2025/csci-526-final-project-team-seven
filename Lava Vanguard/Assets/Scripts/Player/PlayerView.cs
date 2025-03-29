@@ -6,19 +6,29 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     [HideInInspector]
-    public PlayerData playerData;
+    private PlayerData playerData;
     private Rigidbody2D rb;
     private bool isGrounded = false;
     private bool isJumping = false;
     private float jumpTempTime = 0.0f;
-
     
     private float invincibleTempTime = 0.0f;
-    [HideInInspector]
-    public float speedMultiplier = 1.0f;
     //GoD! JUst temP CoDe
 
+    public int GetHP()
+    {
+        return playerData.health;
+    }
 
+    public int GetHPLimit()
+    {
+        return playerData.currentHealthLimit;
+    }
+
+    public int GetCoin()
+    {
+        return playerData.coin;
+    }
 
     public void Init()
     {
@@ -33,7 +43,7 @@ public class PlayerView : MonoBehaviour
 
     public void MoveLeft()
     {
-        rb.velocity = new Vector2(-playerData.speed * speedMultiplier, rb.velocity.y);
+        rb.velocity = new Vector2(-playerData.speed, rb.velocity.y);
         if (transform.localScale.x > 0)
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -42,7 +52,7 @@ public class PlayerView : MonoBehaviour
 
     public void MoveRight()
     {
-        rb.velocity = new Vector2(playerData.speed * speedMultiplier, rb.velocity.y);
+        rb.velocity = new Vector2(playerData.speed, rb.velocity.y);
         if (transform.localScale.x < 0)
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -136,29 +146,6 @@ public class PlayerView : MonoBehaviour
         }
         UIGameManager.Instance.UpdateHp();
     }
-    public void ResetHealthLimit()
-    {
-        playerData.currentHealthLimit = playerData.healthLimit;
-        UIGameManager.Instance.UpdateHp();
-    }
-    public void ResetHealth()
-    {
-        if (playerData.health > playerData.currentHealthLimit)
-        {
-            playerData.health= playerData.currentHealthLimit;
-        }
-        UIGameManager.Instance.UpdateHp();
-    }
-    public void HealthUp()
-    {
-        playerData.currentHealthLimit += playerData.healthUpValue;
-        UIGameManager.Instance.UpdateHp();
-    }
-    public void RestoreHealth()
-    {
-        playerData.health=playerData.currentHealthLimit;
-        UIGameManager.Instance.UpdateHp();
-    }
     public void UpdateInvincible()
     {
         if (invincibleTempTime > 0)
@@ -188,5 +175,47 @@ public class PlayerView : MonoBehaviour
             yield return new WaitForSeconds(duration);
             spriteRenderer.color = originalColor;
         }
+    }
+
+    public void ResetSpeed()
+    {
+        playerData.speed = PlayerData.DefaultData.speed;
+    }
+
+    public void SpeedUp()
+    {
+        playerData.speed += playerData.speedUpValue;
+        if (playerData.speed > playerData.speedLimit)
+        {
+            playerData.speed = playerData.speedLimit;
+        }
+    }
+
+    public void ResetHealthLimit()
+    {
+        playerData.currentHealthLimit = playerData.healthLimit;
+        UIGameManager.Instance.UpdateHp();
+    }
+
+    public void HealthUp(int currentHealth)
+    {
+        playerData.currentHealthLimit += playerData.healthUpValue;
+        playerData.health = currentHealth;
+        if(playerData.health > playerData.currentHealthLimit)
+        {
+            playerData.health=playerData.currentHealthLimit;
+        }
+        UIGameManager.Instance.UpdateHp();
+    }
+
+    public void GainCoin(int coin)
+    {
+        playerData.coin += coin;
+    }
+
+    public void RestoreHealth()
+    {
+        playerData.health = playerData.currentHealthLimit;
+        UIGameManager.Instance.UpdateHp();
     }
 }

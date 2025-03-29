@@ -86,7 +86,7 @@
     "Card_SpeedUp": {
         "ID": "Card_SpeedUp",
         "Title": "Speed Up",
-        "Description": "Increase player speed by 1.5",
+        "Description": "Increase player speed by 1, max speed is 10.",
         "Cost": 10,
         "Type": "Functional",
         "Background": "Background_Normal",

@@ -25,7 +25,7 @@ public abstract class EnemyView : MonoBehaviour
         {
             enemyData.Health = 0;
             StartCoroutine(DeathEffect());
-            PlayerManager.Instance.playerView.playerData.coin += enemyData.Coin;
+            PlayerManager.Instance.playerView.GainCoin(enemyData.Coin);
             UIGameManager.Instance.UpdateCoin();
             Destroy(gameObject);
             CameraController.Instance.CameraShake(0.25f, 0.3f, 10);
