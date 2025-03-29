@@ -22,7 +22,8 @@ public class CardSelectorPanel : UIPanel
         }
         nextWaveButton.onClick.AddListener(() =>
         {
-            // LevelManager.Instance.NextWave(); // TODO
+            CameraController.Instance.ResumeCamera();
+            LevelManager.Instance.NextWave();
             Close();
         });
     }

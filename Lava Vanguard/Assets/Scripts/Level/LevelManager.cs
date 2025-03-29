@@ -16,9 +16,32 @@ public class LevelManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    public void LateUpdate()
+    {
+        var enemyManager = EnemyManager.Instance;
+        var cam = CameraController.Instance;
+        var p = LevelGenerator.Instance.WavePlatform;
+        if (WaveHasBoss())
+        {
+            if (enemyManager.bossRef && !cam.CameraStopped())
+            {
+                if (p && p.transform.position.y < cam.virtualCamera.transform.position.y + 5f)
+                {
+                    cam.StopCamera();
+                    p.GetComponent<Collider2D>().enabled = false;
+                }
+            }
+            else if (enemyManager.bossSpawned && enemyManager.bossRef == null && cam.CameraStopped())
+            {
+                cam.ResumeCamera();
+                p.GetComponent<Collider2D>().enabled = true;
+            }
+        }
+    }
+
     public void NextWave()
     {
-        var p = LevelGenerator.Instance.WavePlatform;
         if (LevelGenerator.Instance.WavePlatform)
         {
             LevelGenerator.Instance.WavePlatform.name = "";
@@ -61,6 +84,7 @@ public class LevelManager : MonoBehaviour
             }
         }
         timeText.text = "Time's Up!";
+        yield return new WaitUntil(() => ShouldShowPanel());
         UIGameManager.Instance.Open<CardSelectorPanel>();
     }
 
@@ -72,5 +96,17 @@ public class LevelManager : MonoBehaviour
         EnemyManager.Instance.killAll();
         wave++;
         UpdateWave();
+    }
+
+    public bool WaveHasBoss()
+    {
+        return wave >= 1;
+    }
+
+    private bool ShouldShowPanel()
+    {
+        var cam = CameraController.Instance;
+        var p = LevelGenerator.Instance.WavePlatform;
+        return p.transform.position.y < cam.virtualCamera.transform.position.y && cam.CameraStopped();
     }
 }

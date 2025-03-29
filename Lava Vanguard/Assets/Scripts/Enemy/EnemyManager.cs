@@ -13,13 +13,14 @@ public class EnemyManager : MonoBehaviour
     //[HideInInspector]
     public GameObject[] enemyPrefabs;
     public GameObject bossPrefab;
+    public GameObject bossRef;
 
     [Header("Enemy Settings")]
     private float minSpawnInterval = 0.18f;
     private float maxSpawnInterval = 2f;
     private float maxLevel = 20f;
     private Coroutine spawnCoroutine;
-    private bool bossSpawned = false;
+    public bool bossSpawned = false;
     private void Awake()
     {
         Instance = this;
@@ -27,11 +28,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if (!bossSpawned && LevelManager.Instance.wave >= 1)
-        {
-            bossSpawned = true;
-            spawnBoss();
-        }
+        
     }
 
     public EnemyView GenerateRandomEnemy()
@@ -67,6 +64,12 @@ public class EnemyManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
+        if (!bossSpawned && LevelManager.Instance.WaveHasBoss())
+        {
+            bossSpawned = true;
+            spawnBoss();
+        }
+
         while (true)
         {
             GenerateRandomEnemy();
@@ -89,8 +92,10 @@ public class EnemyManager : MonoBehaviour
 
     private void spawnBoss()
     {
-        var bossView = Instantiate(bossPrefab, enemyContainer).GetComponent<EnemyView>();
+        var boss = Instantiate(bossPrefab, enemyContainer);
+        var bossView = boss.GetComponent<EnemyView>();
         bossView.Init("Enemy_Boss_01");
+        bossRef = boss;
     }
 
     public void stopSpawn()

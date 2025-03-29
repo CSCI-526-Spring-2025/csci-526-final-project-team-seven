@@ -97,20 +97,20 @@ public class PlayerView : MonoBehaviour
                     CameraController.Instance.UpdateDistance(LevelGenerator.Instance.WavePlatform.transform);
                 }
             }
-            else if (LevelGenerator.Instance.WavePlatform && LevelManager.Instance.BreakTime)
-            {
-                // Once the player jumps on the first ground, start next wave
-                var p = LevelGenerator.Instance.WavePlatform;
-                foreach (var contact in collision.contacts)
-                {
-                    if (contact.normal.y > 0.5f) {
-                        CameraController.Instance.ResumeCamera();
-                        LevelManager.Instance.NextWave();
-                        LevelManager.Instance.BreakTime = false;
-                        break;
-                    }
-                }
-            }
+            // else if (LevelGenerator.Instance.WavePlatform && LevelManager.Instance.BreakTime)
+            // {
+            //     // Once the player jumps on the first ground, start next wave
+            //     var p = LevelGenerator.Instance.WavePlatform;
+            //     foreach (var contact in collision.contacts)
+            //     {
+            //         if (contact.normal.y > 0.5f) {
+            //             CameraController.Instance.ResumeCamera();
+            //             LevelManager.Instance.NextWave();
+            //             LevelManager.Instance.BreakTime = false;
+            //             break;
+            //         }
+            //     }
+            // }
         }
     }
 

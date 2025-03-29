@@ -126,4 +126,9 @@ public class CameraController : MonoBehaviour
         remainingDistance = transform.position.y - (virtualCamera.transform.position.y - 3.5f);
         totalDistance = remainingDistance;
     }
+
+    public bool CameraStopped()
+    {
+        return currentCamSpeedY == 0f;
+    }
 }
