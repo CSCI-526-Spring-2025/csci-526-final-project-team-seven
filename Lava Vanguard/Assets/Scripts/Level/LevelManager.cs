@@ -22,15 +22,13 @@ public class LevelManager : MonoBehaviour
         var enemyManager = EnemyManager.Instance;
         var cam = CameraController.Instance;
         var p = LevelGenerator.Instance.WavePlatform;
-        if (WaveHasBoss())
+        var camPosY = cam.virtualCamera.transform.position.y;
+        if (WaveHasBoss() && p && p.transform.position.y < camPosY + 5f && p.transform.position.y > camPosY)
         {
-            if (enemyManager.bossRef && !cam.CameraStopped())
+            if (enemyManager.bossRef != null && !cam.CameraStopped())
             {
-                if (p && p.transform.position.y < cam.virtualCamera.transform.position.y + 5f)
-                {
-                    cam.StopCamera();
-                    p.GetComponent<Collider2D>().enabled = false;
-                }
+                cam.StopCamera();
+                p.GetComponent<Collider2D>().enabled = false;
             }
             else if (enemyManager.bossSpawned && enemyManager.bossRef == null && cam.CameraStopped())
             {
