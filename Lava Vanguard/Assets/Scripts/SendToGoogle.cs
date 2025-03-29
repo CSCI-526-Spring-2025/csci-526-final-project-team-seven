@@ -15,7 +15,7 @@ public class SendToGoogle : MonoBehaviour
     public float maxRange = 0;
     public float finalHealth = 0;
     public string sequenceData = "";
-    
+    public int isEditor = 0;
 
     void Start()
     {
@@ -43,17 +43,23 @@ public class SendToGoogle : MonoBehaviour
     {
         expLevel = -1234;
         finalHealth = PlayerManager.Instance.playerView.playerData.health;
-
+        if (Application.isEditor)
+        {
+            isEditor = 1;
+        }
         
+
+
+
         sequenceData = SlotManager.Instance != null
             ? SlotManager.Instance.GetAllSlotCardData()
             : "No Slot Data Available";
 
-        StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), finalHealth.ToString(), sequenceData));
+        StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), finalHealth.ToString(), sequenceData,isEditor.ToString()));
     }
 
 
-    private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string finalHealth, string sequenceData)
+    private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string finalHealth, string sequenceData,string isEditor)
     {
         WWWForm form = new WWWForm();
         form.AddField("entry.1156616989", sessionID);
@@ -62,6 +68,7 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.1140619881", expLevel);
         form.AddField("entry.842781336", finalHealth);
         form.AddField("entry.307482289", sequenceData);
+        form.AddField("entry.2097804719", isEditor);
 
         using (UnityWebRequest www = UnityWebRequest.Post("https://docs.google.com/forms/u/0/d/1tiA8a2FBAE7rsP9ABsVroo_ZxPtPlfyXlwR89PRpQC8/formResponse", form))
         {
