@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -779,6 +778,31 @@ MonoBehaviour:
   player: {fileID: 1925780058}
   cameraSpeedY: 0.3
   cameraFollowDistance: 5
+  initialSpeed: 30
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.0026245117
+      inSlope: 0.9973755
+      outSlope: 0.9973755
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.9973755
+      outSlope: 0.9973755
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   virtualCamera: {fileID: 926143334}
 --- !u!1 &492835182
 GameObject:
@@ -2482,6 +2506,8 @@ MonoBehaviour:
   maxHorizontalJump: 2.5
   xMin: -15
   xMax: 15
+  WavePlatform: {fileID: 0}
+  GenWavePlatform: 0
 --- !u!4 &990588613
 Transform:
   m_ObjectHideFlags: 0
@@ -2513,6 +2539,7 @@ MonoBehaviour:
   time: 0
   timeText: {fileID: 766054777}
   waveText: {fileID: 1516530264}
+  BreakTime: 0
 --- !u!1 &1038361674
 GameObject:
   m_ObjectHideFlags: 0

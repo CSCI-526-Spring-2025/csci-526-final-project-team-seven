@@ -92,4 +92,21 @@ public class EnemyManager : MonoBehaviour
         var bossView = Instantiate(bossPrefab, enemyContainer).GetComponent<EnemyView>();
         bossView.Init("Enemy_Boss_01");
     }
+
+    public void stopSpawn()
+    {
+        if (spawnCoroutine != null)
+        {
+            Debug.Log("stop");
+            StopCoroutine(spawnCoroutine);
+        }
+    }
+
+    public void killAll()
+    {
+        foreach (Transform enemy in enemyContainer)
+        {
+            enemy.GetComponent<EnemyView>().ForceKill();
+        }
+    }
 }

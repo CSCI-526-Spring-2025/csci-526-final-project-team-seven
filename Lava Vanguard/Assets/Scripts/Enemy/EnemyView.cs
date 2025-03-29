@@ -84,6 +84,12 @@ public abstract class EnemyView : MonoBehaviour
             spriteRenderer.color = originalColor;
         }
     }
+
+    public void ForceKill()
+    {
+        StartCoroutine(DeathEffect());
+        Destroy(gameObject);
+    }
 }
 
 

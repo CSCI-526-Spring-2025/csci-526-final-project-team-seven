@@ -22,7 +22,7 @@ public class CardSelectorPanel : UIPanel
         }
         nextWaveButton.onClick.AddListener(() =>
         {
-            LevelManager.Instance.NextWave();
+            // LevelManager.Instance.NextWave(); // TODO
             Close();
         });
     }
