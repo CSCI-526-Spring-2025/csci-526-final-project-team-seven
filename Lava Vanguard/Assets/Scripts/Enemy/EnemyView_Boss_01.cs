@@ -16,11 +16,11 @@ public class EnemyView_Boss_01 : EnemyView
     // The relative position of the camera
     private Vector3 currentPosition = new Vector3(0, 0, 0);
 
-    public Slider healthBar;
-    public TextMeshProUGUI healthText;
+    private float healthBarAppearTime = 3f;
 
     public GameObject exclamationPrebab;
     private GameObject currentExclamation;
+    private Vector3 exclamationCurrentPosition;
     public Vector3 exclamationRightPosition = new Vector3(8f, 2f, 0);
     public Vector3 exclamationLeftPosition = new Vector3(-8f, -2f, 0);
     float exclamationFlashTime = 3f;
@@ -37,17 +37,11 @@ public class EnemyView_Boss_01 : EnemyView
     public override void Init(string ID)
     {
         base.Init(ID);
-        if (healthBar != null)
-        {
-            healthBar.maxValue = enemyData.MaxHealth;
-            healthBar.value = enemyData.Health;
-            healthBar.gameObject.SetActive(false);
-        }
-        if (healthText != null)
-        {
-            healthText.text = "Boss";
-            healthText.gameObject.SetActive(false);
-        }
+        UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth;
+        UIGameManager.Instance.bossHPBar.value = enemyData.Health;
+        UIGameManager.Instance.bossHPBar.gameObject.SetActive(false);
+        UIGameManager.Instance.BossHPLabel.text = "Boss";
+        UIGameManager.Instance.BossHPLabel.gameObject.SetActive(false);
         currentPosition = rightStartPosition;
         StartCoroutine(AttackCycle());
     }
@@ -95,9 +89,9 @@ public class EnemyView_Boss_01 : EnemyView
         // Show exclamation mark
         if (exclamationPrebab != null)
         {
-            Vector3 cameraPosition = Camera.main.transform.position;
-            cameraPosition.z = 0;
-            currentExclamation = Instantiate(exclamationPrebab, cameraPosition + spawnPos, Quaternion.identity, transform);
+            exclamationCurrentPosition = spawnPos;
+            currentExclamation = Instantiate(exclamationPrebab);
+            //currentExclamation.transform.SetParent(transform,true);
         }
 
         SpriteRenderer[] exclamationRenderers = currentExclamation.GetComponentsInChildren<SpriteRenderer>();
@@ -159,34 +153,34 @@ public class EnemyView_Boss_01 : EnemyView
 
     private IEnumerator ShowHealthBar()
     {
-        if (healthBar != null)
+        if (UIGameManager.Instance.bossHPBar != null)
         {
-            healthBar.gameObject.SetActive(true);
+            UIGameManager.Instance.bossHPBar.gameObject.SetActive(true);
         }
-        if (healthText != null)
+        if (UIGameManager.Instance.BossHPLabel != null)
         {
-            healthText.gameObject.SetActive(true);
+            UIGameManager.Instance.BossHPLabel.gameObject.SetActive(true);
         }
 
         float elapsed = 0f;
 
-        healthBar.value = 0;
+        UIGameManager.Instance.bossHPBar.value = 0;
 
-        while (elapsed < exclamationFlashTime)
+        while (elapsed < healthBarAppearTime)
         {
-            float t = elapsed / exclamationFlashTime;
-            healthBar.value =t* healthBar.maxValue;
+            float t = elapsed / healthBarAppearTime;
+            UIGameManager.Instance.bossHPBar.value =t* UIGameManager.Instance.bossHPBar.maxValue;
             elapsed += Time.deltaTime;
             yield return null;
         }
-        healthBar.value = healthBar.maxValue;
+        UIGameManager.Instance.bossHPBar.value = UIGameManager.Instance.bossHPBar.maxValue;
     }
 
     public override bool TakeHit(int bulletAttack)
     {
         if(!startAttack) { return false; }
         enemyData.Health -= bulletAttack;
-        healthBar.value = enemyData.Health;
+        UIGameManager.Instance.bossHPBar.value = enemyData.Health;
         if (enemyData.Health <= 0)
         {
             enemyData.Health = 0;
@@ -194,13 +188,13 @@ public class EnemyView_Boss_01 : EnemyView
             PlayerManager.Instance.playerView.playerData.coin += enemyData.Coin;
             UIGameManager.Instance.UpdateCoin();
             Destroy(gameObject);
-            if (healthBar != null)
+            if (UIGameManager.Instance.bossHPBar != null)
             {
-                healthBar.gameObject.SetActive(false);
+                UIGameManager.Instance.bossHPBar.gameObject.SetActive(false);
             }
-            if (healthText != null)
+            if (UIGameManager.Instance.BossHPLabel != null)
             {
-                healthText.gameObject.SetActive(false);
+                UIGameManager.Instance.BossHPLabel.gameObject.SetActive(false);
             }
             return true;
         }
@@ -211,16 +205,27 @@ public class EnemyView_Boss_01 : EnemyView
         }
     }
 
-    private void LateUpdate()
+    private void OnEnable()
     {
-        //if (currentExclamation != null)
-        //{
-        //    Vector3 cameraPosition = Camera.main.transform.position;
-        //    cameraPosition.z = 0;
-        //    currentExclamation.transform.position = cameraPosition + exclamationPosition;
-        //}
+        CameraController.OnCameraUpdated += UpdateBossPosition;
+    }
 
+    private void OnDisable()
+    {
+        CameraController.OnCameraUpdated -= UpdateBossPosition;
+    }
+
+    private void UpdateBossPosition()
+    {
+        // Update exclamation bar location
+        if (currentExclamation != null)
+        {
+            Vector3 tmpPosition = CameraController.Instance.virtualCamera.transform.position + exclamationCurrentPosition;
+            tmpPosition.z = 0;
+            currentExclamation.transform.position = tmpPosition;
+        }
+        
         // Update the boss position by relative position
-        transform.position = new Vector3(currentPosition.x, Camera.main.transform.position.y + currentPosition.y, 0);
+        transform.position = new Vector3(currentPosition.x, CameraController.Instance.virtualCamera.transform.position.y + currentPosition.y, 0);
     }
 }

@@ -1,10 +1,12 @@
 using UnityEngine;
 using Cinemachine;
 using TMPro;
+using System;
 
 public class CameraController : MonoBehaviour
 {
     public static CameraController Instance { get; private set; }
+    public static event Action OnCameraUpdated;
 
     public GameObject player;
     private float currentCamSpeedY;
@@ -43,14 +45,11 @@ public class CameraController : MonoBehaviour
         Vector3 targetPosition = cameraTransform.position;
         if (moving)
         {
-            // ��������� Y ��ƽ������
             if (remainingDistance > 0)
             {
                 float speed = initialSpeed * speedCurve.Evaluate(remainingDistance / totalDistance);
                 targetPosition.y += speed * Time.deltaTime;
                 remainingDistance -= speed * Time.deltaTime;
-                // Debug.Log("speed" + speed);
-                // Debug.Log(remainingDistance);
             }
             else
             {
@@ -64,7 +63,7 @@ public class CameraController : MonoBehaviour
                 }
             }
         }
-        // �������λ�õ��� X ���ƫ��
+        // 
         if (player.transform.position.x > targetPosition.x + cameraFollowDistance)
         {
             targetPosition.x = player.transform.position.x - cameraFollowDistance;
@@ -73,8 +72,9 @@ public class CameraController : MonoBehaviour
         {
             targetPosition.x = player.transform.position.x + cameraFollowDistance;
         }
-        // ֱ���޸� Virtual Camera ��λ��
+        //Virtual Camera 
         cameraTransform.position = targetPosition;
+        OnCameraUpdated?.Invoke();
     }
     private void Update()
     {

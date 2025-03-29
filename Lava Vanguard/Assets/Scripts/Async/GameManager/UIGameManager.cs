@@ -18,6 +18,12 @@ public class UIGameManager : MonoBehaviour
     public TMP_Text coinText;
     public Image hpBarFill;
     public TMP_Text hpLabel;
+
+    //Boss
+    public TMP_Text BossHPLabel;
+    public Slider bossHPBar;
+
+    public UIPanel[] UIPanels;
     private void Awake()
     {
         Instance = this;
@@ -29,7 +35,6 @@ public class UIGameManager : MonoBehaviour
         pauseButton.onClick.AddListener(() => Open<PausePanel>());
         weaponButton.onClick.AddListener(() => Open<WeaponPanel>());
     }
-    public UIPanel[] UIPanels;
 
     private void Update()
     {

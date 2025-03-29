@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class WallFollower : MonoBehaviour
 {
-    private Camera mainCamera;
+
     private float yOffset;
     void Start()
     {
-        mainCamera = Camera.main;
-        yOffset = transform.position.y - mainCamera.transform.position.y;       
+        yOffset = transform.position.y - CameraController.Instance.virtualCamera.transform.position.y;
+    }
+
+    private void OnEnable()
+    {
+        CameraController.OnCameraUpdated += UpdateWallPosition;
+    }
+
+    private void OnDisable()
+    {
+        CameraController.OnCameraUpdated -= UpdateWallPosition;
     }
     // Update is called once per frame
-    void Update()
+    void UpdateWallPosition()
     {
-        transform.position = new Vector3(transform.position.x, mainCamera.transform.position.y + yOffset, transform.position.z);
+        transform.position = new Vector3(transform.position.x, CameraController.Instance.virtualCamera.transform.position.y + yOffset, 0);
     }
 }
