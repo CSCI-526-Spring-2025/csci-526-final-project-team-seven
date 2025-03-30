@@ -45,6 +45,12 @@ public class EnemyManager : MonoBehaviour
         enemyView.Init("Enemy_0" + (suffix + 1),level);
         return enemyView;
     }
+    public EnemyView GenerateSpecificEnemy(int suffix, Vector3 position)
+    {
+        var enemyView = Instantiate(enemyPrefabs[suffix], enemyContainer).GetComponent<EnemyView>();
+        enemyView.Init("Enemy_0" + (suffix + 1), position);
+        return enemyView;
+    }
     private void Start()
     {
         if (!Tutorial.Instance.tutorial)
@@ -67,7 +73,7 @@ public class EnemyManager : MonoBehaviour
         if (!bossSpawned && LevelManager.Instance.WaveHasBoss())
         {
             bossSpawned = true;
-            spawnBoss();
+            SpawnBoss();
         }
 
         while (true)
@@ -89,7 +95,7 @@ public class EnemyManager : MonoBehaviour
         return 1f/calculatedInterval;
     }
 
-    private void spawnBoss()
+    private void SpawnBoss()
     {
         var boss = Instantiate(bossPrefab, enemyContainer);
         var bossView = boss.GetComponent<EnemyView>();
@@ -97,7 +103,7 @@ public class EnemyManager : MonoBehaviour
         bossRef = boss;
     }
 
-    public void stopSpawn()
+    public void StopSpawn()
     {
         if (spawnCoroutine != null)
         {
