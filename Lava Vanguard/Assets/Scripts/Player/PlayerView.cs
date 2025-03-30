@@ -91,36 +91,9 @@ public class PlayerView : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.name == "wave_platform")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-
-            // The player jumps on the wave platform
-            if (collision.gameObject.name == "wave_platform")
-            {
-                // should be safe
-                if (collision.GetContact(0).normal.y > 0.5f && !LevelManager.Instance.BreakTime)
-                {
-                    Debug.Log("Player on the wave platform");
-                    LevelManager.Instance.BreakTime = true;
-                    LevelManager.Instance.BeforeNextWave();
-                    CameraController.Instance.UpdateDistance(LevelGenerator.Instance.WavePlatform.transform);
-                }
-            }
-            // else if (LevelGenerator.Instance.WavePlatform && LevelManager.Instance.BreakTime)
-            // {
-            //     // Once the player jumps on the first ground, start next wave
-            //     var p = LevelGenerator.Instance.WavePlatform;
-            //     foreach (var contact in collision.contacts)
-            //     {
-            //         if (contact.normal.y > 0.5f) {
-            //             CameraController.Instance.ResumeCamera();
-            //             LevelManager.Instance.NextWave();
-            //             LevelManager.Instance.BreakTime = false;
-            //             break;
-            //         }
-            //     }
-            // }
         }
     }
 

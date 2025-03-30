@@ -55,32 +55,10 @@ public class CameraController : MonoBehaviour
             {
                 targetPosition.y += currentCamSpeedY * Time.deltaTime;
             }
-
-            if (LevelGenerator.Instance.WavePlatform) {
-                var p = LevelGenerator.Instance.WavePlatform;
-                if (p.transform.position.y < cameraTransform.position.y - 3.5) {
-                    currentCamSpeedY = 0;
-                }
-            }
-        }
-        // 
-        if (player.transform.position.x > targetPosition.x + cameraFollowDistance)
-        {
-            targetPosition.x = player.transform.position.x - cameraFollowDistance;
-        }
-        else if (player.transform.position.x < targetPosition.x - cameraFollowDistance)
-        {
-            targetPosition.x = player.transform.position.x + cameraFollowDistance;
         }
         //Virtual Camera 
         cameraTransform.position = targetPosition;
         OnCameraUpdated?.Invoke();
-    }
-    private void Update()
-    {
-        // Check if the 'R' key is pressed down
-        if (Input.GetKeyDown(KeyCode.R))
-            CameraShake(0.25f, 0.3f, 10);
     }
 
     /// <summary>
