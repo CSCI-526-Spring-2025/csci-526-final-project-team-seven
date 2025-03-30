@@ -13,6 +13,11 @@ public abstract class EnemyView : MonoBehaviour
         enemyData = GameDataManager.EnemyData[ID];
         transform.position = GetSpawnPosition();
     }
+    public virtual void Init(string ID, Vector3 position)
+    {
+        enemyData = GameDataManager.EnemyData[ID];
+        transform.position = position;
+    }
 
     protected abstract void Approching();
     protected abstract Vector3 GetSpawnPosition();

@@ -52,7 +52,7 @@ public class LevelManager : MonoBehaviour
     {
         // kill all enemies, then fast forward
         Debug.Log("before next wave");
-        EnemyManager.Instance.stopSpawn();
+        EnemyManager.Instance.StopSpawn();
         EnemyManager.Instance.killAll();
         UpdateWave();
     }

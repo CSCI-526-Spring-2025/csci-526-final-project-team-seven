@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +23,23 @@ public class PlatformGenerator : MonoBehaviour
     {
         Instance = this;
     }
-    private void GenerateOneLayer()
+    public void GenerateOneLayer(bool[] preset)
     {
+        var layer = new PlatformView[3];
+        for (int i = 0; i < preset.Length; i++)
+        {
+            if (preset[i])
+            {
+                layer[i] = CreatePlatform(i);
+            }
+        }
+        platforms.Add(layer);
+        layerIndex++;
+    }
+    public void GenerateOneLayer()
+    {
+        
+
         // 65% chance to generate one platform, 35% chance to generate two platforms
         float rand = Random.Range(0f, 1f);
         int r = (rand < 0.65f) ? 1 : 2;
@@ -62,13 +78,13 @@ public class PlatformGenerator : MonoBehaviour
                 if (lastLayer[1] != null)
                 {
                     int p = validPositions[Random.Range(0, validPositions.Count)];
-                    layer[p] = CreatePlatform(p, layerIndex);
+                    layer[p] = CreatePlatform(p);
                 }
                 else if (lastLayer[0] != null || lastLayer[2] != null)
                 {
                     if (validPositions.Contains(1))
                     {
-                        layer[1] = CreatePlatform(1, layerIndex);
+                        layer[1] = CreatePlatform(1);
                     }
                 }
             }
@@ -79,7 +95,7 @@ public class PlatformGenerator : MonoBehaviour
                 {
                     if (i != p)
                     {
-                        layer[i] = CreatePlatform(i, layerIndex);
+                        layer[i] = CreatePlatform(i);
                     }
                 }
             }
@@ -104,7 +120,7 @@ public class PlatformGenerator : MonoBehaviour
         }
     }
 
-    private PlatformView CreatePlatform(int column, int layerIndex)
+    public PlatformView CreatePlatform(int column)
     {
         // Small random offset of -0.5, 0, or 0.5 for variation
         float offsetX = new float[] { -0f, 0f, 0f }[Random.Range(0, 3)];
@@ -151,16 +167,17 @@ public class PlatformGenerator : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-
         Init();
+        // Set the next generation threshold
+        nextGenerateY = mainCamera.transform.position.y + IntervalY;
+    }
+    public void StartGenerating()
+    {
         // Generate the first 4 layers at the beginning
         for (int i = 0; i < 4; i++)
         {
             GenerateOneLayer();
         }
-
-        // Set the next generation threshold
-        nextGenerateY = mainCamera.transform.position.y + IntervalY;
     }
     private void Update()
     {

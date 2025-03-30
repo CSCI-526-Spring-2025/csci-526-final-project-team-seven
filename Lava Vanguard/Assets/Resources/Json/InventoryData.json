@@ -4,51 +4,6 @@
             "ID": 0,
             "CardID": "Card_Bullet01",
             "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_Bullet02",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_Bullet03",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_Bullet04",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_DamageUp",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_Bullet05",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_SpeedUp",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_SpeedUp",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_HealthUp",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_HealthUp",
-            "Level": 1
         }
     ]
 }

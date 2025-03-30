@@ -8,7 +8,7 @@ public class PlayerView : MonoBehaviour
     [HideInInspector]
     private PlayerData playerData;
     private Rigidbody2D rb;
-    private bool isGrounded = false;
+    public bool isGrounded = false;
     private bool isJumping = false;
     private float jumpTempTime = 0.0f;
     
