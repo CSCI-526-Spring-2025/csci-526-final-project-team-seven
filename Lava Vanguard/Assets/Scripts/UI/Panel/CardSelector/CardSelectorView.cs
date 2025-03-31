@@ -23,7 +23,7 @@ public class CardSelectorView : MonoBehaviour
         this.title.text = data.Title;
         this.description.text = data.Description;
 
-        this.cardView.Init(null, data, new CardRankData());
+        this.cardView.Init(null, data, rankData);
 
         this.data = data;
         this.rankData = rankData;

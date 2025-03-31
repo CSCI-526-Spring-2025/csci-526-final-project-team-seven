@@ -80,7 +80,7 @@ public class EnemyView_03 : EnemyView
             float rad = i * (360f / (1f * splitCount))*Mathf.Deg2Rad;
             Vector3 offset=new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0) * splitRadius;
             Vector3 spawnLocation = parentPosition + offset;
-            var enemyView = EnemyManager.Instance.GenerateSpecificEnemy(0);
+            var enemyView=EnemyManager.Instance.GenerateSpecificEnemy(0,level);
             enemyView.transform.position = spawnLocation;
         }
     }

@@ -5,12 +5,14 @@ using UnityEngine;
 // 普通
 public class BulletView05 : BulletView
 {
-    protected override void SetupBullet()
+    private int moreCoin = 1;
+    protected override void SetupBullet(int level)
     {
         lifeDistance = 8.0f;
         detectionRange = 8.0f;
         speed = 15f;
-        attack = 2;
+        attack = level+1;
+        moreCoin = level;
         SetFireDirection();
         ApplyInitialRotation();
     }
@@ -43,8 +45,7 @@ public class BulletView05 : BulletView
             bool killed = false;
             if (enemy != null)
             {
-                int roundedDamage = Mathf.RoundToInt(attack * damageMultiplier);
-                killed = enemy.TakeHit(roundedDamage);
+                killed = enemy.TakeHit(attack);
             }
             else
             {
@@ -52,7 +53,7 @@ public class BulletView05 : BulletView
             }
             if (killed)
             {
-                PlayerManager.Instance.playerView.GainCoin(1);//do not hard code
+                PlayerManager.Instance.playerView.GainCoin(moreCoin);//do not hard code
                 UIGameManager.Instance.UpdateCoin();
             }
             Destroy(gameObject);

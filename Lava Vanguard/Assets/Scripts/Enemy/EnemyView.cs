@@ -8,9 +8,14 @@ public abstract class EnemyView : MonoBehaviour
     protected float SpawnDistance = 1.2f;
     public GameObject deathEffect;
     public SpriteRenderer spriteRenderer;
-    public virtual void Init(string ID)
+    protected int level;
+    public virtual void Init(string ID,int level)
     {
+        this.level = level;
+        spriteRenderer.color = ColorCenter.CardColors["Boss" + level];
         enemyData = GameDataManager.EnemyData[ID];
+        enemyData.Health *= level;
+        //Debug.Log("Enemy " + ID + " " + level);
         transform.position = GetSpawnPosition();
     }
     public virtual void Init(string ID, Vector3 position)
