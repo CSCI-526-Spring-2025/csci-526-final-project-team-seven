@@ -84,7 +84,7 @@ public class EnemyManager : MonoBehaviour
 
         while (true)
         {
-            GenerateRandomEnemy(LevelManager.Instance.wave/2+1);
+            GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave/2+1,9));
             float waitTime = CalculateSpawnInterval();
             yield return new WaitForSeconds(waitTime);
         }
