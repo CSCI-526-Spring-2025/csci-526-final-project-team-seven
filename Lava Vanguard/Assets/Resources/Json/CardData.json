@@ -25,7 +25,7 @@
     },
     "Card_Bullet02": {
         "ID": "Card_Bullet02",
-        "Title": "Bullet 02",
+        "Title": "Split",
         "Description": "Go big and go home.",
         "Cost": 10,
         "Type": "Bullet",
@@ -37,7 +37,7 @@
     },
     "Card_Bullet03": {
         "ID": "Card_Bullet03",
-        "Title": "Bullet 03",
+        "Title": "Strike",
         "Description": "Strike!",
         "Cost": 10,
         "Type": "Bullet",
@@ -49,7 +49,7 @@
     },
     "Card_Bullet04": {
         "ID": "Card_Bullet04",
-        "Title": "Bullet 04",
+        "Title": "Area Attack",
         "Description": "Area attack!",
         "Cost": 10,
         "Type": "Bullet",
@@ -71,10 +71,10 @@
         "Draggable": true,
         "Collectable": true
     },
-    "Card_DamageUp": {
-        "ID": "Card_DamageUp",
-        "Title": "Damage Up",
-        "Description": "Increase all bullets' damage by 2 whithin its 3x3 area.",
+    "Card_LevelUp": {
+        "ID": "Card_LevelUp",
+        "Title": "Level Up",
+        "Description": "Increase all bullets' level whithin its 3x3 area.",
         "Cost": 10,
         "Type": "Functional",
         "Background": "Background_Normal",

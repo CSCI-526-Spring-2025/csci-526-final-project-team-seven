@@ -13,7 +13,7 @@ public class EnemyView_Boss_01_Bullet : EnemyView
 
     public void Init(string ID,Vector3 startPosition,Vector3 direction,Quaternion rotation)
     {
-        base.Init(ID);
+        base.Init(ID,1);
         transform.position = startPosition;
         transform.rotation = rotation;
         this.startPosition = startPosition;

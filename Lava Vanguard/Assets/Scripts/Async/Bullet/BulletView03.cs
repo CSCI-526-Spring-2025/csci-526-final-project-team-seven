@@ -6,11 +6,11 @@ using UnityEngine;
 public class BulletView03 : BulletView
 {
 
-    protected override void SetupBullet()
+    protected override void SetupBullet(int level)
     {
         detectionRange = lifeDistance = 20.0f;
         speed = 30f;
-        attack = 3;
+        attack = 3+level*2;
         SetFireDirection();
         ApplyInitialRotation();
     }
@@ -42,8 +42,7 @@ public class BulletView03 : BulletView
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {
-                int roundedDamage = Mathf.RoundToInt(attack * damageMultiplier);
-                enemy.TakeHit(roundedDamage);
+                enemy.TakeHit(attack);
             }
             Destroy(gameObject);
         }

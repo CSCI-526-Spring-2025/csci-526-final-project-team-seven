@@ -53,7 +53,12 @@ public class SlotManager : MonoBehaviour
 
         for (int i = 0; i < ROW; i++)
             for (int j = 0; j < COL; j++)
-                slotViews[i, j].damageMultiplier = 1.0f;
+            {
+                if (slotViews[i, j].content != null)
+                {
+                    slotViews[i, j].content.cardRankData.Level = 1;
+                }
+            }
         PlayerManager.Instance.playerView.ResetSpeed();
         int currentHP = PlayerManager.Instance.playerView.GetHP();
         PlayerManager.Instance.playerView.ResetHealthLimit();
@@ -66,14 +71,14 @@ public class SlotManager : MonoBehaviour
                 {
                     switch (content.cardSpriteData.ID) 
                     {
-                        case "Card_DamageUp":
+                        case "Card_LevelUp":
                             for (int k = i - 1; k <= i + 1; k++)
                             {
                                 for (int l = j - 1; l <= j + 1; l++)
                                 {
-                                    if (k < 0 || l < 0 || k >= ROW || l >= COL)
+                                    if ((k==i&&l==j) || k < 0 || l < 0 || k >= ROW || l >= COL || slotViews[k, l].content == null)
                                         continue;
-                                    slotViews[k, l].damageMultiplier *= 2f;
+                                    slotViews[k, l].content.cardRankData.Level++;
                                 }
                             }
                             break;
@@ -88,7 +93,6 @@ public class SlotManager : MonoBehaviour
             }
         }
 
-
         for (int i = 0; i < ROW; i++)
         {
             for (int j = 0; j < COL; j++)
@@ -99,7 +103,8 @@ public class SlotManager : MonoBehaviour
                     var content = slot.content;
                     if (content.cardSpriteData.Type == "Bullet")
                     {
-                        sequence.AppendCallback(() => BulletManager.Instance.GenerateBullet(content.cardRankData, slot.damageMultiplier));
+                        content.content.color =ColorCenter.CardColors["Bullet"+content.cardRankData.Level];
+                        sequence.AppendCallback(() => BulletManager.Instance.GenerateBullet(content));
                     }
                 }
                 sequence.AppendInterval(0.05f);

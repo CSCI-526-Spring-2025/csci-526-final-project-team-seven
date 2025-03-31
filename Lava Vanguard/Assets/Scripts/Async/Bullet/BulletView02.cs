@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 // 散射
@@ -8,13 +9,18 @@ public class BulletView02 : BulletView
     protected float splitDistance = 1f;
     protected bool isSplited = false;
     protected float splitAngle = 30f;
+    protected int splitCount = 2;
+    protected int splitAttack = 2;
 
-    protected override void SetupBullet()
+    protected override void SetupBullet(int level)
     {
         lifeDistance = 15.0f;
         detectionRange = 10.0f;
         speed = 10f;
-        attack = 3;
+
+        attack = 2+level;
+        splitAttack = level;
+        splitCount = 1 + level;
         if (!isSplited)
         {
             SetFireDirection();
@@ -51,24 +57,18 @@ public class BulletView02 : BulletView
     private void SplitBullet()
     {
         Transform container = transform.parent;
-        float[] angles = { 0, splitAngle, -splitAngle };
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < splitCount; i++)
         {
             GameObject bulletObject = Instantiate(gameObject, transform.position, Quaternion.identity, container);
             BulletView02 bullet = bulletObject.GetComponent<BulletView02>();
-            bullet.MakeSmall();
-            bullet.fireDirection= Quaternion.Euler(0, 0, angles[i]) * fireDirection;
-            bullet.speed = speed;
+            bullet.Init(level);
+            bullet.isSplited = true;
+            bullet.attack = splitAttack;
+            bullet.transform.localScale *= 0.5f;
+            float angle = splitAngle*(i - (splitCount - 1) / 2f);
+            bullet.fireDirection= Quaternion.Euler(0, 0, angle) * fireDirection;
         }
         Destroy(gameObject);
-    }
-
-    private void MakeSmall()
-    {
-        if (isSplited) return; 
-        isSplited = true;
-        transform.localScale *= 0.5f;
-        attack = attack * 2 / 3;
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
@@ -79,12 +79,12 @@ public class BulletView02 : BulletView
         }
         if (other.CompareTag("Enemy"))
         {
+            //Debug.Log("Split Hit: "+attack);
             hasHit = true;
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {
-                int roundedDamage = Mathf.RoundToInt(attack * damageMultiplier);
-                enemy.TakeHit(roundedDamage);
+                enemy.TakeHit(attack);
             }
             Destroy(gameObject);
         }

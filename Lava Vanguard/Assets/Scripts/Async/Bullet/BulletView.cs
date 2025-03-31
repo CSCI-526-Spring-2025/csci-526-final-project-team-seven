@@ -11,20 +11,21 @@ public abstract class BulletView : MonoBehaviour
     protected bool hasTarget = false;
     protected float detectionRange = 10.0f;
     protected bool hasHit = false;
-    public float damageMultiplier = 1;
+    public int level = 1;
     public float speed = 1.0f;
     public float lifeDistance = 30.0f;
     public LayerMask enemyLayer;
     
 
-    // Start is called before the first frame update
-    void Start()
+    // Initialize the bullet with their level
+    public void Init(int level)
     {
+        this.level = level;
         startPosition = transform.position;
-        SetupBullet();
+        SetupBullet(level);
     }
 
-    protected abstract void SetupBullet();
+    protected abstract void SetupBullet(int level);
 
     // Update is called once per frame
     protected virtual void Update()

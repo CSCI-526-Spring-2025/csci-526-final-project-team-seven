@@ -22,7 +22,47 @@
         },
         {
             "ID": 0,
-            "CardID": "Card_DamageUp",
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
+            "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_LevelUp",
             "Level": 1
         },
         {

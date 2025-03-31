@@ -89,7 +89,7 @@ public class LevelManager : MonoBehaviour
     public void BeforeNextWave()
     {
         // kill all enemies, then fast forward
-        Debug.Log("before next wave");
+        //Debug.Log("before next wave");
         EnemyManager.Instance.stopSpawn();
         EnemyManager.Instance.killAll();
         wave++;
@@ -98,7 +98,7 @@ public class LevelManager : MonoBehaviour
 
     public bool WaveHasBoss()
     {
-        return wave >= 1;
+        return wave >= 5;
     }
 
     private bool ShouldShowPanel()
