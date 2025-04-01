@@ -32,6 +32,14 @@ public class ColorCenter
         {"Boss9", new Color(1f, 0.4f, 0.3f)}
 
     };
+
+    public static Dictionary<string, Color> CardTypeColors = new Dictionary<string, Color>()
+    {
+        {"Functional", new Color(22/255f,196/255f,255/255f) },
+        {"Health",new Color(1f,0f,0f) },
+        {"Bullet", new Color(1f, 1f, 1f)},
+    };
+
     public static Dictionary<string, Color> SelectorPanelColors = new Dictionary<string, Color>()
     {
         {"Green",new Color(89/255f,160/255f,49/255f) },
