@@ -8,18 +8,23 @@ public class PlayerManager : MonoBehaviour
     public PlayerView playerView;
     public static PlayerManager Instance { get; private set; }
     [HideInInspector] public bool canControl = true;
-    void Awake()
+    private void Awake()
     {
         Instance = this;
-        canControl = true;
+        canControl = false;
     }
 
-    void Start()
+    private void Start()
     {
         playerView.Init();
     }
-
-    void Update()
+    public void Init()
+    {
+        canControl = true;
+        playerView.gameObject.SetActive(true);
+        
+    }
+    private void Update()
     {
         if (!canControl) return;
         Move();
@@ -27,7 +32,7 @@ public class PlayerManager : MonoBehaviour
         UpdateInvincible();
     }
 
-    void Move()
+    private void Move()
     {
         if (Input.GetKey(KeyCode.A))
         {
@@ -43,7 +48,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    void Jump()
+    private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
         {
@@ -63,9 +68,9 @@ public class PlayerManager : MonoBehaviour
     public void GetHurt(int damage,bool mustKilled=false)
     {
         playerView.UpdateHealth(damage,mustKilled);
-    } 
+    }
 
-    void UpdateInvincible()
+    private void UpdateInvincible()
     {
         playerView.UpdateInvincible();
     }

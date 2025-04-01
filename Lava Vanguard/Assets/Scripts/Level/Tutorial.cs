@@ -18,7 +18,7 @@ public class Tutorial : MonoBehaviour
     {
         Instance = this;
     }
-    private void Start()
+    public void Init()
     {
         if (!tutorial)
         {
@@ -27,6 +27,8 @@ public class Tutorial : MonoBehaviour
             cnt = 7;
             PlatformGenerator.Instance.StartGenerating();
             LevelManager.Instance.NextWave();
+            Lava.Instance.SetCameraDistance(5);
+            CameraController.Instance.StartMove();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
             EndTutorial();
         }
@@ -35,7 +37,6 @@ public class Tutorial : MonoBehaviour
             cnt++;
             SetTutorialGameObject();
         }
-
     }
     private void Update()
     {

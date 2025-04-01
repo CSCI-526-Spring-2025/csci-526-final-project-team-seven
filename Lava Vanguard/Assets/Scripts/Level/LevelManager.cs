@@ -19,7 +19,6 @@ public class LevelManager : MonoBehaviour
     }
 
     
-
     private void ResetTimer()
     {
         time = TotalTime[Mathf.Min(wave, TotalTime.Length - 1)];

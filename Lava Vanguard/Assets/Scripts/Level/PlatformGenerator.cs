@@ -155,7 +155,7 @@ public class PlatformGenerator : MonoBehaviour
     private float nextGenerateY; // The Y position where the next platform should be generated
     private Camera mainCamera;
 
-    private void Init()
+    public void Init()
     {
         var layer = new PlatformView[3] { null, null, null };
         var init = Instantiate(platformPrefab, platformContainer).GetComponent<PlatformView>();
@@ -167,8 +167,7 @@ public class PlatformGenerator : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        Init();
-        // Set the next generation threshold
+        //Init();
         nextGenerateY = mainCamera.transform.position.y + IntervalY;
     }
     public void StartGenerating()
