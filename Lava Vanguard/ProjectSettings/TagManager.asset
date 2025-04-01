@@ -47,10 +47,10 @@ TagManager:
   - name: Ground
     uniqueID: 3866477289
     locked: 0
-  - name: Enemy
+  - name: Lava
     uniqueID: 2258600823
     locked: 0
-  - name: Lava
+  - name: Enemy
     uniqueID: 2764511467
     locked: 0
   - name: Bullet
