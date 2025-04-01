@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
 
     public bool WaveHasBoss()
     {
-        return wave >= 1;
+        return wave >= 5;
     }
     public void NextWave()
     {

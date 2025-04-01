@@ -34,19 +34,20 @@ public class EnemyManager : MonoBehaviour
         
     }
 
-    public EnemyView GenerateRandomEnemy()
+    public EnemyView GenerateRandomEnemy(int level)
     {
         int suffix = Random.Range(0, enemyPrefabs.Length);
         var enemyView = Instantiate(enemyPrefabs[suffix],enemyContainer).GetComponent<EnemyView>();
-        enemyView.Init("Enemy_0" + (suffix + 1));
+        enemyView.Init("Enemy_0" + (suffix + 1),level);
         enemyViews.Add(enemyView);
         return enemyView;
     }
 
-    public EnemyView GenerateSpecificEnemy(int suffix)
+    public EnemyView GenerateSpecificEnemy(int suffix,int level)
     {
         var enemyView = Instantiate(enemyPrefabs[suffix], enemyContainer).GetComponent<EnemyView>();
-        enemyView.Init("Enemy_0" + (suffix + 1));
+
+       enemyView.Init("Enemy_0" + (suffix + 1),level);
         enemyViews.Add(enemyView);
         return enemyView;
     }
@@ -84,7 +85,7 @@ public class EnemyManager : MonoBehaviour
 
         while (true)
         {
-            GenerateRandomEnemy();
+            GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave/2+1,9));
             float waitTime = CalculateSpawnInterval();
             yield return new WaitForSeconds(waitTime);
         }
@@ -98,7 +99,6 @@ public class EnemyManager : MonoBehaviour
         float maxSpawnCount = 1f / minSpawnInterval;
 
         float calculatedInterval = minSpawnCount + (maxSpawnCount - minSpawnCount) * (safeCardCount - 1f) / (maxLevel - 1f);
-        //Debug.Log("currentlevel " + currentlevel + " --- "+calculatedInterval+" -- "+minSpawnCount+" -- "+maxSpawnCount);
         return 1f/calculatedInterval;
     }
 
@@ -106,7 +106,7 @@ public class EnemyManager : MonoBehaviour
     {
         var boss = Instantiate(bossPrefab, enemyContainer);
         var bossView = boss.GetComponent<EnemyView>();
-        bossView.Init("Enemy_Boss_01");
+        bossView.Init("Enemy_Boss_01",1);
         bossRef = boss;
     }
 
@@ -114,7 +114,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (spawnCoroutine != null)
         {
-            Debug.Log("stop");
+            //Debug.Log("stop");
             StopCoroutine(spawnCoroutine);
         }
     }

@@ -34,9 +34,9 @@ public class EnemyView_Boss_01 : EnemyView
     public GameObject bulletPrefab;
     private float bulletInterval = 0.1f;
     private int bulletCount = 36;
-    public override void Init(string ID)
+    public override void Init(string ID,int level)
     {
-        base.Init(ID);
+        base.Init(ID,level);
         UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth;
         UIGameManager.Instance.bossHPBar.value = enemyData.Health;
         UIGameManager.Instance.bossHPBar.gameObject.SetActive(false);

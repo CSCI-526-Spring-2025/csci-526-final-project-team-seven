@@ -8,11 +8,19 @@ public class BulletView04 : BulletView
     private float initialSurviveTime;
     private float surviveTime;
     private PolygonCollider2D hexCollider;
-    protected override void SetupBullet()
+    protected override void SetupBullet(int level)
     {
+        var sr = GetComponent<SpriteRenderer>();
+        Color c = sr.color;
+        c.a = 0.5f;
+        sr.color = c;
         attack = 1;
+
         initialSurviveTime = surviveTime = 0.5f;
         hexCollider=GetComponent<PolygonCollider2D>();
+
+        float scaleFactor = 3f + level*0.5f;
+        transform.localScale = Vector3.one * scaleFactor;
     }
     protected override void MoveBullet()
     {
@@ -34,8 +42,7 @@ public class BulletView04 : BulletView
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {
-                int roundedDamage = Mathf.RoundToInt(attack * damageMultiplier);
-                enemy.TakeHit(roundedDamage);
+                enemy.TakeHit(attack);
             }
         }
     }
