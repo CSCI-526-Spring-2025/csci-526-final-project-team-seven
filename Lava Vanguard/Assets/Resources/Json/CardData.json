@@ -71,6 +71,18 @@
         "Draggable": true,
         "Collectable": true
     },
+    "Card_Bullet06": {
+        "ID": "Card_Bullet06",
+        "Title": "Bullet 06",
+        "Description": "Get HP back when hit the enemy.",
+        "Cost": 15,
+        "Type": "Bullet",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_Bullet06",
+        "Draggable": true,
+        "Collectable": true
+    },
     "Card_DamageUp": {
         "ID": "Card_DamageUp",
         "Title": "Damage Up",

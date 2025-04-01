@@ -91,6 +91,16 @@ public class PlayerView : MonoBehaviour
         }
     }
 
+    public void Recover(){
+
+        if(playerData.health < 10){
+            playerData.health += 1;
+            UIGameManager.Instance.UpdateHp();
+        }
+        // playerData.health += 1;
+        // UIGameManager.Instance.UpdateHp();
+    }
+
     public void UpdateHealth(int damage, bool mustKilled = false)
     {
         if (mustKilled)

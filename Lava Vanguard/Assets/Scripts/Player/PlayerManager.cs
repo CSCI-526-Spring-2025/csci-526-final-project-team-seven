@@ -64,6 +64,10 @@ public class PlayerManager : MonoBehaviour
         playerView.UpdateHealth(damage,mustKilled);
     } 
 
+    public void GetHPBack(){
+        playerView.Recover();
+    }
+
     void UpdateInvincible()
     {
         playerView.UpdateInvincible();

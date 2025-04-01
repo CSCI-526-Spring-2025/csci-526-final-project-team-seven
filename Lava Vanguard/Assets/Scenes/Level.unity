@@ -1875,6 +1875,7 @@ MonoBehaviour:
   - {fileID: 7397666833938694871, guid: d9b706d749baaf54d9990e8c2925be95, type: 3}
   - {fileID: 7397666833938694871, guid: fa6d2d515f4bb85428949c40acfd00ff, type: 3}
   - {fileID: 7397666833938694871, guid: 8d5f273f36b1ed248a3f312a69de7306, type: 3}
+  - {fileID: 7397666833938694871, guid: fee1e25fcb3914a96b397b3281277201, type: 3}
 --- !u!1 &835831352
 GameObject:
   m_ObjectHideFlags: 0
@@ -4999,7 +5000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9281ffccd1cc7d4eb821e5dcf453471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorial: 0
+  tutorial: 1
   tutorialText: {fileID: 582901170}
   tutorialCanvas: {fileID: 1220686402}
   basicUI: {fileID: 494574888}
