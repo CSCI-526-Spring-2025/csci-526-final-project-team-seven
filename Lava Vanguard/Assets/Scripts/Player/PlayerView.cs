@@ -1,4 +1,5 @@
 using Async;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class PlayerView : MonoBehaviour
     [HideInInspector]
     private PlayerData playerData;
     private Rigidbody2D rb;
-    public bool isGrounded = false;
+    public bool isGround = false;
     private bool isJumping = false;
     private float jumpTempTime = 0.0f;
     
@@ -66,12 +67,12 @@ public class PlayerView : MonoBehaviour
 
     public void JumpStart()
     {
-        if (isGrounded)
+        if (isGround)
         {
             isJumping = true;
             jumpTempTime = playerData.jumpAirTime;
             rb.velocity = new Vector2(rb.velocity.x, playerData.jumpForce);
-            isGrounded = false;
+            isGround = false;
         }
     }
 
@@ -93,7 +94,7 @@ public class PlayerView : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isGrounded = true;
+            isGround = true;
         }
     }
 

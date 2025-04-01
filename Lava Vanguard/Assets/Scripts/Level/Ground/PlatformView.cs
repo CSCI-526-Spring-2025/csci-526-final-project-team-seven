@@ -17,13 +17,16 @@ public class PlatformView : MonoBehaviour
     private void InitAnimation1(Vector2 size, Vector2 position)
     {
         backSpriteRenderer.size = size;
-        frontSpriteRenderer.size = size - Vector2.one * THICKNESS;
+        frontSpriteRenderer.size = size;
         transform.localPosition = position;
         List<Vector2> points = new List<Vector2>() {
             new Vector2(-size.x / 2, size.y / 2),
             new Vector2(size.x / 2, size.y / 2)
         };
         edgeCollider2D.SetPoints(points);
-        //transform.DOLocalMoveY(topCenterPosition.y - size.y / 2, 0.5f);
+        backSpriteRenderer.color = ColorCenter.platformFadeColor;
+        frontSpriteRenderer.color = ColorCenter.platformFadeColor;
+        backSpriteRenderer.DOFade(1, 0.5f);
+        frontSpriteRenderer.DOFade(1, 0.5f);
     }
 }
