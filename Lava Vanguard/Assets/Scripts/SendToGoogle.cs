@@ -41,7 +41,8 @@ public class SendToGoogle : MonoBehaviour
 
     public void Send()
     {
-        expLevel = -1234;
+        expLevel = LevelManager.Instance.wave;
+        Debug.Log("wave is: " + expLevel);
         finalHealth = PlayerManager.Instance.playerView.GetHP();
         if (Application.isEditor)
         {
