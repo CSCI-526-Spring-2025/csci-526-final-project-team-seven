@@ -38,7 +38,7 @@ public class Tooltip : MonoBehaviour
         {
             GameObject item = Instantiate(colorItemPrefab, layoutGroup.transform);
             item.SetActive(true);
-            
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
             Image colorImage = item.GetComponentInChildren<Image>();
             TMP_Text colorText = item.GetComponentInChildren<TMP_Text>();
             
