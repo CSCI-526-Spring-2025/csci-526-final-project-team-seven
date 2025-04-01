@@ -1,4 +1,5 @@
 using Async;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,85 +8,116 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
     public static Tutorial Instance { get; private set; }
+    public CanvasGroup[] tutorialGameObjects;
     public bool tutorial = true;
-    public TMP_Text tutorialText;
     public Canvas tutorialCanvas;
-    public GameObject basicUI;
-    private int cnt = 0;
+    public CanvasGroup basicUI;
+    public CanvasGroup basicUI2;
+    private int cnt = -1;
     private void Awake()
     {
         Instance = this;
     }
-    private void Start()
+    public void Init()
     {
         if (!tutorial)
         {
-            basicUI.SetActive(true);
-            cnt = 8;
-            tutorialText.text = "";
-            LevelManager.Instance.BeforeNextWave();
+            basicUI.alpha = 1;
+            basicUI2.alpha = 1;
+            cnt = 7;
+            PlatformGenerator.Instance.StartGenerating();
             LevelManager.Instance.NextWave();
+            Lava.Instance.SetCameraDistance(5);
+            CameraController.Instance.StartMove();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
+            EndTutorial();
         }
-
+        else
+        {
+            cnt++;
+            SetTutorialGameObject();
+        }
     }
     private void Update()
     {
-        if (cnt == 0 && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
-        {
-            LevelGenerator.Instance.StartGenerate();
-            tutorialText.text = "Good. Now press W/Space/K to jump.";
+        if (cnt == 0 && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))) 
+        { 
             cnt++;
+            SetTutorialGameObject();
+            PlatformGenerator.Instance.GenerateOneLayer(new bool[] { true, false, false });
+
         }
-        if (cnt == 1 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Space)))
+        if (cnt == 1 && PlayerManager.Instance.playerView.transform.position.y > -1 && PlayerManager.Instance.playerView.isGround)  
         {
-            tutorialText.text = "Press E to open your weapon editor.";
-            UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
             cnt++;
+            SetTutorialGameObject();
+            UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
+            //PlatformGenerator.Instance.GenerateOneLayer(new bool[] { false, true, false });
+            EnemyManager.Instance.GenerateSpecificEnemy(0, new Vector3(5, 5, 0));
         }
         if (cnt == 2 && UIGameManager.Instance.GetOpen<WeaponPanel>()) 
         {
+            cnt++;
+            SetTutorialGameObject();
             tutorialCanvas.sortingOrder = 3;
-            tutorialText.text = "Here you could DRAG cards to customize your weapon. Try dragging one card onto your weapon!";
-            basicUI.SetActive(true);
+            
             UIGameManager.Instance.SetCanClose<WeaponPanel>(false);
-            cnt++;
         }
-        if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 4)
+        if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 1)
         {
-            tutorialText.text = "WOW! You succseefully added one module! Different modules may have their connections. You could try adding more modules or press E to exit weapon panel directly.";
-            UIGameManager.Instance.SetCanClose<WeaponPanel>(true);
             cnt++;
+            SetTutorialGameObject();
+            UIGameManager.Instance.SetCanClose<WeaponPanel>(true);
+            
         }
         if (cnt == 4 && !UIGameManager.Instance.GetOpen<WeaponPanel>())
         {
+            cnt++;
+            SetTutorialGameObject();
             tutorialCanvas.sortingOrder = 1;
-            tutorialText.text = "Survive as long as possible!\nThe bullet will aim automatically.";
-            EnemyManager.Instance.StartSpawn();
-            LevelManager.Instance.BeforeNextWave();
-            LevelManager.Instance.NextWave();
-            cnt++;
         }
-        if (cnt == 5 && UIGameManager.Instance.GetOpen<CardSelectorPanel>()) 
+        if (cnt == 5 && EnemyManager.Instance.enemyViews.Count == 0) 
         {
-            tutorialText.text = "Survive as long as possible!";
             cnt++;
+            SetTutorialGameObject();
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.AppendInterval(1f);
+            sequence.AppendCallback(PlatformGenerator.Instance.GenerateOneLayer);
+            sequence.AppendInterval(1f);
+            sequence.AppendCallback(PlatformGenerator.Instance.GenerateOneLayer);
+            sequence.AppendInterval(1f);
+            sequence.AppendCallback(() =>
+            {
+                basicUI.DOFade(1, 0.5f);
+                basicUI2.DOFade(1, 0.5f);
+            });
+            sequence.AppendInterval(1f);
+            sequence.AppendCallback(() =>
+            {
+                PlatformGenerator.Instance.StartGenerating();
+                Lava.Instance.SetCameraDistance(5);
+                CameraController.Instance.StartMove();
+                LevelManager.Instance.NextWave();
+            });
         }
-        if (cnt == 6 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
+        if (cnt == 6)
         {
-            tutorialText.text = "Now avoid lava, kill enemies, keep going up and stay alive!";
-            CameraController.Instance.StartMove();
-            LevelGenerator.Instance.lava.SetCameraDistance(5);
             cnt++;
-        }
-        if (cnt == 7)
-        {
             Invoke("EndTutorial", 4f);
-            cnt++;
+            
         }
     }
     private void EndTutorial()
     {
-        tutorialText.text = "";
+        SetTutorialGameObject();
+    }
+    private void SetTutorialGameObject()
+    {
+        for (int i = 0; i < tutorialGameObjects.Length; i++) 
+        {
+
+            tutorialGameObjects[i].DOFade(i == cnt ? 1 : 0, 0.5f).SetUpdate(true);
+        }
     }
 }

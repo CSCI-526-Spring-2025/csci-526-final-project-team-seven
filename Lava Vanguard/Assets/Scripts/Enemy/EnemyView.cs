@@ -18,6 +18,11 @@ public abstract class EnemyView : MonoBehaviour
         //Debug.Log("Enemy " + ID + " " + level);
         transform.position = GetSpawnPosition();
     }
+    public virtual void Init(string ID, Vector3 position)
+    {
+        enemyData = GameDataManager.EnemyData[ID];
+        transform.position = position;
+    }
 
     protected abstract void Approching();
     protected abstract Vector3 GetSpawnPosition();
@@ -32,6 +37,7 @@ public abstract class EnemyView : MonoBehaviour
             StartCoroutine(DeathEffect());
             PlayerManager.Instance.playerView.GainCoin(enemyData.Coin);
             UIGameManager.Instance.UpdateCoin();
+            EnemyManager.Instance.enemyViews.Remove(this);
             Destroy(gameObject);
             CameraController.Instance.CameraShake(0.25f, 0.3f, 10);
             return true;
@@ -93,6 +99,7 @@ public abstract class EnemyView : MonoBehaviour
     public void ForceKill()
     {
         StartCoroutine(DeathEffect());
+        EnemyManager.Instance.enemyViews.Remove(this);
         Destroy(gameObject);
     }
 }

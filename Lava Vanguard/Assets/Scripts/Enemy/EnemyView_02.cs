@@ -39,8 +39,22 @@ public class EnemyView_02 : EnemyView
         Vector3 spawnPosition;
         do
         {
-            var g = LevelGenerator.Instance.grounds[Random.Range(0, LevelGenerator.Instance.grounds.Count)];
-            spawnPosition = g.transform.position + new Vector3(0, 0.25f, 0);
+            var g = PlatformGenerator.Instance.platforms[Random.Range(0, PlatformGenerator.Instance.platforms.Count)];
+
+            // Collect all non-null platforms in the selected layer
+            List<PlatformView> validPlatforms = new List<PlatformView>();
+            foreach (var platform in g)
+            {
+                if (platform != null)
+                {
+                    validPlatforms.Add(platform);
+                }
+            }
+
+            PlatformView chosenPlatform = validPlatforms[Random.Range(0, validPlatforms.Count)];
+            spawnPosition = chosenPlatform.transform.position + new Vector3(0, 0.5f, 0);
+
+
         } while (Vector3.Distance(playerPos, spawnPosition) < SpawnDistance);
         return spawnPosition;
     }
