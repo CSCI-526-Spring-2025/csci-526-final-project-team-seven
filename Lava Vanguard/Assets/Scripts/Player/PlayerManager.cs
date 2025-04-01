@@ -7,11 +7,11 @@ public class PlayerManager : MonoBehaviour
 {
     public PlayerView playerView;
     public static PlayerManager Instance { get; private set; }
+    [HideInInspector] public bool canControl = true;
     void Awake()
     {
         Instance = this;
-        //sessionID = DateTime.Now.Ticks;//generate unique id for forms
-        //startTime = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+        canControl = true;
     }
 
     void Start()
@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+        if (!canControl) return;
         Move();
         Jump();
         UpdateInvincible();

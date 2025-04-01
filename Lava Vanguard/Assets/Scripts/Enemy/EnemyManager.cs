@@ -4,20 +4,23 @@ using Math = System.Math;
 using Random = UnityEngine.Random;
 using System.Collections;
 using Async;
+using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour
 {
     
     public static EnemyManager Instance { get; private set; }
     public Transform enemyContainer;
-    //[HideInInspector]
+    
     public GameObject[] enemyPrefabs;
     public GameObject bossPrefab;
     public GameObject bossRef;
 
+    public List<EnemyView> enemyViews = new List<EnemyView>();
+
     [Header("Enemy Settings")]
     private float minSpawnInterval = 0.18f;
-    private float maxSpawnInterval = 2f;
+    private float maxSpawnInterval = 4f;
     private float maxLevel = 20f;
     private Coroutine spawnCoroutine;
     public bool bossSpawned = false;
@@ -36,6 +39,7 @@ public class EnemyManager : MonoBehaviour
         int suffix = Random.Range(0, enemyPrefabs.Length);
         var enemyView = Instantiate(enemyPrefabs[suffix],enemyContainer).GetComponent<EnemyView>();
         enemyView.Init("Enemy_0" + (suffix + 1));
+        enemyViews.Add(enemyView);
         return enemyView;
     }
 
@@ -43,12 +47,14 @@ public class EnemyManager : MonoBehaviour
     {
         var enemyView = Instantiate(enemyPrefabs[suffix], enemyContainer).GetComponent<EnemyView>();
         enemyView.Init("Enemy_0" + (suffix + 1));
+        enemyViews.Add(enemyView);
         return enemyView;
     }
     public EnemyView GenerateSpecificEnemy(int suffix, Vector3 position)
     {
         var enemyView = Instantiate(enemyPrefabs[suffix], enemyContainer).GetComponent<EnemyView>();
         enemyView.Init("Enemy_0" + (suffix + 1), position);
+        enemyViews.Add(enemyView);
         return enemyView;
     }
     private void Start()
@@ -87,7 +93,7 @@ public class EnemyManager : MonoBehaviour
     private float CalculateSpawnInterval()
     {
         int currentlevel = LevelManager.Instance.wave;
-        float safeCardCount = Mathf.Clamp(currentlevel, 1f, maxLevel);
+        float safeCardCount = Mathf.Clamp(currentlevel, 2f, maxLevel);
         float minSpawnCount = 1f / maxSpawnInterval;
         float maxSpawnCount = 1f / minSpawnInterval;
 

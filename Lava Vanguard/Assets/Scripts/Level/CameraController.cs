@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public static event Action OnCameraUpdated;
 
     public GameObject player;
-    private float currentCamSpeedY;
+    private float currentSpeedY;
     public float cameraSpeedY = 0.3f;
     public float cameraFollowDistance = 5.0f;
     private float remainingDistance = -1f;
@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        currentCamSpeedY = cameraSpeedY;
+        currentSpeedY = cameraSpeedY;
         if (!Tutorial.Instance.tutorial)
             StartMove();
         noiseProfile = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
             }
             else
             {
-                targetPosition.y += currentCamSpeedY * Time.deltaTime;
+                targetPosition.y += currentSpeedY * Time.deltaTime;
             }
         }
         //Virtual Camera 
@@ -91,12 +91,12 @@ public class CameraController : MonoBehaviour
 
     public void StopCamera()
     {
-        currentCamSpeedY = 0;
+        currentSpeedY = 0;
     }
 
     public void ResumeCamera()
     {
-        currentCamSpeedY = cameraSpeedY;
+        currentSpeedY = cameraSpeedY;
     }
 
     public void UpdateDistance(Transform transform)
@@ -107,6 +107,6 @@ public class CameraController : MonoBehaviour
 
     public bool CameraStopped()
     {
-        return currentCamSpeedY == 0f;
+        return currentSpeedY == 0f;
     }
 }

@@ -1,4 +1,5 @@
 using Async;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,12 +8,11 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
     public static Tutorial Instance { get; private set; }
-    public GameObject[] tutorialGameObjects;
+    public CanvasGroup[] tutorialGameObjects;
     public bool tutorial = true;
-    //public TMP_Text tutorialText;
     public Canvas tutorialCanvas;
-    public GameObject basicUI;
-    private int cnt = 0;
+    public CanvasGroup basicUI;
+    private int cnt = -1;
     private void Awake()
     {
         Instance = this;
@@ -21,13 +21,17 @@ public class Tutorial : MonoBehaviour
     {
         if (!tutorial)
         {
-            basicUI.SetActive(true);
-            cnt = 6;
+            basicUI.alpha = 1;
+            cnt = 7;
             PlatformGenerator.Instance.StartGenerating();
-            LevelManager.Instance.BeforeNextWave();
             LevelManager.Instance.NextWave();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
             EndTutorial();
+        }
+        else
+        {
+            cnt++;
+            SetTutorialGameObject();
         }
 
     }
@@ -40,21 +44,20 @@ public class Tutorial : MonoBehaviour
             PlatformGenerator.Instance.GenerateOneLayer(new bool[] { true, false, false });
 
         }
-        if (cnt == 1 && PlayerManager.Instance.playerView.transform.position.y > -1 && PlayerManager.Instance.playerView.isGrounded)  
+        if (cnt == 1 && PlayerManager.Instance.playerView.transform.position.y > -1 && PlayerManager.Instance.playerView.isGround)  
         {
             cnt++;
             SetTutorialGameObject();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
             //PlatformGenerator.Instance.GenerateOneLayer(new bool[] { false, true, false });
-            EnemyManager.Instance.GenerateSpecificEnemy(0, Vector3.zero);
+            EnemyManager.Instance.GenerateSpecificEnemy(0, new Vector3(5, 5, 0));
         }
         if (cnt == 2 && UIGameManager.Instance.GetOpen<WeaponPanel>()) 
         {
             cnt++;
             SetTutorialGameObject();
             tutorialCanvas.sortingOrder = 3;
-            //tutorialText.text = "Here you could DRAG cards to customize your weapon. Try dragging one card onto your weapon!";
-            basicUI.SetActive(true);
+            
             UIGameManager.Instance.SetCanClose<WeaponPanel>(false);
         }
         if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 1)
@@ -69,15 +72,29 @@ public class Tutorial : MonoBehaviour
             cnt++;
             SetTutorialGameObject();
             tutorialCanvas.sortingOrder = 1;
-            PlatformGenerator.Instance.StartGenerating();
-            Lava.Instance.SetCameraDistance(5);
-            CameraController.Instance.StartMove();
-            EnemyManager.Instance.StartSpawn();
-            LevelManager.Instance.BeforeNextWave();
-            LevelManager.Instance.NextWave();
-            
         }
-        if (cnt == 5)
+        if (cnt == 5 && EnemyManager.Instance.enemyViews.Count == 0) 
+        {
+            cnt++;
+            SetTutorialGameObject();
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.AppendInterval(1f);
+            sequence.AppendCallback(PlatformGenerator.Instance.GenerateOneLayer);
+            sequence.AppendInterval(1f);
+            sequence.AppendCallback(PlatformGenerator.Instance.GenerateOneLayer);
+            sequence.AppendInterval(1f);
+            sequence.Append(basicUI.DOFade(1, 0.5f));
+            sequence.AppendInterval(0.5f);
+            sequence.AppendCallback(() =>
+            {
+                PlatformGenerator.Instance.StartGenerating();
+                Lava.Instance.SetCameraDistance(5);
+                CameraController.Instance.StartMove();
+                LevelManager.Instance.NextWave();
+            });
+        }
+        if (cnt == 6)
         {
             cnt++;
             Invoke("EndTutorial", 4f);
@@ -92,7 +109,8 @@ public class Tutorial : MonoBehaviour
     {
         for (int i = 0; i < tutorialGameObjects.Length; i++) 
         {
-            tutorialGameObjects[i].SetActive(i == cnt);
+
+            tutorialGameObjects[i].DOFade(i == cnt ? 1 : 0, 0.5f).SetUpdate(true);
         }
     }
 }

@@ -32,6 +32,7 @@ public abstract class EnemyView : MonoBehaviour
             StartCoroutine(DeathEffect());
             PlayerManager.Instance.playerView.GainCoin(enemyData.Coin);
             UIGameManager.Instance.UpdateCoin();
+            EnemyManager.Instance.enemyViews.Remove(this);
             Destroy(gameObject);
             CameraController.Instance.CameraShake(0.25f, 0.3f, 10);
             return true;
@@ -93,6 +94,7 @@ public abstract class EnemyView : MonoBehaviour
     public void ForceKill()
     {
         StartCoroutine(DeathEffect());
+        EnemyManager.Instance.enemyViews.Remove(this);
         Destroy(gameObject);
     }
 }
