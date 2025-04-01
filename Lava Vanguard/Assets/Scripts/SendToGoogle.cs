@@ -12,10 +12,13 @@ public class SendToGoogle : MonoBehaviour
     public int expLevel = 0;
     public string startTime = "";
     public string endTime = "";
-    public float maxRange = 0;
+    //public float maxRange = 0;
+    public string bulletStatistics ="";
     public float finalHealth = 0;
     public string sequenceData = "";
     public int isEditor = 0;
+
+    
 
     void Start()
     {
@@ -42,8 +45,10 @@ public class SendToGoogle : MonoBehaviour
     public void Send()
     {
         expLevel = LevelManager.Instance.wave;
-        Debug.Log("wave is: " + expLevel);
+        //Debug.Log("wave is: " + expLevel);
         finalHealth = PlayerManager.Instance.playerView.GetHP();
+        bulletStatistics = Async.BulletManager.Instance.getBulletGeneratedData();
+
         if (Application.isEditor)
         {
             isEditor = 1;
@@ -56,18 +61,18 @@ public class SendToGoogle : MonoBehaviour
             ? SlotManager.Instance.GetAllSlotCardData()
             : "No Slot Data Available";
 
-        StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), finalHealth.ToString(), sequenceData,isEditor.ToString()));
+        StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), bulletStatistics, sequenceData,isEditor.ToString()));
     }
 
 
-    private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string finalHealth, string sequenceData,string isEditor)
+    private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string bulletStatistics, string sequenceData,string isEditor)
     {
         WWWForm form = new WWWForm();
         form.AddField("entry.1156616989", sessionID);
         form.AddField("entry.1095354465", startTime);
         form.AddField("entry.844017086", endTime);
         form.AddField("entry.1140619881", expLevel);
-        form.AddField("entry.842781336", finalHealth);
+        form.AddField("entry.842781336", bulletStatistics);
         form.AddField("entry.307482289", sequenceData);
         form.AddField("entry.2097804719", isEditor);
 
