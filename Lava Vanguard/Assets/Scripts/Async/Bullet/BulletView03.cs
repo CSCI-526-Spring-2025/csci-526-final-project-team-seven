@@ -39,6 +39,7 @@ public class BulletView03 : BulletView
         if (other.CompareTag("Enemy"))
         {
             hasHit = true;
+            Async.BulletManager.Instance.bulletHit3++;
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {

@@ -42,6 +42,7 @@ public class BulletView05 : BulletView
         {
             hasHit = true;
             EnemyView enemy = other.GetComponent<EnemyView>();
+            Async.BulletManager.Instance.bulletHit5++;
             bool killed = false;
             if (enemy != null)
             {
