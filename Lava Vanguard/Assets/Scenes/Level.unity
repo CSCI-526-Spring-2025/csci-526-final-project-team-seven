@@ -437,7 +437,7 @@ MonoBehaviour:
   bulletDetail2: {fileID: 495322645}
   description2: {fileID: 1585976790}
   colorTooltip: {fileID: 2139357360}
-  colorItemPrefab: {fileID: 3373597543558504571, guid: b4727d096149a254f80c54bbf82df1e1, type: 3}
+  colorItemPrefab: {fileID: 2802868333760570678, guid: 26ff8bc4f42557842a0d4d5920546057, type: 3}
 --- !u!1 &250964931
 GameObject:
   m_ObjectHideFlags: 0
@@ -7281,15 +7281,15 @@ RectTransform:
   m_GameObject: {fileID: 2139357360}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 9.5626, y: 6.439365, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 119191016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -749, y: -297}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: -750, y: -297}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2139357362
 MonoBehaviour:
@@ -7304,15 +7304,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 20
-    m_Right: 20
-    m_Top: 20
-    m_Bottom: 20
-  m_ChildAlignment: 0
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
+  m_ChildAlignment: 1
   m_Spacing: 10
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -7329,7 +7329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
+  m_HorizontalFit: 0
   m_VerticalFit: 2
 --- !u!114 &2139357364
 MonoBehaviour:
