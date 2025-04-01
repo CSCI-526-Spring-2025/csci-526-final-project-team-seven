@@ -81,6 +81,7 @@ public class BulletView02 : BulletView
         {
             //Debug.Log("Split Hit: "+attack);
             hasHit = true;
+            Async.BulletManager.Instance.bulletHit2++;
             EnemyView enemy = other.GetComponent<EnemyView>();
             if (enemy != null)
             {

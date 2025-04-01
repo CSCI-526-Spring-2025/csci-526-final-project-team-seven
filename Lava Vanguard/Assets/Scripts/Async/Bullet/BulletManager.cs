@@ -15,7 +15,12 @@ namespace Async
         public int bulletGenerated3 = 0;
         public int bulletGenerated4 = 0;
         public int bulletGenerated5 = 0;
-        
+        public int bulletHit1 = 0;
+        public int bulletHit2 = 0;
+        public int bulletHit3 = 0;
+        public int bulletHit4 = 0;
+        public int bulletHit5 = 0;
+
 
         private void Awake()
         {
@@ -62,7 +67,8 @@ namespace Async
 
         public string getBulletGeneratedData()
         {
-            return $"B1:{bulletGenerated1}, B2:{bulletGenerated2}, B3:{bulletGenerated3}, B4:{bulletGenerated4}, B5:{bulletGenerated5}";
+            return $"Fired B1:{bulletGenerated1}, B2:{bulletGenerated2}, B3:{bulletGenerated3}, B4:{bulletGenerated4}, B5:{bulletGenerated5} " +
+                $"  Hit  B1:{bulletHit1}, B2:{bulletHit2}, B3:{bulletHit3}, B4:{bulletHit4}, B5:{bulletHit5}";
         }
     }
 }
