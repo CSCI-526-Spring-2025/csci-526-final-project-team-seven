@@ -37,9 +37,9 @@ public struct PlayerData
     }
 
     public static PlayerData DefaultData = new PlayerData(
-        jumpForce: 5.5f,
+        jumpForce: 5f,
         jumpAirTime: 0.3f,
-        jumpAirForce: 5.5f,
+        jumpAirForce: 5f,
         healthLimit: 10,
         invincibleTime: 1f,
         healthUpValue: 2,

@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public static event Action OnCameraUpdated;
 
     public GameObject player;
-    private float currentSpeedY;
+    private float currentCamSpeedY;
     public float cameraSpeedY = 0.3f;
     public float cameraFollowDistance = 5.0f;
     private float remainingDistance = -1f;
@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        currentSpeedY = cameraSpeedY;
+        currentCamSpeedY = cameraSpeedY;
         if (!Tutorial.Instance.tutorial)
             StartMove();
         noiseProfile = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -53,12 +53,34 @@ public class CameraController : MonoBehaviour
             }
             else
             {
-                targetPosition.y += currentSpeedY * Time.deltaTime;
+                targetPosition.y += currentCamSpeedY * Time.deltaTime;
             }
+
+            if (LevelGenerator.Instance.WavePlatform) {
+                var p = LevelGenerator.Instance.WavePlatform;
+                if (p.transform.position.y < cameraTransform.position.y - 3.5) {
+                    currentCamSpeedY = 0;
+                }
+            }
+        }
+        // 
+        if (player.transform.position.x > targetPosition.x + cameraFollowDistance)
+        {
+            targetPosition.x = player.transform.position.x - cameraFollowDistance;
+        }
+        else if (player.transform.position.x < targetPosition.x - cameraFollowDistance)
+        {
+            targetPosition.x = player.transform.position.x + cameraFollowDistance;
         }
         //Virtual Camera 
         cameraTransform.position = targetPosition;
         OnCameraUpdated?.Invoke();
+    }
+    private void Update()
+    {
+        // Check if the 'R' key is pressed down
+        if (Input.GetKeyDown(KeyCode.R))
+            CameraShake(0.25f, 0.3f, 10);
     }
 
     /// <summary>
@@ -91,12 +113,12 @@ public class CameraController : MonoBehaviour
 
     public void StopCamera()
     {
-        currentSpeedY = 0;
+        currentCamSpeedY = 0;
     }
 
     public void ResumeCamera()
     {
-        currentSpeedY = cameraSpeedY;
+        currentCamSpeedY = cameraSpeedY;
     }
 
     public void UpdateDistance(Transform transform)
@@ -107,6 +129,6 @@ public class CameraController : MonoBehaviour
 
     public bool CameraStopped()
     {
-        return currentSpeedY == 0f;
+        return currentCamSpeedY == 0f;
     }
 }

@@ -7,32 +7,26 @@ public class PlayerManager : MonoBehaviour
 {
     public PlayerView playerView;
     public static PlayerManager Instance { get; private set; }
-    [HideInInspector] public bool canControl = true;
-    private void Awake()
+    void Awake()
     {
         Instance = this;
-        canControl = false;
+        //sessionID = DateTime.Now.Ticks;//generate unique id for forms
+        //startTime = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
     }
 
-    private void Start()
+    void Start()
     {
         playerView.Init();
     }
-    public void Init()
+
+    void Update()
     {
-        canControl = true;
-        playerView.gameObject.SetActive(true);
-        
-    }
-    private void Update()
-    {
-        if (!canControl) return;
         Move();
         Jump();
         UpdateInvincible();
     }
 
-    private void Move()
+    void Move()
     {
         if (Input.GetKey(KeyCode.A))
         {
@@ -48,7 +42,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void Jump()
+    void Jump()
     {
         if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
         {
@@ -68,9 +62,9 @@ public class PlayerManager : MonoBehaviour
     public void GetHurt(int damage,bool mustKilled=false)
     {
         playerView.UpdateHealth(damage,mustKilled);
-    }
+    } 
 
-    private void UpdateInvincible()
+    void UpdateInvincible()
     {
         playerView.UpdateInvincible();
     }

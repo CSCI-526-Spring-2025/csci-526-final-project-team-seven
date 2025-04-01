@@ -5,14 +5,8 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-    public static Lava Instance {  get; private set; }
-    
     public float cameraDistance = 10f;
     private float deathDelay = 3f;
-    private void Awake()
-    {
-        Instance = this; 
-    }
     private void Start()
     {
         if (!Tutorial.Instance.tutorial)
