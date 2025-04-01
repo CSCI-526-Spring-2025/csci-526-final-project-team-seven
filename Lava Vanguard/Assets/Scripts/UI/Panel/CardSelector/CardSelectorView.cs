@@ -46,7 +46,7 @@ public class CardSelectorView : MonoBehaviour
             selectButton.interactable = false;
             cost.text = "Sold";
             sold = true;
-            PlayerManager.Instance.playerView.GainCoin(data.Cost);
+            PlayerManager.Instance.playerView.GainCoin(-data.Cost);
             UIGameManager.Instance.UpdateCoin();
             UIGameManager.Instance.GetPanel<CardSelectorPanel>().UpdateSelectButton();
         });

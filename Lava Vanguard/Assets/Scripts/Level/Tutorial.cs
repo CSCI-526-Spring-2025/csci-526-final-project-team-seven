@@ -12,6 +12,7 @@ public class Tutorial : MonoBehaviour
     public bool tutorial = true;
     public Canvas tutorialCanvas;
     public CanvasGroup basicUI;
+    public CanvasGroup basicUI2;
     private int cnt = -1;
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class Tutorial : MonoBehaviour
         if (!tutorial)
         {
             basicUI.alpha = 1;
+            basicUI2.alpha = 1;
             cnt = 7;
             PlatformGenerator.Instance.StartGenerating();
             LevelManager.Instance.NextWave();
@@ -84,8 +86,12 @@ public class Tutorial : MonoBehaviour
             sequence.AppendInterval(1f);
             sequence.AppendCallback(PlatformGenerator.Instance.GenerateOneLayer);
             sequence.AppendInterval(1f);
-            sequence.Append(basicUI.DOFade(1, 0.5f));
-            sequence.AppendInterval(0.5f);
+            sequence.AppendCallback(() =>
+            {
+                basicUI.DOFade(1, 0.5f);
+                basicUI2.DOFade(1, 0.5f);
+            });
+            sequence.AppendInterval(1f);
             sequence.AppendCallback(() =>
             {
                 PlatformGenerator.Instance.StartGenerating();
