@@ -44,7 +44,7 @@ public class Tutorial : MonoBehaviour
         { 
             cnt++;
             SetTutorialGameObject();
-            PlatformGenerator.Instance.GenerateOneLayer(new bool[] { true, false, false });
+            PlatformGenerator.Instance.GenerateOneLayer(new bool[] { false, true, false, false, false });
 
         }
         if (cnt == 1 && PlayerManager.Instance.playerView.transform.position.y > -1 && PlayerManager.Instance.playerView.isGround)  
