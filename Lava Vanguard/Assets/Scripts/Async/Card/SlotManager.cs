@@ -7,7 +7,7 @@ using DG.Tweening;
 public class SlotManager : MonoBehaviour
 {
     public static readonly int ROW = 4;
-    public static readonly int COL = 10;
+    public static readonly int COL = 1;
     [HideInInspector]
     public SlotView[,] slotViews = new SlotView[ROW, COL];
     public GameObject slotPrefab;

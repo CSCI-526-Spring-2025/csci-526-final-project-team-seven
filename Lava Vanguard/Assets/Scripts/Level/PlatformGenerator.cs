@@ -40,7 +40,7 @@ public class PlatformGenerator : MonoBehaviour
 
         var lastLayer = platforms[^1];
         var currentLayer = new PlatformView[COL];
-        int count = Random.Range(COL / 2 - COL / 4, COL / 2 + COL / 4 + 2);
+        int count = Random.Range(COL / 2 - COL / 4, COL / 2 + COL / 4 + 1);
         bool[] reach = new bool[COL];
         for (int i = 0; i < lastLayer.Length; i++)
         {
