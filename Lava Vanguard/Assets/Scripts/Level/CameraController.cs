@@ -2,6 +2,7 @@ using UnityEngine;
 using Cinemachine;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 public class CameraController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class CameraController : MonoBehaviour
     private float remainingDistance = -1f;
     public float initialSpeed = 30f;
     private float totalDistance;
+    public EdgeCollider2D[] edges;
     public AnimationCurve speedCurve;
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin noiseProfile;
@@ -32,6 +34,13 @@ public class CameraController : MonoBehaviour
         if (!Tutorial.Instance.tutorial)
             StartMove();
         noiseProfile = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        float y = virtualCamera.m_Lens.OrthographicSize;
+        float x = y * 16 / 9.0f;
+        edges[0].SetPoints(new List<Vector2> { new Vector2(-x, y), new Vector2(x, y) });
+        edges[1].SetPoints(new List<Vector2> { new Vector2(-x, -y), new Vector2(x, -y) });
+        edges[2].SetPoints(new List<Vector2> { new Vector2(x, -y), new Vector2(x, y) });
+        edges[3].SetPoints(new List<Vector2> { new Vector2(-x, -y), new Vector2(-x, y) });
+
     }
 
     public void StartMove()
@@ -56,6 +65,15 @@ public class CameraController : MonoBehaviour
                 targetPosition.y += currentSpeedY * Time.deltaTime;
             }
         }
+
+        //if (player.transform.position.x > targetPosition.x + cameraFollowDistance)
+        //{
+        //    targetPosition.x = player.transform.position.x - cameraFollowDistance;
+        //}
+        //else if (player.transform.position.x < targetPosition.x - cameraFollowDistance)
+        //{
+        //    targetPosition.x = player.transform.position.x + cameraFollowDistance;
+        //}
         //Virtual Camera 
         cameraTransform.position = targetPosition;
         OnCameraUpdated?.Invoke();

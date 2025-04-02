@@ -16,7 +16,7 @@ public class Lava : MonoBehaviour
     private void Start()
     {
         if (!Tutorial.Instance.tutorial)
-            SetCameraDistance(5, 0);
+            SetCameraDistance(7, 0);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -34,6 +34,7 @@ public class Lava : MonoBehaviour
     }
     public void SetCameraDistance(float distance, float duration = 1f)
     {
+        distance = 7;
         DOTween.To(() => cameraDistance, x => cameraDistance = x, distance, duration).SetEase(Ease.Linear);
     }
     private void Update()
