@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     public static readonly int[] TotalTime = new int[] { 20, 20, 25, 30, 45, 60 };
     public TMP_Text timeText;
     public TMP_Text waveText;
+    public string healthForWave;
 
     [HideInInspector] public bool waveEnded = false;
     private void Awake()
@@ -50,7 +51,7 @@ public class LevelManager : MonoBehaviour
         waveText.text = "Wave " + (wave + 1);
         PlayerManager.Instance.canControl = true;
         ResetTimer();
-
+        recordHealthForThisWave();
         EnemyManager.Instance.StartSpawn();
         StartCoroutine("CountdownTimer");
     }
@@ -65,5 +66,13 @@ public class LevelManager : MonoBehaviour
             sequence.AppendCallback(() =>
             UIGameManager.Instance.Open<CardSelectorPanel>());
         }
+    }
+
+    public void recordHealthForThisWave()
+    {
+       
+        int health = PlayerManager.Instance.playerView.GetHP();
+
+        healthForWave += $"Wave {wave+1}: HP {health}\n"; 
     }
 }
