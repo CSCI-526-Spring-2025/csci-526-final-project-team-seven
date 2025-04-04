@@ -18,6 +18,7 @@ public class SendToGoogle : MonoBehaviour
     public string health = "";
     public string sequenceData = "";
     public int isEditor = 0;
+    public string cardSelection = "";
 
     
 
@@ -50,6 +51,7 @@ public class SendToGoogle : MonoBehaviour
         //finalHealth = PlayerManager.Instance.playerView.GetHP();
         bulletStatistics = Async.BulletManager.Instance.getBulletGeneratedData();
         health = LevelManager.Instance.healthForWave;
+        cardSelection = Async.AsyncManager.Instance.cardSelection;
 
         if (Application.isEditor)
         {
@@ -63,11 +65,11 @@ public class SendToGoogle : MonoBehaviour
             ? SlotManager.Instance.GetAllSlotCardData()
             : "No Slot Data Available";
 
-        StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), bulletStatistics, sequenceData,health,isEditor.ToString()));
+        StartCoroutine(Post(sessionID.ToString(), startTime, endTime, expLevel.ToString(), bulletStatistics, sequenceData,health,isEditor.ToString(),cardSelection));
     }
 
 
-    private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string bulletStatistics, string sequenceData,string health,string isEditor)
+    private IEnumerator Post(string sessionID, string startTime, string endTime, string expLevel, string bulletStatistics, string sequenceData,string health,string isEditor,string cardSelection)
     {
         WWWForm form = new WWWForm();
         form.AddField("entry.1156616989", sessionID);
@@ -78,6 +80,7 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.307482289", sequenceData);
         form.AddField("entry.1920990299", health);
         form.AddField("entry.2097804719", isEditor);
+        form.AddField("entry.1006471813", cardSelection);
 
         using (UnityWebRequest www = UnityWebRequest.Post("https://docs.google.com/forms/u/0/d/1tiA8a2FBAE7rsP9ABsVroo_ZxPtPlfyXlwR89PRpQC8/formResponse", form))
         {

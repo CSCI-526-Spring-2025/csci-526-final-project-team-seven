@@ -8,6 +8,7 @@ namespace Async
     public class AsyncManager : MonoBehaviour
     {
         public static AsyncManager Instance { get; private set; }
+        public string cardSelection = "";
         private void Awake()
         {
             Instance = this;
@@ -19,6 +20,7 @@ namespace Async
         }
         public void GainCard(CardRankData data)
         {
+            recordCardSelection(data);
             if (data.CardID == "Card_RestoreHealth")
             {
                 PlayerManager.Instance.playerView.RestoreHealth();
@@ -26,5 +28,11 @@ namespace Async
             }
             InventoryManager.Instance.inventoryView.AddCardView(data);
         }
+        public void recordCardSelection(CardRankData data)
+        {
+            int wave = LevelManager.Instance.wave;
+            cardSelection += $"Wave {wave + 1}:  {data.CardID} \n";
+        }
+
     }
 }
