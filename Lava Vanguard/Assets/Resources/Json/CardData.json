@@ -13,8 +13,8 @@
     },
     "Card_Bullet01": {
         "ID": "Card_Bullet01",
-        "Title": "Bullet 01",
-        "Description": "Our first production.",
+        "Title": "Basic",
+        "Description": "Basic bullet with normal attack and range.",
         "Cost": 10,
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -26,7 +26,7 @@
     "Card_Bullet02": {
         "ID": "Card_Bullet02",
         "Title": "Split",
-        "Description": "Go big and go home.",
+        "Description": "Split into small bullets.",
         "Cost": 10,
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -38,7 +38,7 @@
     "Card_Bullet03": {
         "ID": "Card_Bullet03",
         "Title": "Strike",
-        "Description": "Strike!",
+        "Description": "Fast, powerful and long range.",
         "Cost": 10,
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -62,7 +62,7 @@
     "Card_Bullet05": {
         "ID": "Card_Bullet05",
         "Title": "Money Welder",
-        "Description": "Gain 1 coin if THIS bullet killed one enemy.",
+        "Description": "Gain more coins if this bullet killed an enemy.",
         "Cost": 15,
         "Type": "Bullet",
         "Background": "Background_Normal",
