@@ -81,14 +81,50 @@ public class EnemyManager : MonoBehaviour
         {
             bossSpawned = true;
             SpawnBoss();
+            while (true)
+            {
+                GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave / 2 + 1, 9));
+                float waitTime = CalculateSpawnInterval();
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        else if (LevelManager.Instance.wave == 0)
+        {
+            while (true)
+            {
+                GenerateSpecificEnemy(1, 1);
+                float waitTime = 1f;
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        else if(LevelManager.Instance.wave == 1)
+        {
+            while (true)
+            {
+                GenerateSpecificEnemy(0, 1);
+                float waitTime = 1f;
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        else if (LevelManager.Instance.wave == 2)
+        {
+            while (true)
+            {
+                GenerateSpecificEnemy(2, 1);
+                float waitTime = 2f;
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        else
+        {
+            while (true)
+            {
+                GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave / 2 + 1, 9));
+                float waitTime = CalculateSpawnInterval();
+                yield return new WaitForSeconds(waitTime);
+            }
         }
 
-        while (true)
-        {
-            GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave/2+1,9));
-            float waitTime = CalculateSpawnInterval();
-            yield return new WaitForSeconds(waitTime);
-        }
     }
 
     private float CalculateSpawnInterval()

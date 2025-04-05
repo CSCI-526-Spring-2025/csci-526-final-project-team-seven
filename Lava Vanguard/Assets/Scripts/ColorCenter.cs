@@ -21,15 +21,15 @@ public class ColorCenter
         {"Bullet8", new Color(0.8f, 0.3f, 0.6f)},
         {"Bullet9", new Color(1f, 0.4f, 0.3f)},
         
-        {"Boss1", new Color(1f, 1f, 1f)},
-        {"Boss2", new Color(0.9f, 0.9f, 1f)},
-        {"Boss3", new Color(0.8f, 0.8f, 1f)},
-        {"Boss4", new Color(0.7f, 0.6f, 1f)},
-        {"Boss5", new Color(0.6f, 0.4f, 1f)},
-        {"Boss6", new Color(0.5f, 0.3f, 1f)},
-        {"Boss7", new Color(0.6f, 0.2f, 0.9f)},
-        {"Boss8", new Color(0.8f, 0.3f, 0.6f)},
-        {"Boss9", new Color(1f, 0.4f, 0.3f)}
+        {"Enemy1", new Color(1f, 1f, 1f)},
+        {"Enemy2", new Color(0.9f, 0.9f, 1f)},
+        {"Enemy3", new Color(0.8f, 0.8f, 1f)},
+        {"Enemy4", new Color(0.7f, 0.6f, 1f)},
+        {"Enemy5", new Color(0.6f, 0.4f, 1f)},
+        {"Enemy6", new Color(0.5f, 0.3f, 1f)},
+        {"Enemy7", new Color(0.6f, 0.2f, 0.9f)},
+        {"Enemy8", new Color(0.8f, 0.3f, 0.6f)},
+        {"Enemy9", new Color(1f, 0.4f, 0.3f)}
 
     };
 

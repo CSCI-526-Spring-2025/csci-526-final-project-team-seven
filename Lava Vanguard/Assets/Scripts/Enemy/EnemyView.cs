@@ -12,7 +12,7 @@ public abstract class EnemyView : MonoBehaviour
     public virtual void Init(string ID,int level)
     {
         this.level = level;
-        spriteRenderer.color = ColorCenter.CardColors["Boss" + level];
+        spriteRenderer.color = ColorCenter.CardColors["Enemy" + level];
         enemyData = GameDataManager.EnemyData[ID];
         enemyData.Health *= level;
         //Debug.Log("Enemy " + ID + " " + level);
