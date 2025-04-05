@@ -110,6 +110,7 @@ public class SlotManager : MonoBehaviour
                 sequence.AppendInterval(0.05f);
             }
         }
+
         sequence.SetLoops(-1);
     }
 
