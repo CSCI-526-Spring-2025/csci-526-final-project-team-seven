@@ -2131,7 +2131,7 @@ GameObject:
   - component: {fileID: 446198273}
   - component: {fileID: 446198272}
   m_Layer: 5
-  m_Name: NextWaveButton (1)
+  m_Name: RefreshButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

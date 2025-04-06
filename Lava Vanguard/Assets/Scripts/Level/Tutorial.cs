@@ -30,7 +30,7 @@ public class Tutorial : MonoBehaviour
             Lava.Instance.SetCameraDistance(5);
             CameraController.Instance.StartMove();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
-            EndTutorial();
+            SetTutorialGameObject();
         }
         else
         {
@@ -107,10 +107,6 @@ public class Tutorial : MonoBehaviour
             Invoke("EndTutorial", 4f);
             
         }
-    }
-    private void EndTutorial()
-    {
-        SetTutorialGameObject();
     }
     private void SetTutorialGameObject()
     {
