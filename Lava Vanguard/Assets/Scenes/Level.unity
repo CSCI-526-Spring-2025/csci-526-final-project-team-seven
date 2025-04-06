@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9209,7 +9208,6 @@ MonoBehaviour:
   bossPrefab: {fileID: 6635705815580878535, guid: ca1a21cdc2cf3a94491d3def71b8f1d5, type: 3}
   bossRef: {fileID: 0}
   enemyViews: []
-  bossSpawned: 0
 --- !u!1 &1648615842
 GameObject:
   m_ObjectHideFlags: 0
@@ -12374,6 +12372,7 @@ MonoBehaviour:
   canOpen: 1
   canClose: 1
   buySlotButton: {fileID: 1795950317}
+  costCoin: {fileID: 1868440901}
 --- !u!224 &7154726496972624866
 RectTransform:
   m_ObjectHideFlags: 0
