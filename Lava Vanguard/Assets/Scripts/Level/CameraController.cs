@@ -131,4 +131,9 @@ public class CameraController : MonoBehaviour
     {
         return currentSpeedY == 0f;
     }
+
+    public void SetCameraSpeed(float speed)
+    {
+        currentSpeedY = speed;
+    }
 }

@@ -39,7 +39,9 @@ public class LevelManager : MonoBehaviour
         EnemyManager.Instance.killAll();
         waveEnded = true;
         genLongPlatform = true;
+        CameraController.Instance.SetCameraSpeed(1.5f);
         yield return new WaitUntil(() => showPanel());
+        yield return new WaitForSeconds(0.2f);
 
         // CameraController.Instance.StopCamera();
         UIGameManager.Instance.Open<CardSelectorPanel>();
