@@ -20,6 +20,7 @@ public class BulletView04 : BulletView
         hexCollider=GetComponent<PolygonCollider2D>();
 
         float scaleFactor = 3f + level*0.5f;
+        detectionRange = 0.7f * scaleFactor;
         transform.localScale = Vector3.one * scaleFactor;
     }
     protected override void MoveBullet()
