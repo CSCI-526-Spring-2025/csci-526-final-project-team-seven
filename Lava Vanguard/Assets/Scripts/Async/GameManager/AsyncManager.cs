@@ -8,6 +8,7 @@ namespace Async
     public class AsyncManager : MonoBehaviour
     {
         public static AsyncManager Instance { get; private set; }
+        [HideInInspector]
         public string cardSelection = "";
         private void Awake()
         {

@@ -6,13 +6,19 @@ using DG.Tweening;
 
 public class SlotManager : MonoBehaviour
 {
-    public static readonly int ROW = 2;
-    public static readonly int COL = 1;
+    public static readonly int ROW = 4;
+    public static readonly int COL = 4;
+    public static readonly float TOTAL_TIME = 0.25f * ROW * COL;
+    public static readonly int TOTAL_GRID = ROW * COL;
+    public static readonly int START_GRID = 2;
     [HideInInspector]
     public SlotView[,] slotViews = new SlotView[ROW, COL];
     public GameObject slotPrefab;
     public Transform slotContainer;
     public Transform draggingTransform;
+    [HideInInspector]
+    public int currentTotalGrid = 0;
+    
     public static SlotManager Instance { get; private set; }
 
     private Sequence sequence;
@@ -22,14 +28,16 @@ public class SlotManager : MonoBehaviour
     }
     public void Init()
     {
-        for (int i = 0; i < ROW; i++)
-        {
-            for (int j = 0; j < COL; j++)
-            {
-                slotViews[i, j] = Instantiate(slotPrefab, slotContainer).GetComponent<SlotView>();
-            }
-        }
+        for (int i = 0; i < START_GRID; i++)
+            AddSlot();
         UpdateAndRunSequence();
+    }
+    public void AddSlot()
+    {
+        int i = currentTotalGrid / ROW;
+        int j = currentTotalGrid % ROW;
+        slotViews[i, j] = Instantiate(slotPrefab, slotContainer).GetComponent<SlotView>();
+        currentTotalGrid++;
     }
     public SlotView CheckDrag(CardView cardView)
     {
@@ -38,6 +46,7 @@ public class SlotManager : MonoBehaviour
         {
             for (int j = 0; j < COL; j++)
             {
+                if (!slotViews[i, j]) continue;
                 if (slotViews[i, j].content == null && slotViews[i, j].CheckInside(cardPosition)) 
                 {
                     return slotViews[i, j];
@@ -51,21 +60,23 @@ public class SlotManager : MonoBehaviour
         sequence.Kill();
         sequence = DOTween.Sequence();
 
+
+        //Reset Level;
         for (int i = 0; i < ROW; i++)
             for (int j = 0; j < COL; j++)
             {
+                if (!slotViews[i, j]) continue;
                 if (slotViews[i, j].content != null)
-                {
                     slotViews[i, j].content.cardRankData.Level = 1;
-                }
             }
+
         PlayerManager.Instance.playerView.ResetSpeed();
         int currentHP = PlayerManager.Instance.playerView.GetHP();
         PlayerManager.Instance.playerView.ResetHealthLimit();
         for (int i = 0; i < ROW; i++)
-        {
             for (int j = 0; j < COL; j++)
             {
+                if (!slotViews[i, j]) continue;
                 var content = slotViews[i, j].content;
                 if (content != null && content.cardSpriteData.Type == "Functional")
                 {
@@ -91,12 +102,15 @@ public class SlotManager : MonoBehaviour
                     }
                 }
             }
-        }
 
         for (int i = 0; i < ROW; i++)
-        {
             for (int j = 0; j < COL; j++)
             {
+                if (!slotViews[i, j])
+                {
+                    sequence.AppendInterval(0.05f);
+                    continue;
+                }
                 var slot = slotViews[i, j];
                 if (slot.content != null)
                 {
@@ -109,7 +123,6 @@ public class SlotManager : MonoBehaviour
                 }
                 sequence.AppendInterval(0.05f);
             }
-        }
         sequence.SetLoops(-1);
     }
 
@@ -121,6 +134,7 @@ public class SlotManager : MonoBehaviour
         {
             for (int j = 0; j < COL; j++)
             {
+                if (!slotViews[i, j]) continue;
                 var slot = slotViews[i, j];
                 if (slot.content != null)
                 {
