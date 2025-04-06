@@ -96,6 +96,14 @@ public class PlayerView : MonoBehaviour
         {
             isGround = true;
         }
+        else if (collision.gameObject.CompareTag("LongPlatform"))
+        {
+            isGround = true;
+            if (collision.GetContact(0).normal.y > 0.5f)
+            {
+                CameraController.Instance.UpdateDistance(PlatformGenerator.Instance.longPlatformRef.transform);
+            }
+        }
     }
 
     public void UpdateHealth(int damage, bool mustKilled = false)
