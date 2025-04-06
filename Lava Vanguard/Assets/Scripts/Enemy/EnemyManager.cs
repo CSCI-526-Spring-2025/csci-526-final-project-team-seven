@@ -23,7 +23,6 @@ public class EnemyManager : MonoBehaviour
     private float maxSpawnInterval = 4f;
     private float maxLevel = 20f;
     private Coroutine spawnCoroutine;
-    public bool bossSpawned = false;
     private void Awake()
     {
         Instance = this;
@@ -77,14 +76,13 @@ public class EnemyManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if (!bossSpawned && LevelManager.Instance.WaveHasBoss())
+        if (LevelManager.Instance.WaveHasBoss())
         {
-            bossSpawned = true;
             SpawnBoss();
             while (true)
             {
                 GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave / 2 + 1, 9));
-                float waitTime = CalculateSpawnInterval();
+                float waitTime = CalculateSpawnInterval()*3f;
                 yield return new WaitForSeconds(waitTime);
             }
         }
@@ -142,7 +140,7 @@ public class EnemyManager : MonoBehaviour
     {
         var boss = Instantiate(bossPrefab, enemyContainer);
         var bossView = boss.GetComponent<EnemyView>();
-        bossView.Init("Enemy_Boss_01",1);
+        bossView.Init("Enemy_Boss_01", Mathf.Min(LevelManager.Instance.wave / 2, 9));
         bossRef = boss;
     }
 

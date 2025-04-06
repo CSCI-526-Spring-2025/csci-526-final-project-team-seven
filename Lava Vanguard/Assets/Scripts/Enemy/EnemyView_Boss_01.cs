@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class EnemyView_Boss_01 : EnemyView
 {
     public float entranceDuration = 4f;
-    private Vector3 rightStartPosition = new Vector3(20.5f, 2f, 0);
-    private Vector3 rightEndPosition = new Vector3(-20.5f, 2f, 0);
-    private Vector3 leftStartPosition = new Vector3(-20.5f, -2f, 0);
-    private Vector3 leftEndPosition = new Vector3(20.5f, -2f, 0);
+    private Vector3 rightStartPosition = new Vector3(15.5f, 3f, 0);
+    private Vector3 rightEndPosition = new Vector3(-15.5f, 3f, 0);
+    private Vector3 leftStartPosition = new Vector3(-15.5f, -3f, 0);
+    private Vector3 leftEndPosition = new Vector3(15.5f, -3f, 0);
     private Vector3 centerPosition = new Vector3(0, 0, 0);
 
     // The relative position of the camera
@@ -21,8 +21,8 @@ public class EnemyView_Boss_01 : EnemyView
     public GameObject exclamationPrebab;
     private GameObject currentExclamation;
     private Vector3 exclamationCurrentPosition;
-    public Vector3 exclamationRightPosition = new Vector3(8f, 2f, 0);
-    public Vector3 exclamationLeftPosition = new Vector3(-8f, -2f, 0);
+    private Vector3 exclamationRightPosition = new Vector3(11f, 3f, 0);
+    private Vector3 exclamationLeftPosition = new Vector3(-11f, -3f, 0);
     float exclamationFlashTime = 3f;
     float exclamationFlashInterval = 0.3f;
 
@@ -32,16 +32,19 @@ public class EnemyView_Boss_01 : EnemyView
 
     [Header("Boss Attack Settings")]
     public GameObject bulletPrefab;
-    private float bulletInterval = 0.1f;
-    private int bulletCount = 36;
+    private float bulletInterval = 3.0f;
+    private int bulletCount=8;
+    private int bulletInitialCount = 4;
+    private int bulletAddCount = 4;
     public override void Init(string ID,int level)
     {
         base.Init(ID,level);
-        UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth;
-        UIGameManager.Instance.bossHPBar.value = enemyData.Health;
+        UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth*level;
+        UIGameManager.Instance.bossHPBar.value = enemyData.Health*level;
         UIGameManager.Instance.bossHPBar.gameObject.SetActive(false);
-        UIGameManager.Instance.BossHPLabel.text = "Boss";
+        UIGameManager.Instance.BossHPLabel.text = "Boss "+level;
         UIGameManager.Instance.BossHPLabel.gameObject.SetActive(false);
+        bulletCount = bulletInitialCount + bulletAddCount * level;
         currentPosition = rightStartPosition;
         StartCoroutine(AttackCycle());
     }
@@ -146,7 +149,7 @@ public class EnemyView_Boss_01 : EnemyView
                 var bullet = Instantiate(bulletPrefab, transform).GetComponent<EnemyView_Boss_01_Bullet>();
                 bullet.Init("Enemy_Boss_01_Bullet", transform.position, direction, bulletRotation);
 
-                yield return new WaitForSeconds(bulletInterval);
+                yield return new WaitForSeconds(bulletInterval/bulletCount);
             }
         }
     }

@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class SlotManager : MonoBehaviour
 {
-    public static readonly int ROW = 4;
+    public static readonly int ROW = 5;
     public static readonly int COL = 4;
     public static readonly float TOTAL_TIME = 0.25f * ROW * COL;
     public static readonly int TOTAL_GRID = ROW * COL;

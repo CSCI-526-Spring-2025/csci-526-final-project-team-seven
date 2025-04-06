@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
     public int wave = -1;
     public int time;
-    public static readonly int[] TotalTime = new int[] { 20, 20, 25, 30, 45, 60 };
+    public static readonly int[] TotalTime = new int[] { 15, 20, 25, 30, 45, 60 };
     public TMP_Text timeText;
     public TMP_Text waveText;
     public string healthForWave;
@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
 
     public bool WaveHasBoss()
     {
-        return wave >= 5;
+        return wave>=3&&(wave+1)%2==0;
     }
     public void NextWave()
     {
