@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     public string healthForWave;
 
     [HideInInspector] public bool waveEnded = false;
+    [HideInInspector] public bool genLongPlatform = false;
     private void Awake()
     {
         Instance = this;
@@ -34,11 +35,24 @@ public class LevelManager : MonoBehaviour
             time--;
         }
         timeText.text = "Time's Up!";
+        if (WaveHasBoss() && EnemyManager.Instance.bossRef.gameObject != null)
+        {
+            CameraController.Instance.StopCamera();
+            yield return new WaitForSeconds(1f);
+            timeText.text = "Kill the Boss!";
+            yield return new WaitUntil(() => { return EnemyManager.Instance.bossRef.gameObject == null; });
+            timeText.text = "Boss Killed!";
+        }
         EnemyManager.Instance.StopSpawn();
         EnemyManager.Instance.killAll();
         waveEnded = true;
-        CameraController.Instance.StopCamera();
-        //UIGameManager.Instance.Open<CardSelectorPanel>();
+        genLongPlatform = true;
+        CameraController.Instance.SetCameraSpeed(1.5f);
+        yield return new WaitUntil(() => showPanel());
+        yield return new WaitForSeconds(0.2f);
+
+        // CameraController.Instance.StopCamera();
+        UIGameManager.Instance.Open<CardSelectorPanel>();
     }
 
     public bool WaveHasBoss()
@@ -47,6 +61,7 @@ public class LevelManager : MonoBehaviour
     }
     public void NextWave()
     {
+        waveEnded = false;
         wave++;
         waveText.text = "Wave " + (wave + 1);
         ResetTimer();
@@ -56,14 +71,14 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
-        if (waveEnded && PlayerManager.Instance.playerView.isGround) 
-        {
-            waveEnded = false;
-            Sequence sequence = DOTween.Sequence();
-            sequence.AppendInterval(1f);
-            sequence.AppendCallback(() =>
-            UIGameManager.Instance.Open<CardSelectorPanel>());
-        }
+        // if (waveEnded && PlayerManager.Instance.playerView.isGround) 
+        // {
+        //     waveEnded = false;
+        //     Sequence sequence = DOTween.Sequence();
+        //     sequence.AppendInterval(1f);
+        //     sequence.AppendCallback(() =>
+        //     UIGameManager.Instance.Open<CardSelectorPanel>());
+        // }
     }
 
     public void recordHealthForThisWave()
@@ -72,5 +87,10 @@ public class LevelManager : MonoBehaviour
         int health = PlayerManager.Instance.playerView.GetHP();
 
         healthForWave += $"Wave {wave+1}: HP {health}\n"; 
+    }
+
+    private bool showPanel()
+    {
+        return waveEnded && CameraController.Instance.CameraStopped();
     }
 }

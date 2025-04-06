@@ -10,6 +10,7 @@ public class PlatformGenerator : MonoBehaviour
     public Transform platformContainer;
     public GameObject platformPrefab;
     public List<PlatformView[]> platforms = new List<PlatformView[]>();
+    public PlatformView longPlatformRef = null;
 
     private int layerIndex = 0;
     private static readonly int COL = 5;
@@ -83,6 +84,17 @@ public class PlatformGenerator : MonoBehaviour
         platforms.Add(currentLayer);
         layerIndex++;
     }
+    public void GenerateLongLayer()
+    {
+        var longPlatform = CreateLongPlatform();
+        var layer = new PlatformView[COL];
+        for (int i = 0; i < COL; i++)
+        {
+            layer[i] = longPlatform;
+        }
+        platforms.Add(layer);
+        layerIndex++;
+    }
     private void RemoveOneLayer()
     {
         if (platforms.Count >= 8)
@@ -93,7 +105,10 @@ public class PlatformGenerator : MonoBehaviour
             {
                 if (layer0[i] != null) 
                 {
-                    Destroy(layer0[i].gameObject);
+                    if (layer0[i] != null && layer0[i].gameObject != null)
+                    {
+                        Destroy(layer0[i].gameObject);
+                    }
                 }
             }
         }
@@ -109,6 +124,15 @@ public class PlatformGenerator : MonoBehaviour
         // Instantiate the platform and initialize it
         PlatformView platform = Instantiate(platformPrefab, platformContainer).GetComponent<PlatformView>();
         platform.Init(new Vector2(3, 0.5f), position);
+        return platform;
+    }
+
+    public PlatformView CreateLongPlatform()
+    {
+        PlatformView platform = Instantiate(platformPrefab, platformContainer).GetComponent<PlatformView>();
+        platform.Init(new Vector2(30, 0.5f), new Vector2(0, InitialY + layerIndex * IntervalY));
+        platform.tag = "LongPlatform";
+        longPlatformRef = platform;
         return platform;
     }
 
@@ -143,9 +167,17 @@ public class PlatformGenerator : MonoBehaviour
         // Check if the camera has moved past the threshold
         if (mainCamera.transform.position.y >= nextGenerateY)
         {
-            GenerateOneLayer();
-            nextGenerateY += IntervalY; // Update the threshold for the next layer
-            RemoveOneLayer();
+            if (LevelManager.Instance.genLongPlatform)
+            {
+                GenerateLongLayer();
+                LevelManager.Instance.genLongPlatform = false;
+            }
+            else
+            {
+                GenerateOneLayer();
+                nextGenerateY += IntervalY; // Update the threshold for the next layer
+                RemoveOneLayer();
+            }
         }
     }
 }

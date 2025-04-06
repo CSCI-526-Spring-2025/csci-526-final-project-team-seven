@@ -59,6 +59,10 @@ public class CameraController : MonoBehaviour
                 float speed = initialSpeed * speedCurve.Evaluate(remainingDistance / totalDistance);
                 targetPosition.y += speed * Time.deltaTime;
                 remainingDistance -= speed * Time.deltaTime;
+                if (remainingDistance < 0)
+                {
+                    StopCamera();
+                }
             }
             else
             {
@@ -126,5 +130,10 @@ public class CameraController : MonoBehaviour
     public bool CameraStopped()
     {
         return currentSpeedY == 0f;
+    }
+
+    public void SetCameraSpeed(float speed)
+    {
+        currentSpeedY = speed;
     }
 }
