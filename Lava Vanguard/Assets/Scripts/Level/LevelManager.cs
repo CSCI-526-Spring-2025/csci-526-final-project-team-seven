@@ -49,7 +49,6 @@ public class LevelManager : MonoBehaviour
     {
         wave++;
         waveText.text = "Wave " + (wave + 1);
-        PlayerManager.Instance.canControl = true;
         ResetTimer();
         recordHealthForThisWave();
         EnemyManager.Instance.StartSpawn();
@@ -60,7 +59,6 @@ public class LevelManager : MonoBehaviour
         if (waveEnded && PlayerManager.Instance.playerView.isGround) 
         {
             waveEnded = false;
-            PlayerManager.Instance.canControl = false;
             Sequence sequence = DOTween.Sequence();
             sequence.AppendInterval(1f);
             sequence.AppendCallback(() =>
