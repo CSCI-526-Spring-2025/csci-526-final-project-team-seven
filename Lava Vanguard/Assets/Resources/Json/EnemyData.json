@@ -3,7 +3,7 @@
         "ID": "Enemy_01",
         "Name": "Flying Danger",
         "Health": 3,
-        "Coin": 2,
+        "Coin": 1,
         "Speed": 2,
         "MaxHealth": 3,
         "Attack": 1
@@ -12,7 +12,7 @@
         "ID": "Enemy_02",
         "Name": "Guard",
         "Health": 3,
-        "Coin": 2,
+        "Coin": 1,
         "Speed": 2,
         "MaxHealth": 3,
         "Attack": 1
@@ -21,7 +21,7 @@
         "ID": "Enemy_03",
         "Name": "Split_Guard",
         "Health": 6,
-        "Coin": 4,
+        "Coin": 2,
         "Speed": 2,
         "MaxHealth": 6,
         "Attack": 1
@@ -30,7 +30,7 @@
         "ID": "Enemy_Boss_01",
         "Name": "Enemy_Boss_01",
         "Health": 200,
-        "Coin": 200,
+        "Coin": 20,
         "Speed": 3,
         "MaxHealth": 200,
         "Attack": 1

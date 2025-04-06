@@ -21,7 +21,7 @@ namespace Async
         }
         public void GainCard(CardRankData data)
         {
-            recordCardSelection(data);
+            RecordCardSelection(data);
             if (data.CardID == "Card_RestoreHealth")
             {
                 PlayerManager.Instance.playerView.RestoreHealth();
@@ -29,7 +29,8 @@ namespace Async
             }
             InventoryManager.Instance.inventoryView.AddCardView(data);
         }
-        public void recordCardSelection(CardRankData data)
+
+        public void RecordCardSelection(CardRankData data)
         {
             int wave = LevelManager.Instance.wave;
             cardSelection += $"Wave {wave + 1}:  {data.CardID} \n";

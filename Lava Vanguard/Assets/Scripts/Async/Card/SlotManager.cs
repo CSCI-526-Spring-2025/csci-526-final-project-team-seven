@@ -32,6 +32,7 @@ public class SlotManager : MonoBehaviour
             AddSlot();
         UpdateAndRunSequence();
     }
+    
     public void AddSlot()
     {
         int i = currentTotalGrid / ROW;
@@ -117,7 +118,7 @@ public class SlotManager : MonoBehaviour
                     var content = slot.content;
                     if (content.cardSpriteData.Type == "Bullet")
                     {
-                        content.content.color =ColorCenter.CardColors["Bullet"+content.cardRankData.Level];
+                        content.content.color = ColorCenter.CardColors["Bullet" + content.cardRankData.Level];
                         sequence.AppendCallback(() => BulletManager.Instance.GenerateBullet(content));
                     }
                 }
