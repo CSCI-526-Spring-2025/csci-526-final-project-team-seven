@@ -9,7 +9,7 @@ public class PlatformView : MonoBehaviour
     public SpriteRenderer backSpriteRenderer;
     public SpriteRenderer frontSpriteRenderer;
     public EdgeCollider2D edgeCollider2D;
-    private readonly float THICKNESS = 0.25f;
+    //private readonly float THICKNESS = 0.25f;
     public void Init(Vector2 size, Vector2 position)
     {
         InitAnimation1(size, position);

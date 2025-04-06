@@ -13,9 +13,11 @@ public class CardSelectorPanel : UIPanel
     public GameObject cardSeletorPrefab;
     public Button nextWaveButton;
     public Button refreshButton;
-    private TMP_Text refreshText;
-    private List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
+    
+    [HideInInspector]
+    public List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
     private int refreshCount = 0;
+    private TMP_Text refreshText;
     public override void Init()
     {
         base.Init();
@@ -42,6 +44,19 @@ public class CardSelectorPanel : UIPanel
             var rankData = new CardRankData(data);
             cardSeletorViews[i].Init(data, rankData);
         }
+    }
+    public void RefreshCard(List<string> IDs, List<int> prices)
+    {
+        int i = 0;
+        for (; i < IDs.Count; i++) 
+        {
+            var data = GameDataManager.CardData[IDs[i]];
+            var rankData = new CardRankData(data);
+            data.Cost = prices[i];
+            cardSeletorViews[i].Init(data, rankData);
+        }
+        for (; i < optionNumber; i++)
+            cardSeletorViews[i].Reset();
     }
     public override void Close()
     {

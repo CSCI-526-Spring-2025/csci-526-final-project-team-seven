@@ -4,16 +4,6 @@
             "ID": 0,
             "CardID": "Card_Bullet01",
             "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_LevelUp",
-            "Level": 1
-        },
-        {
-            "ID": 0,
-            "CardID": "Card_LevelUp",
-            "Level": 1
         }
     ]
 }

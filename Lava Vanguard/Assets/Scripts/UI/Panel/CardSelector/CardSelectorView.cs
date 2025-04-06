@@ -17,9 +17,11 @@ public class CardSelectorView : MonoBehaviour
     private CardSpriteData data;
     private CardRankData rankData;
 
-    private bool sold = false;
+    [HideInInspector]
+    public bool sold = false;
     public void Init(CardSpriteData data, CardRankData rankData)
     {
+        gameObject.SetActive(true);
         this.title.text = data.Title;
         this.description.text = data.Description;
 
@@ -30,6 +32,10 @@ public class CardSelectorView : MonoBehaviour
 
         this.sold = false;
         UpdateSelectButton();
+    }
+    public void Reset()
+    {
+        gameObject.SetActive(false);
     }
     public void UpdateSelectButton()
     {

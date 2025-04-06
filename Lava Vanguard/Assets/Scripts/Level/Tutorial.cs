@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Tutorial : MonoBehaviour
 {
@@ -18,7 +19,6 @@ public class Tutorial : MonoBehaviour
     public TMP_Text specialText;
     public GameObject specialPlatform;
 
-    public Button buySlotButton;
 
     private int cnt = -1;
     private void Awake()
@@ -31,13 +31,14 @@ public class Tutorial : MonoBehaviour
         {
             basicUI.alpha = 1;
             basicUI2.alpha = 1;
-            cnt = 7;
+            cnt = 13;
             PlatformGenerator.Instance.StartGenerating();
             LevelManager.Instance.NextWave();
             Lava.Instance.SetCameraDistance(5);
             CameraController.Instance.StartMove();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
-            buySlotButton.gameObject.SetActive(true);
+            UIGameManager.Instance.GetPanel<CardSelectorPanel>().nextWaveButton.gameObject.SetActive(true);
+            UIGameManager.Instance.GetPanel<WeaponPanel>().buySlotButton.gameObject.SetActive(true);
             SetTutorialGameObject();
         }
         else
@@ -71,7 +72,7 @@ public class Tutorial : MonoBehaviour
             
             UIGameManager.Instance.SetCanClose<WeaponPanel>(false);
         }
-        if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 2)
+        if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 1)
         {
             cnt++;
             SetTutorialGameObject();
@@ -109,13 +110,55 @@ public class Tutorial : MonoBehaviour
                 LevelManager.Instance.NextWave();
             });
         }
-        if (cnt == 6)
+        if (cnt == 6 && UIGameManager.Instance.GetOpen<CardSelectorPanel>())
         {
             cnt++;
-            buySlotButton.gameObject.SetActive(true);
+            SetTutorialGameObject();
+
+            tutorialCanvas.sortingOrder = 3;
+            var panel = UIGameManager.Instance.GetPanel<CardSelectorPanel>();
+            panel.RefreshCard(new List<string>() { "Card_LevelUp" }, new List<int>() { 0 });
+            panel.nextWaveButton.gameObject.SetActive(false);
+            //buySlotButton.gameObject.SetActive(true);
+            
+        }
+        if (cnt == 7 && UIGameManager.Instance.GetPanel<CardSelectorPanel>().cardSeletorViews[0].sold) 
+        {
+            cnt++;
+            SetTutorialGameObject();
+            var panel = UIGameManager.Instance.GetPanel<CardSelectorPanel>();
+            panel.nextWaveButton.gameObject.SetActive(true);
+        }
+        if (cnt == 8 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
+        {
+            cnt++;
+            SetTutorialGameObject();
+
+            tutorialCanvas.sortingOrder = 1;
+        }
+        if (cnt == 9 && UIGameManager.Instance.GetOpen<WeaponPanel>()) 
+        {
+            cnt++;
+            SetTutorialGameObject();
+            tutorialCanvas.sortingOrder = 3;
+        }
+        if (cnt == 10 && InventoryManager.Instance.inventoryView.cardViews.Count < 1)
+        {
+            cnt++;
+            SetTutorialGameObject();
+        }
+        if (cnt == 11 && !UIGameManager.Instance.GetOpen<WeaponPanel>())
+        {
+            cnt++;
+            tutorialCanvas.sortingOrder = 1;
+            UIGameManager.Instance.GetPanel<WeaponPanel>().buySlotButton.gameObject.SetActive(true);
+            SetTutorialGameObject();
+        }
+        if (cnt == 12 )
+        {
+            cnt++;
             Invoke("SetTutorialGameObject", 4f);
         }
-
         if (PlayerManager.Instance.playerView.transform.position.y < -6.5)
         {
             specialText.gameObject.SetActive(true);
