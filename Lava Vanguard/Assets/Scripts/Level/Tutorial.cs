@@ -104,8 +104,7 @@ public class Tutorial : MonoBehaviour
         if (cnt == 6)
         {
             cnt++;
-            Invoke("EndTutorial", 4f);
-            
+            Invoke("SetTutorialGameObject", 4f);
         }
     }
     private void SetTutorialGameObject()

@@ -7,11 +7,9 @@ public class PlayerManager : MonoBehaviour
 {
     public PlayerView playerView;
     public static PlayerManager Instance { get; private set; }
-    [HideInInspector] public bool canControl = true;
     private void Awake()
     {
         Instance = this;
-        canControl = false;
     }
 
     private void Start()
@@ -20,13 +18,10 @@ public class PlayerManager : MonoBehaviour
     }
     public void Init()
     {
-        canControl = true;
         playerView.gameObject.SetActive(true);
-        
     }
     private void Update()
     {
-        if (!canControl) return;
         Move();
         Jump();
         UpdateInvincible();

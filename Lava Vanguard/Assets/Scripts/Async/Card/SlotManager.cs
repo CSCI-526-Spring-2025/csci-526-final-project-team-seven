@@ -89,7 +89,7 @@ public class SlotManager : MonoBehaviour
                             {
                                 for (int l = j - 1; l <= j + 1; l++)
                                 {
-                                    if ((k==i&&l==j) || k < 0 || l < 0 || k >= ROW || l >= COL || slotViews[k, l].content == null)
+                                    if ((k == i && l == j) || k < 0 || l < 0 || k >= ROW || l >= COL || slotViews[k, l] == null || slotViews[k, l].content == null) 
                                         continue;
                                     slotViews[k, l].content.cardRankData.Level++;
                                 }
