@@ -12,6 +12,13 @@ public class PausePanel : UIPanel
     {
         base.Init();
         restartButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
-        exitButton.onClick.AddListener(() => SceneManager.LoadScene("Menu"));
+        exitButton.onClick.AddListener(() =>
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+        }); ;
     }
 }
