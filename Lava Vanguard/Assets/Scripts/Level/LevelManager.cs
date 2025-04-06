@@ -35,6 +35,14 @@ public class LevelManager : MonoBehaviour
             time--;
         }
         timeText.text = "Time's Up!";
+        if (WaveHasBoss() && EnemyManager.Instance.bossRef.gameObject != null)
+        {
+            CameraController.Instance.StopCamera();
+            yield return new WaitForSeconds(1f);
+            timeText.text = "Kill the Boss!";
+            yield return new WaitUntil(() => { return EnemyManager.Instance.bossRef.gameObject == null; });
+            timeText.text = "Boss Killed!";
+        }
         EnemyManager.Instance.StopSpawn();
         EnemyManager.Instance.killAll();
         waveEnded = true;
