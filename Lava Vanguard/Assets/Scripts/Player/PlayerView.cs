@@ -185,6 +185,7 @@ public class PlayerView : MonoBehaviour
     public void GainCoin(int coin)
     {
         playerData.coin += coin;
+        UIGameManager.Instance.UpdateCoin();
     }
 
     public void RestoreHealth()

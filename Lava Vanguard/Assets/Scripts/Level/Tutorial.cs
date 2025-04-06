@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class Tutorial : MonoBehaviour
     public Canvas tutorialCanvas;
     public CanvasGroup basicUI;
     public CanvasGroup basicUI2;
+
+    public TMP_Text specialText;
+    public GameObject specialPlatform;
+
+    public Button buySlotButton;
+
     private int cnt = -1;
     private void Awake()
     {
@@ -30,6 +37,7 @@ public class Tutorial : MonoBehaviour
             Lava.Instance.SetCameraDistance(5);
             CameraController.Instance.StartMove();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
+            buySlotButton.gameObject.SetActive(true);
             SetTutorialGameObject();
         }
         else
@@ -63,7 +71,7 @@ public class Tutorial : MonoBehaviour
             
             UIGameManager.Instance.SetCanClose<WeaponPanel>(false);
         }
-        if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 1)
+        if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 2)
         {
             cnt++;
             SetTutorialGameObject();
@@ -104,7 +112,18 @@ public class Tutorial : MonoBehaviour
         if (cnt == 6)
         {
             cnt++;
+            buySlotButton.gameObject.SetActive(true);
             Invoke("SetTutorialGameObject", 4f);
+        }
+
+        if (PlayerManager.Instance.playerView.transform.position.y < -6.5)
+        {
+            specialText.gameObject.SetActive(true);
+            specialPlatform.gameObject.SetActive(true);
+        }
+        if (cnt >= 2)
+        {
+            specialText.gameObject.SetActive(false);
         }
     }
     private void SetTutorialGameObject()
