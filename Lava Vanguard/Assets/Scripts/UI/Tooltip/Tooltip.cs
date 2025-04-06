@@ -61,7 +61,7 @@ public class Tooltip : MonoBehaviour
 
     public void ShowTooltip(CardView data)
     {
-        tooltip.SetActive(true);
+        //tooltip.SetActive(true);
         if (data.cardSpriteData.Type == "Bullet")
         {
             title.text = data.cardSpriteData.Title + " (Level: " + data.cardRankData.Level + ")";

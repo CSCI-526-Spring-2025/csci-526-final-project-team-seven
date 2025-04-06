@@ -19,11 +19,15 @@ public class WeaponPanel : UIPanel
     }
     public void BuySlot()
     {
-        if (PlayerManager.Instance.playerView.GetCoin() >= 40)
+        int currentTotalGird = SlotManager.Instance.currentTotalGrid;
+        int price = 40 + (currentTotalGird - 2) * 20;
+        if (PlayerManager.Instance.playerView.GetCoin() >= price)
         {
-            PlayerManager.Instance.playerView.GainCoin(-40);
+            PlayerManager.Instance.playerView.GainCoin(-price);
             UIGameManager.Instance.UpdateCoin();
             SlotManager.Instance.AddSlot();
         }
+        if (SlotManager.Instance.currentTotalGrid == SlotManager.TOTAL_GRID)
+            buySlotButton.gameObject.SetActive(false);
     }
 }

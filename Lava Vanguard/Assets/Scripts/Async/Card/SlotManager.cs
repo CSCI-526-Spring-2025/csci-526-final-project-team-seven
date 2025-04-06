@@ -35,6 +35,7 @@ public class SlotManager : MonoBehaviour
     
     public void AddSlot()
     {
+        if (currentTotalGrid == TOTAL_GRID) return;
         int i = currentTotalGrid / ROW;
         int j = currentTotalGrid % ROW;
         slotViews[i, j] = Instantiate(slotPrefab, slotContainer).GetComponent<SlotView>();
