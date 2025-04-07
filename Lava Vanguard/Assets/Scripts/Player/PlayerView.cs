@@ -145,7 +145,7 @@ public class PlayerView : MonoBehaviour
 
     private IEnumerator ChangeColorTemporarily(Color color, float duration)
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             Color originalColor = spriteRenderer.color;
