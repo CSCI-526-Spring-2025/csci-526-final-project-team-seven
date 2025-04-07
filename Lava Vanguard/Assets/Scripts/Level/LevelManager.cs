@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
 
     [HideInInspector] public bool waveEnded = false;
     [HideInInspector] public bool genLongPlatform = false;
+    [HideInInspector] public bool enteredNext = false;
     private void Awake()
     {
         Instance = this;
@@ -49,7 +50,7 @@ public class LevelManager : MonoBehaviour
         genLongPlatform = true;
         CameraController.Instance.SetCameraSpeed(1.5f);
         yield return new WaitUntil(() => showPanel());
-        yield return new WaitForSeconds(0.2f);
+        // yield return new WaitForSeconds(0.2f);
 
         // CameraController.Instance.StopCamera();
         UIGameManager.Instance.Open<CardSelectorPanel>();
@@ -61,6 +62,7 @@ public class LevelManager : MonoBehaviour
     }
     public void NextWave()
     {
+        enteredNext = false;
         waveEnded = false;
         wave++;
         waveText.text = "Wave " + (wave + 1);
@@ -91,6 +93,6 @@ public class LevelManager : MonoBehaviour
 
     private bool showPanel()
     {
-        return waveEnded && CameraController.Instance.CameraStopped();
+        return waveEnded && CameraController.Instance.CameraStopped() && enteredNext;
     }
 }

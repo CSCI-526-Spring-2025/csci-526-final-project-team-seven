@@ -13,8 +13,8 @@ public class CameraController : MonoBehaviour
     private float currentSpeedY;
     public float cameraSpeedY = 0.3f;
     public float cameraFollowDistance = 5.0f;
-    private float remainingDistance = -1f;
-    public float initialSpeed = 30f;
+    private float remainingDistance = 0f;
+    public float initialSpeed = 60f;
     private float totalDistance;
     public EdgeCollider2D[] edges;
     public AnimationCurve speedCurve;
@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin noiseProfile;
 
     private bool moving = false;
+    public float longPlatformStopPoint = 4.5f; // distance lower from the camera
 
     private void Awake()
     {
@@ -54,19 +55,26 @@ public class CameraController : MonoBehaviour
         Vector3 targetPosition = cameraTransform.position;
         if (moving)
         {
-            if (remainingDistance > 0)
+            var lm = LevelManager.Instance;
+            if (lm.enteredNext)
             {
                 float speed = initialSpeed * speedCurve.Evaluate(remainingDistance / totalDistance);
                 targetPosition.y += speed * Time.deltaTime;
                 remainingDistance -= speed * Time.deltaTime;
-                if (remainingDistance < 0)
-                {
-                    StopCamera();
-                }
             }
             else
             {
                 targetPosition.y += currentSpeedY * Time.deltaTime;
+                if (remainingDistance > 0)
+                {
+                    remainingDistance -= currentSpeedY * Time.deltaTime;
+                }
+            }
+
+            if (remainingDistance < 0)
+            {
+                remainingDistance = 0;
+                StopCamera();
             }
         }
 
@@ -123,7 +131,7 @@ public class CameraController : MonoBehaviour
 
     public void UpdateDistance(Transform transform)
     {
-        remainingDistance = transform.position.y - (virtualCamera.transform.position.y - 3.5f);
+        remainingDistance = transform.position.y - (virtualCamera.transform.position.y - longPlatformStopPoint);
         totalDistance = remainingDistance;
     }
 
