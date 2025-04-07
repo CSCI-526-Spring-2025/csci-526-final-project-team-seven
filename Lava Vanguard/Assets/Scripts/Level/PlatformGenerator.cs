@@ -133,6 +133,7 @@ public class PlatformGenerator : MonoBehaviour
         platform.Init(new Vector2(30, 0.5f), new Vector2(0, InitialY + layerIndex * IntervalY));
         platform.tag = "LongPlatform";
         longPlatformRef = platform;
+        CameraController.Instance.UpdateDistance(platform.transform);
         return platform;
     }
 

@@ -101,7 +101,7 @@ public class PlayerView : MonoBehaviour
             isGround = true;
             if (collision.GetContact(0).normal.y > 0.5f)
             {
-                CameraController.Instance.UpdateDistance(PlatformGenerator.Instance.longPlatformRef.transform);
+                LevelManager.Instance.enteredNext = true;
             }
         }
     }
