@@ -27,7 +27,7 @@ public class EnemyView_Boss_01 : EnemyView
     float exclamationFlashInterval = 0.3f;
 
     private float bulletAttackHealthPercentage = 0.5f;
-
+    
     private bool startAttack = true;
 
     [Header("Boss Attack Settings")]
@@ -38,15 +38,35 @@ public class EnemyView_Boss_01 : EnemyView
     private int bulletAddCount = 2;
     public override void Init(string ID,int level)
     {
-        base.Init(ID,level);
-        UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth;
-        UIGameManager.Instance.bossHPBar.value = enemyData.Health;
-        UIGameManager.Instance.bossHPBar.gameObject.SetActive(false);
-        UIGameManager.Instance.BossHPLabel.text = "Boss "+level;
-        UIGameManager.Instance.BossHPLabel.gameObject.SetActive(false);
+        this.level = level;
+        originalColor = ColorCenter.CardColors["Enemy" + level];
+
+        spriteRenderer.color = originalColor;
+        enemyData = GameDataManager.EnemyData[ID];
+        enemyData.Health = Mathf.RoundToInt(150 * Mathf.Pow(4500f / 150f, (level - 1f) / 8f));
+        enemyData.MaxHealth = enemyData.Health;
+        transform.position = GetSpawnPosition();
         bulletCount = bulletInitialCount + bulletAddCount * (level - 1);
+
+        InitHealthBar();
+        
         currentPosition = rightStartPosition;
         StartCoroutine(AttackCycle());
+    }
+
+    private void InitHealthBar()
+    {
+        if (UIGameManager.Instance.bossHPBar != null)
+        {
+            UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth;
+            UIGameManager.Instance.bossHPBar.value = enemyData.Health;
+            UIGameManager.Instance.bossHPBar.gameObject.SetActive(false);
+        }
+        if (UIGameManager.Instance.BossHPLabel != null)
+        {
+            UIGameManager.Instance.BossHPLabel.text = "Boss "+level;
+            UIGameManager.Instance.BossHPLabel.gameObject.SetActive(false);
+        }
     }
 
     private IEnumerator AttackCycle()
@@ -190,6 +210,10 @@ public class EnemyView_Boss_01 : EnemyView
             StartCoroutine(DeathEffect());
             PlayerManager.Instance.playerView.GainCoin(enemyData.Coin);
             UIGameManager.Instance.UpdateCoin();
+            if (currentExclamation != null)
+            {
+                Destroy(currentExclamation);
+            }
             Destroy(gameObject);
             if (UIGameManager.Instance.bossHPBar != null)
             {
