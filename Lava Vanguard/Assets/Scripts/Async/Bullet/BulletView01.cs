@@ -5,13 +5,32 @@ using UnityEngine;
 // 普通
 public class BulletView01 : BulletView
 {
+    private static readonly Dictionary<int, BulletData> dataByLevel = new Dictionary<int, BulletData>()
+    {
+         { 1, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 3} },
+         { 2, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 4} },
+         { 3, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 5} },
+         { 4, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 6} },
+         { 5, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 7 } },
+         { 6, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 8} },
+         { 7, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 9} },
+         { 8, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 10} },
+         { 9, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 11} },
+    };
+
+    public static string BulletDescription(int level)
+    {
+        return "Range: " + dataByLevel[level].detectionRange +
+            "\nSpeed: " + dataByLevel[level].speed +
+            "\nAttack: " + dataByLevel[level].attack;
+    }
 
     protected override void SetupBullet(int level)
     {
-        lifeDistance = 8.0f;
-        detectionRange = 8.0f;
-        speed = 15f;
-        attack = 2 + level;
+        lifeDistance = dataByLevel[level].lifeDistance;
+        detectionRange = dataByLevel[level].detectionRange;
+        speed = dataByLevel[level].speed;
+        attack = dataByLevel[level].attack;
         SetFireDirection();
         ApplyInitialRotation();
     }

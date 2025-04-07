@@ -6,13 +6,35 @@ using UnityEngine;
 public class BulletView05 : BulletView
 {
     private int moreCoin = 1;
+
+    private static readonly Dictionary<int, BulletData> dataByLevel = new Dictionary<int, BulletData>()
+    {
+         { 1, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 2, moreCoin = 1 } },
+         { 2, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 3, moreCoin = 2 } },
+         { 3, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 4, moreCoin = 3 } },
+         { 4, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 5, moreCoin = 4 } },
+         { 5, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 6, moreCoin = 5 } },
+         { 6, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 7, moreCoin = 6 } },
+         { 7, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 8, moreCoin = 7 } },
+         { 8, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 9, moreCoin = 8 } },
+         { 9, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f, speed = 15.0f, attack = 10, moreCoin =9 } },
+    };
+
+    public static string BulletDescription(int level)
+    {
+        return "Range: " + dataByLevel[level].detectionRange +
+            "\nSpeed: " + dataByLevel[level].speed +
+            "\nAttack: " + dataByLevel[level].attack +
+            "\nMore Coins Gained: " + dataByLevel[level].moreCoin;
+    }
+
     protected override void SetupBullet(int level)
     {
-        lifeDistance = 8.0f;
-        detectionRange = 8.0f;
-        speed = 15f;
-        attack = level+1;
-        moreCoin = level;
+        lifeDistance = dataByLevel[level].lifeDistance;
+        detectionRange = dataByLevel[level].detectionRange;
+        speed = dataByLevel[level].speed;
+        attack = dataByLevel[level].attack ;
+        moreCoin = dataByLevel[level].moreCoin;
         SetFireDirection();
         ApplyInitialRotation();
     }

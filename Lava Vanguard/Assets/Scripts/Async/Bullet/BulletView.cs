@@ -17,6 +17,7 @@ public abstract class BulletView : MonoBehaviour
     public LayerMask enemyLayer;
     
 
+
     // Initialize the bullet with their level
     public void Init(int level)
     {
@@ -24,6 +25,8 @@ public abstract class BulletView : MonoBehaviour
         startPosition = transform.position;
         SetupBullet(level);
     }
+
+    //public abstract string BulletDescription(int level);
 
     protected abstract void SetupBullet(int level);
 

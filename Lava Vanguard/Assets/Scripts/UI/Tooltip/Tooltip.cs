@@ -73,11 +73,35 @@ public class Tooltip : MonoBehaviour
         description.text = data.cardSpriteData.Description;
         tooltip.transform.position = Input.mousePosition + new Vector3(0, -150, 0);
 
+        // Tooltip 2
         tooltip2.SetActive(true);
         title2.text= data.cardSpriteData.Title;
         if (data.cardSpriteData.Type == "Bullet")
         {
-            bulletDetail2.text = "Level: " + data.cardRankData.Level;
+            string bulletDescription = "Level: " + data.cardRankData.Level + "\n";
+            switch (data.cardSpriteData.ID)
+            {
+                case "Card_Bullet01":
+                    bulletDescription += BulletView01.BulletDescription(data.cardRankData.Level);
+                    break;
+                case "Card_Bullet02":
+                    bulletDescription += BulletView02.BulletDescription(data.cardRankData.Level);
+                    break;
+                case "Card_Bullet03":
+                    bulletDescription += BulletView03.BulletDescription(data.cardRankData.Level);
+                    break;
+                case "Card_Bullet04":
+                    bulletDescription += BulletView04.BulletDescription(data.cardRankData.Level);
+                    break;
+                case "Card_Bullet05":
+                    bulletDescription += BulletView05.BulletDescription(data.cardRankData.Level);
+                    break;
+            }
+            bulletDetail2.text = bulletDescription;
+        }
+        else
+        {
+            bulletDetail2.text = "";
         }
         description2.text = data.cardSpriteData.Description;
     }
