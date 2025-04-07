@@ -6,8 +6,8 @@ using DG.Tweening;
 
 public class SlotManager : MonoBehaviour
 {
-    public static readonly int ROW = 5;
-    public static readonly int COL = 4;
+    public static readonly int ROW = 4;
+    public static readonly int COL = 5;
     public static readonly float TOTAL_TIME = 0.25f * ROW * COL;
     public static readonly int TOTAL_GRID = ROW * COL;
     public static readonly int START_GRID = 2;
@@ -32,12 +32,19 @@ public class SlotManager : MonoBehaviour
             AddSlot();
         UpdateAndRunSequence();
     }
-    
+    public int GetCardViewNum()
+    {
+        int cnt = 0;
+        foreach (var slot in slotViews)
+            if (slot != null && slot.content != null)
+                cnt++;
+        return cnt;
+    }
     public void AddSlot()
     {
         if (currentTotalGrid == TOTAL_GRID) return;
-        int i = currentTotalGrid / ROW;
-        int j = currentTotalGrid % ROW;
+        int i = currentTotalGrid / COL;
+        int j = currentTotalGrid % COL;
         slotViews[i, j] = Instantiate(slotPrefab, slotContainer).GetComponent<SlotView>();
         currentTotalGrid++;
     }

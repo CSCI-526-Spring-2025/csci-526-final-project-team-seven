@@ -40,6 +40,8 @@ public class Tutorial : MonoBehaviour
             UIGameManager.Instance.GetPanel<CardSelectorPanel>().nextWaveButton.gameObject.SetActive(true);
             UIGameManager.Instance.GetPanel<WeaponPanel>().buySlotButton.gameObject.SetActive(true);
             SetTutorialGameObject();
+            UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
+            SetTutorialGameObject();
         }
         else
         {
@@ -72,7 +74,7 @@ public class Tutorial : MonoBehaviour
             
             UIGameManager.Instance.SetCanClose<WeaponPanel>(false);
         }
-        if (cnt == 3 && InventoryManager.Instance.inventoryView.cardViews.Count < 1)
+        if (cnt == 3 && SlotManager.Instance.GetCardViewNum() >= 1)
         {
             cnt++;
             SetTutorialGameObject();
@@ -120,7 +122,7 @@ public class Tutorial : MonoBehaviour
             panel.RefreshCard(new List<string>() { "Card_LevelUp" }, new List<int>() { 0 });
             panel.nextWaveButton.gameObject.SetActive(false);
             //buySlotButton.gameObject.SetActive(true);
-            
+
         }
         if (cnt == 7 && UIGameManager.Instance.GetPanel<CardSelectorPanel>().cardSeletorViews[0].sold) 
         {
@@ -128,6 +130,7 @@ public class Tutorial : MonoBehaviour
             SetTutorialGameObject();
             var panel = UIGameManager.Instance.GetPanel<CardSelectorPanel>();
             panel.nextWaveButton.gameObject.SetActive(true);
+            UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
         }
         if (cnt == 8 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
         {
@@ -141,11 +144,13 @@ public class Tutorial : MonoBehaviour
             cnt++;
             SetTutorialGameObject();
             tutorialCanvas.sortingOrder = 3;
+            UIGameManager.Instance.SetCanClose<WeaponPanel>(false);
         }
-        if (cnt == 10 && InventoryManager.Instance.inventoryView.cardViews.Count < 1)
+        if (cnt == 10 && SlotManager.Instance.GetCardViewNum() >= 2) 
         {
             cnt++;
             SetTutorialGameObject();
+            UIGameManager.Instance.SetCanClose<WeaponPanel>(true);
         }
         if (cnt == 11 && !UIGameManager.Instance.GetOpen<WeaponPanel>())
         {
