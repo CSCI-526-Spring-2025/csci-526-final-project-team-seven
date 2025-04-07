@@ -176,9 +176,9 @@ public class PlatformGenerator : MonoBehaviour
             else
             {
                 GenerateOneLayer();
-                nextGenerateY += IntervalY; // Update the threshold for the next layer
                 RemoveOneLayer();
             }
+            nextGenerateY += IntervalY; // Update the threshold for the next layer
         }
     }
 }
