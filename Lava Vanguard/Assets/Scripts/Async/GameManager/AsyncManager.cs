@@ -36,5 +36,14 @@ namespace Async
             cardSelection += $"Wave {wave + 1}:  {data.CardID} \n";
         }
 
+        public void RecordSlotPurchase()
+        {
+            int wave = LevelManager.Instance.wave;
+            if (wave >= 0)
+            {
+                cardSelection += $"Wave {wave + 1}:  slot \n";
+            }
+        }
+
     }
 }

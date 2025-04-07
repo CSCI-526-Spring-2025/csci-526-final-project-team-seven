@@ -47,6 +47,8 @@ public class SlotManager : MonoBehaviour
         int j = currentTotalGrid % COL;
         slotViews[i, j] = Instantiate(slotPrefab, slotContainer).GetComponent<SlotView>();
         currentTotalGrid++;
+        Async.AsyncManager.Instance.RecordSlotPurchase();//record slot purchase
+
     }
     public SlotView CheckDrag(CardView cardView)
     {
