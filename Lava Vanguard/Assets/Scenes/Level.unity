@@ -11836,7 +11836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 1, y: -1}
+  m_EffectDistance: {x: 0, y: -10}
   m_UseGraphicAlpha: 1
 --- !u!1 &1780969417
 GameObject:
@@ -14365,6 +14365,7 @@ GameObject:
   - component: {fileID: 6609400179203974955}
   - component: {fileID: 6609400179203974956}
   - component: {fileID: 6609400179203974957}
+  - component: {fileID: 6609400179203974958}
   m_Layer: 5
   m_Name: SlotContainer
   m_TagString: Untagged
@@ -14539,6 +14540,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &6609400179203974958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3067775740642083826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 0, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!114 &6663104350369560800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14589,6 +14605,7 @@ GameObject:
   - component: {fileID: 7304208973572979875}
   - component: {fileID: 402653826721620228}
   - component: {fileID: 1276791167137933945}
+  - component: {fileID: 8006496262014816185}
   m_Layer: 5
   m_Name: InventoryContainer
   m_TagString: Untagged
@@ -14671,6 +14688,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7282838232434578733}
   m_CullTransparentMesh: 1
+--- !u!114 &8006496262014816185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282838232434578733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 0, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!4 &8032112463621836350
 Transform:
   m_ObjectHideFlags: 0
