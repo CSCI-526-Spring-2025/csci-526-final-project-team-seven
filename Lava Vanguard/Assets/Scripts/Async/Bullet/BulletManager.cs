@@ -33,6 +33,17 @@ namespace Async
             int index = cardView.cardRankData.CardID[^1] - '1';
             //Debug.Log("GenerateBullet - "+index+" mult: "+damageMultiplier);
             //Debug.Log(index);
+
+            var b = Instantiate(bulletPrefabs[index], spawnPos, Quaternion.identity, bulletContainer);
+            b.GetComponent<SpriteRenderer>().color = cardView.content.color;
+            b.GetComponent<BulletView>().Init(cardView.cardRankData.Level);
+
+            if (b.GetComponent<BulletView>().FindClosestEnemy() == null)
+            {
+                Destroy(b);
+                return;
+            }
+
             switch (index)
             {
                 case 0:
@@ -59,10 +70,6 @@ namespace Async
                    // Debug.LogWarning($"unknown index: {index}");
                     break;
             }
-            var b = Instantiate(bulletPrefabs[index], spawnPos, Quaternion.identity, bulletContainer);
-            b.GetComponent<SpriteRenderer>().color = cardView.content.color;
-            b.GetComponent<BulletView>().Init(cardView.cardRankData.Level);
-
         }
 
         public string getBulletGeneratedData()

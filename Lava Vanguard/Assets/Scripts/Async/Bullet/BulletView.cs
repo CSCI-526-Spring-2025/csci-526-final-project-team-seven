@@ -38,7 +38,7 @@ public abstract class BulletView : MonoBehaviour
         MoveBullet();
     }
 
-    protected virtual Transform FindClosestEnemy()
+    public virtual Transform FindClosestEnemy()
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, detectionRange, enemyLayer);
         Transform closestEnemy = null;
