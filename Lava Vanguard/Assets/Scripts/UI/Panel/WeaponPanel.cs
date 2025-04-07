@@ -9,7 +9,7 @@ public class WeaponPanel : UIPanel
     public Button buySlotButton;
     public TMP_Text costCoin;
     private int initialPrice=5;
-    private int addPrice = 10;
+    private int addPrice = 5;
     public override void Init()
     {
         base.Init();

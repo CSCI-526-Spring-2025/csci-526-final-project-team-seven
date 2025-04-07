@@ -22,7 +22,7 @@ public class ColorCenter
         {"Bullet9", new Color(1f, 0.4f, 0.3f)},
         
         {"Enemy1", new Color(1f, 1f, 1f)},
-        {"Enemy2", new Color(0.9f, 0.9f, 1f)},
+        {"Enemy2", new Color(1f, 1f, 0.2f)},
         {"Enemy3", new Color(0.8f, 0.8f, 1f)},
         {"Enemy4", new Color(0.7f, 0.6f, 1f)},
         {"Enemy5", new Color(0.6f, 0.4f, 1f)},

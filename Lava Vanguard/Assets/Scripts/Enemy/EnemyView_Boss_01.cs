@@ -34,17 +34,17 @@ public class EnemyView_Boss_01 : EnemyView
     public GameObject bulletPrefab;
     private float bulletInterval = 3.0f;
     private int bulletCount=8;
-    private int bulletInitialCount = 4;
-    private int bulletAddCount = 4;
+    private int bulletInitialCount = 20;
+    private int bulletAddCount = 2;
     public override void Init(string ID,int level)
     {
         base.Init(ID,level);
-        UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth*level;
-        UIGameManager.Instance.bossHPBar.value = enemyData.Health*level;
+        UIGameManager.Instance.bossHPBar.maxValue = enemyData.MaxHealth;
+        UIGameManager.Instance.bossHPBar.value = enemyData.Health;
         UIGameManager.Instance.bossHPBar.gameObject.SetActive(false);
         UIGameManager.Instance.BossHPLabel.text = "Boss "+level;
         UIGameManager.Instance.BossHPLabel.gameObject.SetActive(false);
-        bulletCount = bulletInitialCount + bulletAddCount * level;
+        bulletCount = bulletInitialCount + bulletAddCount * (level - 1);
         currentPosition = rightStartPosition;
         StartCoroutine(AttackCycle());
     }

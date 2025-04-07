@@ -8,13 +8,17 @@ public abstract class EnemyView : MonoBehaviour
     protected float SpawnDistance = 1.2f;
     public GameObject deathEffect;
     public SpriteRenderer spriteRenderer;
+    private Color originalColor;
     protected int level;
     public virtual void Init(string ID,int level)
     {
         this.level = level;
-        spriteRenderer.color = ColorCenter.CardColors["Enemy" + level];
+        originalColor = ColorCenter.CardColors["Enemy" + level];
+
+        spriteRenderer.color = originalColor;
         enemyData = GameDataManager.EnemyData[ID];
-        enemyData.Health *= level;
+        enemyData.Health += (enemyData.Health)/3*(level-1);
+        enemyData.MaxHealth += (enemyData.Health)/3*(level-1);
         //Debug.Log("Enemy " + ID + " " + level);
         transform.position = GetSpawnPosition();
     }
@@ -89,7 +93,6 @@ public abstract class EnemyView : MonoBehaviour
     {
         if (spriteRenderer != null)
         {
-            Color originalColor = spriteRenderer.color;
             spriteRenderer.color = color;
             yield return new WaitForSeconds(duration);
             spriteRenderer.color = originalColor;

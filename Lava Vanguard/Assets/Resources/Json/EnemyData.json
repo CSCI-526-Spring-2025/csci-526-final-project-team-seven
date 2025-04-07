@@ -29,10 +29,10 @@
     "Enemy_Boss_01": {
         "ID": "Enemy_Boss_01",
         "Name": "Enemy_Boss_01",
-        "Health": 100,
-        "Coin": 20,
+        "Health": 150,
+        "Coin": 30,
         "Speed": 3,
-        "MaxHealth": 100,
+        "MaxHealth": 150,
         "Attack": 1
     },
     "Enemy_Boss_01_Bullet": {
