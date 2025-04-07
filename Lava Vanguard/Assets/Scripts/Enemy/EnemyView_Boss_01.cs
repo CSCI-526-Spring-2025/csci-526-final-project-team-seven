@@ -109,6 +109,8 @@ public class EnemyView_Boss_01 : EnemyView
 
     private IEnumerator ShowExclamationMark(Vector3 spawnPos)
     {
+        startAttack=false;
+        gameObject.tag= "Untagged";
         // Show exclamation mark
         if (exclamationPrebab != null)
         {
@@ -134,6 +136,8 @@ public class EnemyView_Boss_01 : EnemyView
             Destroy(currentExclamation);
         }
         yield return null;
+        startAttack=true;
+        gameObject.tag= "Enemy";
     }
 
     // Move boss from fromPos to toPos
