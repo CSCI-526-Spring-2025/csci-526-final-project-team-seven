@@ -12,7 +12,7 @@ public class ColorCenter
         {"Health",new Color(1f,0f,0f) },
         
         {"Bullet1", new Color(1f, 1f, 1f)},
-        {"Bullet2", new Color(0.9f, 0.9f, 1f)},
+        {"Bullet2", new Color(1.0f, 1f, 0.2f)},
         {"Bullet3", new Color(0.8f, 0.8f, 1f)},
         {"Bullet4", new Color(0.7f, 0.6f, 1f)},
         {"Bullet5", new Color(0.6f, 0.4f, 1f)},

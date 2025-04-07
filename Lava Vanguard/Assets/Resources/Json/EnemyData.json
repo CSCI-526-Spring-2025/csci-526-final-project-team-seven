@@ -3,7 +3,7 @@
         "ID": "Enemy_01",
         "Name": "Flying Danger",
         "Health": 3,
-        "Coin": 1000,
+        "Coin": 1,
         "Speed": 2,
         "MaxHealth": 3,
         "Attack": 1
@@ -12,7 +12,7 @@
         "ID": "Enemy_02",
         "Name": "Guard",
         "Health": 3,
-        "Coin": 1000,
+        "Coin": 1,
         "Speed": 2,
         "MaxHealth": 3,
         "Attack": 1
