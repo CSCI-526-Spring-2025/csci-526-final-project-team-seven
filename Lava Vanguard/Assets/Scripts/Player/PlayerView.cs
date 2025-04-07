@@ -99,7 +99,7 @@ public class PlayerView : MonoBehaviour
         else if (collision.gameObject.CompareTag("LongPlatform"))
         {
             isGround = true;
-            if (collision.GetContact(0).normal.y > 0.5f)
+            if (collision.GetContact(0).normal.y > 0.5f && LevelManager.Instance.waveEnded)
             {
                 LevelManager.Instance.enteredNext = true;
             }
