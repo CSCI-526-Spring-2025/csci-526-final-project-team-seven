@@ -19,7 +19,8 @@ public class MenuPanel : UIPanel
             PlatformGenerator.Instance.Init();
             Tutorial.Instance.tutorial = true;
             Tutorial.Instance.Init();
-            
+
+            UIGameManager.Instance.SetCanOpen<PausePanel>(true);
             Close();
             EventSystem.current.SetSelectedGameObject(null);
             tutorialButton.onClick.RemoveAllListeners();
@@ -30,6 +31,8 @@ public class MenuPanel : UIPanel
             PlatformGenerator.Instance.Init();
             Tutorial.Instance.tutorial = false;
             Tutorial.Instance.Init();
+
+            UIGameManager.Instance.SetCanOpen<PausePanel>(true);
             Close();
             EventSystem.current.SetSelectedGameObject(null);
             startButton.onClick.RemoveAllListeners();

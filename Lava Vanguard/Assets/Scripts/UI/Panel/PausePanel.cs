@@ -11,6 +11,7 @@ public class PausePanel : UIPanel
     public override void Init()
     {
         base.Init();
+        canOpen = false;
         restartButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
         exitButton.onClick.AddListener(() =>
         {
