@@ -12180,6 +12180,7 @@ MonoBehaviour:
   timeText: {fileID: 1897395678}
   waveText: {fileID: 98744506}
   healthForWave: 
+  hashLongPlatform: 1
   waveEnded: 0
   genLongPlatform: 0
   enteredNext: 0
