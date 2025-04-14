@@ -45,5 +45,6 @@ public class ColorCenter
         {"Green",new Color(89/255f,160/255f,49/255f) },
         {"Red",new Color(209/255f,43/255f,28/255f) }
     };
-    public static Color platformFadeColor = new Color(1, 1, 1, 0);
+    public static Color platformHiddenColor = new Color(1, 1, 1, 0);
+    public static Color platformFadeColor = new Color(1, 1, 1, 47 / 255f);
 }

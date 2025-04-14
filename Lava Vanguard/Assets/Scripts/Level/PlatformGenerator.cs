@@ -30,7 +30,18 @@ public class PlatformGenerator : MonoBehaviour
         {
             if (preset[i])
             {
-                layer[i] = CreatePlatform(i);
+                int from = 0;
+                if (layerIndex != 0)
+                {
+                    List<int> pre = new List<int>();
+                    if (platforms[^1][i] != null) pre.Add(0);
+                    if (i > 0 && platforms[^1][i - 1] != null) pre.Add(1);
+                    if (i < COL - 1 && platforms[^1][i + 1] != null) pre.Add(2);
+                    if (pre[0] == 0) from = 0;
+                    else from = pre[Random.Range(0, pre.Count - 1)]; 
+                }
+
+                layer[i] = CreatePlatform(i, from);
             }
         }
         platforms.Add(layer);
@@ -79,7 +90,18 @@ public class PlatformGenerator : MonoBehaviour
 
         for (int i = 0; i < trueIndices.Count; i++)
         {
-            currentLayer[trueIndices[i]] = CreatePlatform(trueIndices[i]);
+            int from = 0;
+            if (layerIndex != 0)
+            {
+                List<int> pre = new List<int>();
+                var j = trueIndices[i];
+                if (platforms[^1][j] != null) pre.Add(0);
+                if (j > 0 && platforms[^1][j - 1] != null) pre.Add(1);
+                if (j < COL - 1 && platforms[^1][j + 1] != null) pre.Add(2);
+                if (pre[0] == 0) from = 0;
+                else from = pre[Random.Range(0, pre.Count - 1)];
+            }
+            currentLayer[trueIndices[i]] = CreatePlatform(trueIndices[i], from);
         }
         platforms.Add(currentLayer);
         layerIndex++;
@@ -114,7 +136,7 @@ public class PlatformGenerator : MonoBehaviour
         }
     }
 
-    public PlatformView CreatePlatform(int column)
+    public PlatformView CreatePlatform(int column, int from = 0)
     {
         // Small random offset of -0.5, 0, or 0.5 for variation
         float offsetX = new float[] { -0f, 0f, 0f }[Random.Range(0, 3)];
@@ -123,7 +145,7 @@ public class PlatformGenerator : MonoBehaviour
 
         // Instantiate the platform and initialize it
         PlatformView platform = Instantiate(platformPrefab, platformContainer).GetComponent<PlatformView>();
-        platform.Init(new Vector2(3, 0.5f), position);
+        platform.Init(new Vector2(3, 0.5f), position, from);
         return platform;
     }
 
@@ -142,12 +164,7 @@ public class PlatformGenerator : MonoBehaviour
 
     public void Init()
     {
-        var layer = new PlatformView[COL];
-        var init = Instantiate(platformPrefab, platformContainer).GetComponent<PlatformView>();
-        init.Init(new Vector2(3, 0.5f), new Vector2(0, InitialY));
-        layer[COL / 2] = init;
-        platforms.Add(layer);
-        layerIndex++;
+        GenerateOneLayer(new bool[] { false, false, true, false, false });
     }
     private void Start()
     {
@@ -165,13 +182,13 @@ public class PlatformGenerator : MonoBehaviour
     }
     private void Update()
     {
-        // Check if the camera has moved past the threshold
         if (mainCamera.transform.position.y >= nextGenerateY)
         {
             if (LevelManager.Instance.genLongPlatform)
             {
                 GenerateLongLayer();
                 LevelManager.Instance.genLongPlatform = false;
+                RemoveOneLayer();
             }
             else
             {
