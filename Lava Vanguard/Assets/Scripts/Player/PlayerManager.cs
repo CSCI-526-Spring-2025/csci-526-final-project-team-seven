@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     {
         Move();
         Jump();
+        Down();
         UpdateInvincible();
         if (Input.GetKeyDown(KeyCode.O))
             playerView.GainCoin(1000);
@@ -60,8 +61,14 @@ public class PlayerManager : MonoBehaviour
             playerView.JumpStop();
         }
     }
-    
 
+    private void Down()
+    {
+        if (Input.GetKey(KeyCode.S))
+        {
+            playerView.MoveDown();
+        }
+    }
     public void GetHurt(int damage,bool mustKilled=false)
     {
         playerView.UpdateHealth(damage,mustKilled);
