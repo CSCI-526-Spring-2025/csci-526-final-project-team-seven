@@ -193,7 +193,7 @@ public class PlatformGenerator : MonoBehaviour
     }
     private void Update()
     {
-        if (mainCamera.transform.position.y >= nextGenerateY)
+        if (Time.timeScale == 1 && mainCamera.transform.position.y >= nextGenerateY) 
         {
             if (LevelManager.Instance.genLongPlatform)
             {

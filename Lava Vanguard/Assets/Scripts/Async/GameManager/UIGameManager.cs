@@ -47,19 +47,6 @@ public class UIGameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) {
             Open<PausePanel>();
         }
-        bool open = false;
-        foreach(var p in UIPanels)
-        {
-            if (p.isOpen)
-            {
-                Time.timeScale = 0;
-                open = true;
-            }
-        }
-        if (!open)
-        {
-            Time.timeScale = 1;
-        }
     }
     public void Open<T>() where T : UIPanel
     {

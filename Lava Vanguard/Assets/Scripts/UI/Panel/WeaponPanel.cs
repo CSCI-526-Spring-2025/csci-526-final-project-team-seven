@@ -20,7 +20,12 @@ public class WeaponPanel : UIPanel
     public override void Close()
     {
         base.Close();
+        CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
+    }
+    public override void Open()
+    {
+        CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
     }
     public void BuySlot()
     {
