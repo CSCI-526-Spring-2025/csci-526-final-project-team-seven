@@ -15,6 +15,7 @@ public class PlayerView : MonoBehaviour
     
     private float invincibleTempTime = 0.0f;
     //GoD! JUst temP CoDe
+    private Collider2D currentPlatformCollider;
 
     public int GetHP()
     {
@@ -76,6 +77,21 @@ public class PlayerView : MonoBehaviour
         }
     }
 
+    public void MoveDown()
+    {
+        if (isGround)
+        {
+            isGround = false;
+            StartCoroutine(DisableCollisionTemporarily(currentPlatformCollider));
+        }
+    }
+    private IEnumerator DisableCollisionTemporarily(Collider2D platformCollider)
+    {
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), platformCollider, true);
+        yield return new WaitForSeconds(0.4f);
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), platformCollider, false);
+    }
+
     public void JumpMaintain()
     {
         if (isJumping && jumpTempTime > 0)
@@ -95,6 +111,7 @@ public class PlayerView : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGround = true;
+            currentPlatformCollider = collision.collider;
         }
         else if (collision.gameObject.CompareTag("LongPlatform"))
         {
