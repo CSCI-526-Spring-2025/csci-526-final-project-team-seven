@@ -19,7 +19,8 @@ public class WeaponPanel : UIPanel
     }
     public override void Close()
     {
-        base.Close();
+        isOpen = false;
+        gameObject.SetActive(false);
         CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
     }
