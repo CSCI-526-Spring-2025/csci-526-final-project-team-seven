@@ -40,7 +40,7 @@ public class UIGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !(GetOpen<PausePanel>() || GetOpen<DeathPanel>())) 
+        if (Input.GetKeyDown(KeyCode.E) && !(GetOpen<PausePanel>() || GetOpen<DeathPanel>()) && !CameraZoomAndMove.Instance.isMoving) 
         {
             Switch<WeaponPanel>();
         }

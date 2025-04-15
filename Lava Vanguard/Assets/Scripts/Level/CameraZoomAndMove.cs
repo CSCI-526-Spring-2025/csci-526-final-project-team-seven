@@ -9,7 +9,8 @@ public class CameraZoomAndMove : MonoBehaviour
     public CinemachineVirtualCamera vcam;   
     public Vector3 targetPosition;           
     public float targetSize = 3f;           
-    public float duration = 2f;               
+    public float duration = 2f;
+    public bool isMoving = false;
 
     private float originalSize;
     private Vector3 originalPosition;
@@ -19,6 +20,8 @@ public class CameraZoomAndMove : MonoBehaviour
     }
     public void ZoomAndMove(TweenCallback action = null)
     {
+        isMoving = true;
+
         originalSize = vcam.m_Lens.OrthographicSize;
         originalPosition = vcam.transform.position;
 
@@ -34,11 +37,16 @@ public class CameraZoomAndMove : MonoBehaviour
 
 
         vcam.transform.DOMove(targetPosition, duration)
-                      .SetEase(Ease.OutQuad).SetUpdate(true).onComplete += action;
+                      .SetEase(Ease.OutQuad).SetUpdate(true).onComplete += () =>
+                      {
+                          isMoving = false;
+                      } + action;
     }
 
     public void ResetCamera()
     {
+        isMoving = true;
+
         DOTween.To(() => vcam.m_Lens.OrthographicSize,
                    x => vcam.m_Lens.OrthographicSize = x,
                    originalSize,
@@ -48,6 +56,7 @@ public class CameraZoomAndMove : MonoBehaviour
         vcam.transform.DOMove(originalPosition, duration)
                       .SetEase(Ease.OutQuad).SetUpdate(true).onComplete += () =>
                       {
+                          isMoving = false;
                           Time.timeScale = 1f;
                       };
     }
