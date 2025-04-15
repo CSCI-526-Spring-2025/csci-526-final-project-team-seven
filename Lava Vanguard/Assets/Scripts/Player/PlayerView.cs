@@ -79,7 +79,7 @@ public class PlayerView : MonoBehaviour
 
     public void MoveDown()
     {
-        if (isGround)
+        if (isGround&&currentPlatformCollider != null && !currentPlatformCollider.CompareTag("LongPlatform"))
         {
             isGround = false;
             StartCoroutine(DisableCollisionTemporarily(currentPlatformCollider));
@@ -116,6 +116,7 @@ public class PlayerView : MonoBehaviour
         else if (collision.gameObject.CompareTag("LongPlatform"))
         {
             isGround = true;
+            currentPlatformCollider = collision.collider;
             if (collision.GetContact(0).normal.y > 0.5f && LevelManager.Instance.waveEnded)
             {
                 LevelManager.Instance.enteredNext = true;
