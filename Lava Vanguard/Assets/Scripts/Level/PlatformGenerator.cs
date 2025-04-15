@@ -9,6 +9,7 @@ public class PlatformGenerator : MonoBehaviour
     public static PlatformGenerator Instance { get; private set; }
     public Transform platformContainer;
     public GameObject platformPrefab;
+    public GameObject longPlatformPrefab;
     public List<PlatformView[]> platforms = new List<PlatformView[]>();
     public PlatformView longPlatformRef = null;
 
@@ -44,13 +45,14 @@ public class PlatformGenerator : MonoBehaviour
                 layer[i] = CreatePlatform(i, from);
             }
         }
-        if (layer[2] != null) layer[2].SetBottomHeight(4);
+        //Special Case
+        if (layer[2] != null) layer[2].SetBottomSize(new Vector2(3, 4));
+        if (platforms.Count == 1) layer[1].SetRightSize(new Vector2(3, 0.5f));
         platforms.Add(layer);
         layerIndex++;
     }
     public void GenerateOneLayer()
     {
-
         var lastLayer = platforms[^1];
         var currentLayer = new PlatformView[COL];
         int count = Random.Range(COL / 2 - COL / 4, COL / 2 + COL / 4 + 1);
@@ -104,6 +106,14 @@ public class PlatformGenerator : MonoBehaviour
             }
             currentLayer[trueIndices[i]] = CreatePlatform(trueIndices[i], from);
         }
+        //Special Case
+        if (platforms.Count == 1)
+        {
+            if (currentLayer[1] != null)
+                currentLayer[1].SetRightSize(new Vector2(3, 0.5f));
+            if (currentLayer[3] != null)
+                currentLayer[3].SetLeftSize(new Vector2(3, 0.5f));
+        }
         platforms.Add(currentLayer);
         layerIndex++;
     }
@@ -152,8 +162,8 @@ public class PlatformGenerator : MonoBehaviour
 
     public PlatformView CreateLongPlatform()
     {
-        PlatformView platform = Instantiate(platformPrefab, platformContainer).GetComponent<PlatformView>();
-        platform.Init(new Vector2(11, 0.5f), new Vector2(0, InitialY + layerIndex * IntervalY));
+        PlatformView platform = Instantiate(longPlatformPrefab, platformContainer).GetComponent<PlatformView>();
+        platform.Init(new Vector2(13, 0.5f), new Vector2(0, InitialY + layerIndex * IntervalY), -1);
         platform.tag = "LongPlatform";
         longPlatformRef = platform;
         CameraController.Instance.UpdateDistance(platform.transform);

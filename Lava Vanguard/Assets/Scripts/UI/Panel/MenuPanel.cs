@@ -14,6 +14,9 @@ public class MenuPanel : UIPanel
     public Button startButton;
     public Button quitButton;
     public Transform envTransform;
+    public Transform platformContainer;
+    public GameObject Trunk1;
+
     public override void Init()
     {
         base.Init();
@@ -21,12 +24,20 @@ public class MenuPanel : UIPanel
         {
             Tutorial.Instance.tutorial = true;
             PlatformGenerator.Instance.Init();
-            //PlatformGenerator.Instance.StartGenerating();
             UIGameManager.Instance.SetCanOpen<PausePanel>(true);
-            envTransform.DOMoveY(-28, 5f).onComplete += () =>
+
+            float y = -28;
+            float t = 5;
+            if (LevelManager.Instance.skipCredit)
+            {
+                envTransform.Find("Trunk1").gameObject.SetActive(false);
+                platformContainer.transform.localPosition = new Vector3(0, 14.25f);
+                y = -14;
+                t = 1;
+            }
+            envTransform.DOMoveY(y, t).onComplete += () =>
             {
                 PlayerManager.Instance.Init();
-                
                 Tutorial.Instance.Init();
             };
            
@@ -40,13 +51,22 @@ public class MenuPanel : UIPanel
             PlatformGenerator.Instance.Init();
             PlatformGenerator.Instance.StartGenerating();
             UIGameManager.Instance.SetCanOpen<PausePanel>(true);
-            envTransform.DOMoveY(-28, 5f).onComplete += () =>
+
+            float y = -28;
+            float t = 5;
+            if (LevelManager.Instance.skipCredit)
+            {
+                envTransform.Find("Trunk1").gameObject.SetActive(false);
+                platformContainer.transform.localPosition = new Vector3(0, 14.25f);
+                y = -14;
+                t = 1;
+            }
+            envTransform.DOMoveY(y, t).onComplete += () =>
             {
                 PlayerManager.Instance.Init();
-                
                 Tutorial.Instance.Init();
             };
-           
+
             Close();
             EventSystem.current.SetSelectedGameObject(null);
             startButton.onClick.RemoveAllListeners();
