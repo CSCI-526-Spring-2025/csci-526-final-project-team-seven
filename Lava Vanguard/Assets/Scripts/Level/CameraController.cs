@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     public AnimationCurve speedCurve;
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin noiseProfile;
-
+    private CinemachineImpulseSource impulseSource;
     private bool moving = false;
     public float longPlatformStopPoint = 4.5f; // distance lower from the camera
 
@@ -35,6 +35,7 @@ public class CameraController : MonoBehaviour
         if (!Tutorial.Instance.tutorial)
             StartMove();
         noiseProfile = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        impulseSource = virtualCamera.GetComponent<CinemachineImpulseSource>();
         float y = virtualCamera.m_Lens.OrthographicSize;
         float x = y * 16 / 9.0f;
         edges[0].SetPoints(new List<Vector2> { new Vector2(-x, y), new Vector2(x, y) });
@@ -99,6 +100,11 @@ public class CameraController : MonoBehaviour
     /// <param name="frequency">Frequency of the shake (speed of oscillation).</param>
     public void CameraShake(float duration = 0.25f, float amplitude = 1f, float frequency = 1f)
     {
+        if (impulseSource != null)
+        {
+            impulseSource.GenerateImpulse();
+            return;
+        }
         if (noiseProfile != null)
         {
             noiseProfile.m_AmplitudeGain = amplitude;

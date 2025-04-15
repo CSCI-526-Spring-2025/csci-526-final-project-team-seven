@@ -5,34 +5,48 @@ using UnityEngine.UI;
 using Async;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using System;
+using UnityEngine.Events;
+using static System.Collections.Specialized.BitVector32;
 public class MenuPanel : UIPanel
 {
     public Button tutorialButton;
     public Button startButton;
     public Button quitButton;
+    public Transform envTransform;
     public override void Init()
     {
         base.Init();
         tutorialButton.onClick.AddListener(() =>
         {
-            PlayerManager.Instance.Init();
-            PlatformGenerator.Instance.Init();
             Tutorial.Instance.tutorial = true;
-            Tutorial.Instance.Init();
-
+            PlatformGenerator.Instance.Init();
+            //PlatformGenerator.Instance.StartGenerating();
             UIGameManager.Instance.SetCanOpen<PausePanel>(true);
+            envTransform.DOMoveY(-28, 5f).onComplete += () =>
+            {
+                PlayerManager.Instance.Init();
+                
+                Tutorial.Instance.Init();
+            };
+           
             Close();
             EventSystem.current.SetSelectedGameObject(null);
             tutorialButton.onClick.RemoveAllListeners();
         });
         startButton.onClick.AddListener(() =>
         {
-            PlayerManager.Instance.Init();
-            PlatformGenerator.Instance.Init();
             Tutorial.Instance.tutorial = false;
-            Tutorial.Instance.Init();
-
+            PlatformGenerator.Instance.Init();
+            PlatformGenerator.Instance.StartGenerating();
             UIGameManager.Instance.SetCanOpen<PausePanel>(true);
+            envTransform.DOMoveY(-28, 5f).onComplete += () =>
+            {
+                PlayerManager.Instance.Init();
+                
+                Tutorial.Instance.Init();
+            };
+           
             Close();
             EventSystem.current.SetSelectedGameObject(null);
             startButton.onClick.RemoveAllListeners();
@@ -49,6 +63,8 @@ public class MenuPanel : UIPanel
     }
     public override void Close()
     {
-        transform.DOMoveY(2000, 0.7f);
+
+        gameObject.SetActive(false);
+
     }
 }

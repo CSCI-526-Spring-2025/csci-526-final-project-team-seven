@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public TMP_Text timeText;
     public TMP_Text waveText;
     public string healthForWave;
+    public bool hashLongPlatform = true;
 
     [HideInInspector] public bool waveEnded = false;
     [HideInInspector] public bool genLongPlatform = false;
@@ -47,9 +48,19 @@ public class LevelManager : MonoBehaviour
         EnemyManager.Instance.StopSpawn();
         EnemyManager.Instance.killAll();
         waveEnded = true;
-        genLongPlatform = true;
-        CameraController.Instance.SetCameraSpeed(1.5f);
-        yield return new WaitUntil(() => showPanel());
+        if (hashLongPlatform)
+        {
+            genLongPlatform = true;
+            CameraController.Instance.SetCameraSpeed(1.5f);
+            yield return new WaitUntil(() => showPanel());
+        }
+        else
+        {
+            CameraController.Instance.StopCamera();
+            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitUntil(() => PlayerManager.Instance.playerView.isGround);
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
         // yield return new WaitForSeconds(0.2f);
 
         // CameraController.Instance.StopCamera();

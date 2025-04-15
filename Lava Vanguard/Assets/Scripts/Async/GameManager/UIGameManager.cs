@@ -24,6 +24,8 @@ public class UIGameManager : MonoBehaviour
     public Slider bossHPBar;
 
     public UIPanel[] UIPanels;
+
+    
     private void Awake()
     {
         Instance = this;
