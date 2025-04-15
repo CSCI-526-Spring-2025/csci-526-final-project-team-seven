@@ -13,7 +13,11 @@ public class DeathPanel : UIPanel
     public override void Init()
     {
         base.Init();
-        restartButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
+        restartButton.onClick.AddListener(() =>
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
         exitButton.onClick.AddListener(() =>
         {
 #if UNITY_EDITOR

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: InventoryConfig
   m_EditorClassIdentifier: 
   Center: {x: 0, y: -300}
-  Size: {x: 980, y: 260}
+  Size: {x: 620, y: 260}

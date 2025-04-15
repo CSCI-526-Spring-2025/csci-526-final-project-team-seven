@@ -2,6 +2,8 @@ using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class LevelManager : MonoBehaviour
     public static readonly int[] TotalTime = new int[] { 15, 20, 25, 30 };
     public TMP_Text timeText;
     public TMP_Text waveText;
+    public ParticleSystem star;
+    public GameObject lightGameObjects;
+    [HideInInspector]
     public string healthForWave;
     public bool hashLongPlatform = true;
     public bool skipCredit = true;
@@ -21,6 +26,8 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        var m = star.main;
+        m.useUnscaledTime = true;
     }
 
     
@@ -62,9 +69,7 @@ public class LevelManager : MonoBehaviour
             yield return new WaitUntil(() => PlayerManager.Instance.playerView.isGround);
             yield return new WaitForSecondsRealtime(0.5f);
         }
-        // yield return new WaitForSeconds(0.2f);
 
-        // CameraController.Instance.StopCamera();
         UIGameManager.Instance.Open<CardSelectorPanel>();
     }
 
@@ -83,17 +88,6 @@ public class LevelManager : MonoBehaviour
         EnemyManager.Instance.StartSpawn();
         StartCoroutine("CountdownTimer");
     }
-    private void Update()
-    {
-        // if (waveEnded && PlayerManager.Instance.playerView.isGround) 
-        // {
-        //     waveEnded = false;
-        //     Sequence sequence = DOTween.Sequence();
-        //     sequence.AppendInterval(1f);
-        //     sequence.AppendCallback(() =>
-        //     UIGameManager.Instance.Open<CardSelectorPanel>());
-        // }
-    }
 
     public void recordHealthForThisWave()
     {
@@ -106,5 +100,20 @@ public class LevelManager : MonoBehaviour
     private bool showPanel()
     {
         return waveEnded && CameraController.Instance.CameraStopped() && enteredNext;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            lightGameObjects.SetActive(!lightGameObjects.activeInHierarchy);
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            skipCredit = !skipCredit;
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            hashLongPlatform = !hashLongPlatform;
+        }
     }
 }

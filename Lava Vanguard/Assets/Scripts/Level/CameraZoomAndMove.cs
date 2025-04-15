@@ -51,16 +51,4 @@ public class CameraZoomAndMove : MonoBehaviour
                           Time.timeScale = 1f;
                       };
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            
-            ZoomAndMove();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            ResetCamera();
-        }
-    }
 }
