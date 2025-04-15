@@ -19,11 +19,17 @@ public class PlatformView : MonoBehaviour
     {
         InitAnimation1(size, position, from);
     }
-    public void SetBottomHeight(float h)
+    public void SetBottomSize(Vector2 size)
     {
-        var size=bottomSpriteRenderer.size;
-        size.y = h;
         bottomSpriteRenderer.size = size;
+    }
+    public void SetLeftSize(Vector2 size)
+    {
+        leftSpriteRenderer2.size = size;
+    }
+    public void SetRightSize(Vector2 size)
+    {
+        rightSpriteRenderer2.size = size;
     }
     private void InitAnimation1(Vector2 size, Vector2 position, int from = 0)
     {
@@ -39,7 +45,24 @@ public class PlatformView : MonoBehaviour
         frontSpriteRenderer.color = ColorCenter.platformHiddenColor;
         backSpriteRenderer.DOFade(1, 0.5f);
         frontSpriteRenderer.DOFade(1, 0.5f);
-
+        if (from == -1)
+        {
+            var data = PlatformGenerator.Instance.platforms;
+            
+            for (int i = 1; i <= 3; i++)
+            {
+                float c = 1.5f;
+                int j = data.Count - 1;
+                while (j >= 0 && data[j][i] == null) 
+                {
+                    c += 2f;
+                    j--;
+                }
+                if (i == 1) leftSpriteRenderer1.size = new Vector2(1, c);
+                if (i == 2) bottomSpriteRenderer.size = new Vector2(1, c);
+                if (i == 3) rightSpriteRenderer1.size = new Vector2(1, c);
+            }
+        }
         if (from == 0)
         {
             bottomSpriteRenderer.DOColor(ColorCenter.platformFadeColor, 0.5f);
