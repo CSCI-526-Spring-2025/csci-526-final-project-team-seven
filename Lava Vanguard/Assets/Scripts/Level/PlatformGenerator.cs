@@ -44,6 +44,7 @@ public class PlatformGenerator : MonoBehaviour
                 layer[i] = CreatePlatform(i, from);
             }
         }
+        if (layer[2] != null) layer[2].SetBottomHeight(4);
         platforms.Add(layer);
         layerIndex++;
     }
@@ -110,7 +111,7 @@ public class PlatformGenerator : MonoBehaviour
     {
         var longPlatform = CreateLongPlatform();
         var layer = new PlatformView[COL];
-        for (int i = 0; i < COL; i++)
+        for (int i = 1; i < COL - 1; i++) 
         {
             layer[i] = longPlatform;
         }
@@ -152,7 +153,7 @@ public class PlatformGenerator : MonoBehaviour
     public PlatformView CreateLongPlatform()
     {
         PlatformView platform = Instantiate(platformPrefab, platformContainer).GetComponent<PlatformView>();
-        platform.Init(new Vector2(30, 0.5f), new Vector2(0, InitialY + layerIndex * IntervalY));
+        platform.Init(new Vector2(11, 0.5f), new Vector2(0, InitialY + layerIndex * IntervalY));
         platform.tag = "LongPlatform";
         longPlatformRef = platform;
         CameraController.Instance.UpdateDistance(platform.transform);

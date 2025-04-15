@@ -17,9 +17,15 @@ public class PlatformView : MonoBehaviour
     //private readonly float THICKNESS = 0.25f;
     public void Init(Vector2 size, Vector2 position, int from = 0)
     {
-        InitAnimation(size, position, from);
+        InitAnimation1(size, position, from);
     }
-    private void InitAnimation(Vector2 size, Vector2 position, int from = 0)
+    public void SetBottomHeight(float h)
+    {
+        var size=bottomSpriteRenderer.size;
+        size.y = h;
+        bottomSpriteRenderer.size = size;
+    }
+    private void InitAnimation1(Vector2 size, Vector2 position, int from = 0)
     {
         backSpriteRenderer.size = size;
         frontSpriteRenderer.size = size;
@@ -36,7 +42,7 @@ public class PlatformView : MonoBehaviour
 
         if (from == 0)
         {
-            bottomSpriteRenderer.color = ColorCenter.platformFadeColor;
+            bottomSpriteRenderer.DOColor(ColorCenter.platformFadeColor, 0.5f);
             leftSpriteRenderer1.color = ColorCenter.platformHiddenColor;
             leftSpriteRenderer2.color = ColorCenter.platformHiddenColor;
             rightSpriteRenderer1.color= ColorCenter.platformHiddenColor;
@@ -45,8 +51,8 @@ public class PlatformView : MonoBehaviour
         if (from == 1)
         {
             bottomSpriteRenderer.color = ColorCenter.platformHiddenColor;
-            leftSpriteRenderer1.color = ColorCenter.platformFadeColor;
-            leftSpriteRenderer2.color = ColorCenter.platformFadeColor;
+            leftSpriteRenderer1.DOColor(ColorCenter.platformFadeColor, 0.5f);
+            leftSpriteRenderer2.DOColor(ColorCenter.platformFadeColor, 0.5f);
             rightSpriteRenderer1.color = ColorCenter.platformHiddenColor;
             rightSpriteRenderer2.color = ColorCenter.platformHiddenColor;
         }
@@ -55,8 +61,9 @@ public class PlatformView : MonoBehaviour
             bottomSpriteRenderer.color = ColorCenter.platformHiddenColor;
             leftSpriteRenderer1.color = ColorCenter.platformHiddenColor;
             leftSpriteRenderer2.color = ColorCenter.platformHiddenColor;
-            rightSpriteRenderer1.color = ColorCenter.platformFadeColor;
-            rightSpriteRenderer2.color = ColorCenter.platformFadeColor;
+            rightSpriteRenderer1.DOColor(ColorCenter.platformFadeColor, 0.5f);
+            rightSpriteRenderer2.DOColor(ColorCenter.platformFadeColor, 0.5f);
         }
     }
+
 }

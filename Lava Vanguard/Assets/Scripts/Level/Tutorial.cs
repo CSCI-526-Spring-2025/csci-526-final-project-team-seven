@@ -32,7 +32,7 @@ public class Tutorial : MonoBehaviour
             basicUI.alpha = 1;
             basicUI2.alpha = 1;
             cnt = 13;
-            PlatformGenerator.Instance.StartGenerating();
+            //PlatformGenerator.Instance.StartGenerating();
             LevelManager.Instance.NextWave();
             Lava.Instance.SetCameraDistance(5);
             CameraController.Instance.StartMove();
