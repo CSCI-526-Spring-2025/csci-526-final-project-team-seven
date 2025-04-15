@@ -5,10 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Menu.unity
-    guid: 22ecb5c0aec2bdd43bd3854d2cd0ba68
-  - enabled: 0
-    path: Assets/Scenes/Level.unity
-    guid: 2b49473219a29b04d8c95dafcb7dab3f
+  - enabled: 1
+    path: Assets/Art/PixelBot/Scenes/Scene_MainGame.unity
+    guid: 73cac2dbe72a82241a2263192139d742
   m_configObjects: {}
