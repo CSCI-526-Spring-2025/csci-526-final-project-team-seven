@@ -5,8 +5,10 @@ using TMPro;
 using Async;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Tilemaps;
 public class CardSelectorPanel : UIPanel
 {
+    //public Tilemap background;
     public int optionNumber = 3;
 
     public Transform cardSelectorContainer;
@@ -14,7 +16,6 @@ public class CardSelectorPanel : UIPanel
     public Button nextWaveButton;
     public Button refreshButton;
     
-    [HideInInspector]
     public List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
     private int refreshCount = 0;
     private TMP_Text refreshText;
@@ -32,6 +33,7 @@ public class CardSelectorPanel : UIPanel
     public override void Open()
     {
         base.Open();
+        CameraController.Instance.canMove = false;
         refreshCount = 0;
         var collectableCardsList = GameDataManager.CardData
             .Where(kv => kv.Value.Collectable)
@@ -61,6 +63,7 @@ public class CardSelectorPanel : UIPanel
     public override void Close()
     {
         base.Close();
+        CameraController.Instance.canMove = true;
     }
     public void UpdateSelectButton()
     {
@@ -71,6 +74,9 @@ public class CardSelectorPanel : UIPanel
     {
         CameraController.Instance.ResumeCamera();
         LevelManager.Instance.NextWave();
+        PlatformGenerator.Instance.shopBackground.gameObject.SetActive(false);
+        PlatformGenerator.Instance.shopBackground.gameObject.transform.SetParent(PlatformGenerator.Instance.platformContainer);
+        PlatformGenerator.Instance.canGenerate = true;
         Close();
     }
     private void RefreshFunc()

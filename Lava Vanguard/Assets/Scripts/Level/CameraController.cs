@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin noiseProfile;
     private CinemachineImpulseSource impulseSource;
-    private bool moving = false;
+    public bool canMove = false;
     public float longPlatformStopPoint = 4.5f; // distance lower from the camera
 
     private void Awake()
@@ -47,14 +47,14 @@ public class CameraController : MonoBehaviour
 
     public void StartMove()
     {
-        moving = true;
+        canMove = true;
     }
 
     private void LateUpdate()
     {
         Transform cameraTransform = virtualCamera.transform;//Lot of GC!!!
         Vector3 targetPosition = cameraTransform.position;
-        if (moving)
+        if (canMove)
         {
             var lm = LevelManager.Instance;
             if (lm.enteredNext)
@@ -79,15 +79,6 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        //if (player.transform.position.x > targetPosition.x + cameraFollowDistance)
-        //{
-        //    targetPosition.x = player.transform.position.x - cameraFollowDistance;
-        //}
-        //else if (player.transform.position.x < targetPosition.x - cameraFollowDistance)
-        //{
-        //    targetPosition.x = player.transform.position.x + cameraFollowDistance;
-        //}
-        //Virtual Camera 
         cameraTransform.position = targetPosition;
         OnCameraUpdated?.Invoke();
     }

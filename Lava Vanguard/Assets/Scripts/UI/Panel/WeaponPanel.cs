@@ -26,6 +26,7 @@ public class WeaponPanel : UIPanel
     }
     public override void Open()
     {
+        Time.timeScale = 0f;
         CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
     }
     public void BuySlot()

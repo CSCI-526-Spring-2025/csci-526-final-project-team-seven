@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     public GameObject lightGameObjects;
     [HideInInspector]
     public string healthForWave;
+    [HideInInspector]
     public bool hashLongPlatform = true;
     public bool skipCredit = true;
 
@@ -110,10 +111,6 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
         {
             skipCredit = !skipCredit;
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            hashLongPlatform = !hashLongPlatform;
         }
     }
 }

@@ -21,7 +21,6 @@ public class UIPanel : MonoBehaviour
     public virtual void Open()
     {
         isOpen = true;
-        Time.timeScale = 0f;
         gameObject.SetActive(true);
     }
     public virtual void Close()

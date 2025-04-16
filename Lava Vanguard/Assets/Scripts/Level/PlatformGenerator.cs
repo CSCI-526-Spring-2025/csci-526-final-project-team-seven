@@ -11,7 +11,10 @@ public class PlatformGenerator : MonoBehaviour
     public GameObject platformPrefab;
     public GameObject longPlatformPrefab;
     public List<PlatformView[]> platforms = new List<PlatformView[]>();
+    public Transform shopBackground;
     public PlatformView longPlatformRef = null;
+    [HideInInspector]
+    public bool canGenerate = true;
 
     private int layerIndex = 0;
     private static readonly int COL = 5;
@@ -125,6 +128,9 @@ public class PlatformGenerator : MonoBehaviour
         {
             layer[i] = longPlatform;
         }
+        shopBackground.SetParent(longPlatform.transform, true);
+        shopBackground.localPosition = new Vector2(0, -13.25f);
+        shopBackground.gameObject.SetActive(true);
         platforms.Add(layer);
         layerIndex++;
     }
@@ -193,12 +199,13 @@ public class PlatformGenerator : MonoBehaviour
     }
     private void Update()
     {
-        if (Time.timeScale == 1 && mainCamera.transform.position.y >= nextGenerateY) 
+        if (Time.timeScale == 1 && mainCamera.transform.position.y >= nextGenerateY && canGenerate)  
         {
             if (LevelManager.Instance.genLongPlatform)
             {
                 GenerateLongLayer();
                 LevelManager.Instance.genLongPlatform = false;
+                canGenerate = false;
                 RemoveOneLayer();
             }
             else
