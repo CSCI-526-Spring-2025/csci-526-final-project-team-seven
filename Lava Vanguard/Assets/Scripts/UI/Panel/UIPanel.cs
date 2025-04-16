@@ -17,6 +17,7 @@ public class UIPanel : MonoBehaviour
     {
         if (backButton != null)
             backButton.onClick.AddListener(Close);
+        isOpen = gameObject.activeInHierarchy;
     }
     public virtual void Open()
     {
