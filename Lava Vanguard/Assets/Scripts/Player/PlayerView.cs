@@ -32,15 +32,32 @@ public class PlayerView : MonoBehaviour
         return playerData.coin;
     }
 
-    public void Init()
+    public void Init(bool isContinue)
     {
         playerData = PlayerData.DefaultData;
+
+        if (isContinue)
+        {
+            playerData.health = GameDataManager.SavedLevelData.Health;
+            playerData.coin = GameDataManager.SavedLevelData.Coin;
+        }
+        else
+        {
+            playerData.health = GameDataManager.LevelData.Health;
+            playerData.coin = GameDataManager.LevelData.Coin;
+        }
+        UIGameManager.Instance.UpdateCoin();
+        UIGameManager.Instance.UpdateHp();
+
+
         invincibleTempTime = 0.0f;
         playerData.health = playerData.healthLimit;
         playerData.currentHealthLimit = playerData.healthLimit;
         rb = GetComponent<Rigidbody2D>();
         UIGameManager.Instance.UpdateHp();
         UIGameManager.Instance.UpdateCoin();
+
+        gameObject.SetActive(true);
     }
 
     public void MoveLeft()

@@ -15,12 +15,9 @@ public class LevelManager : MonoBehaviour
     public TMP_Text waveText;
     public ParticleSystem star;
     public GameObject lightGameObjects;
-    [HideInInspector]
-    public string healthForWave;
-    [HideInInspector]
-    public bool hashLongPlatform = true;
-    public bool skipCredit = true;
-
+    [HideInInspector] public string healthForWave;
+    [HideInInspector] public bool hashLongPlatform = true;
+    [HideInInspector] public bool skipCredit = true;
     [HideInInspector] public bool waveEnded = false;
     [HideInInspector] public bool genLongPlatform = false;
     [HideInInspector] public bool enteredNext = false;
@@ -30,8 +27,6 @@ public class LevelManager : MonoBehaviour
         var m = star.main;
         m.useUnscaledTime = true;
     }
-
-    
     private void ResetTimer()
     {
         time = TotalTime[Mathf.Min(wave, TotalTime.Length - 1)];
@@ -61,7 +56,7 @@ public class LevelManager : MonoBehaviour
         {
             genLongPlatform = true;
             CameraController.Instance.SetCameraSpeed(1.5f);
-            yield return new WaitUntil(() => showPanel());
+            yield return new WaitUntil(() => ShowPanel());
         }
         else
         {
@@ -76,8 +71,13 @@ public class LevelManager : MonoBehaviour
 
     public bool WaveHasBoss()
     {
-        return true;
+        //return true;
         return wave >= 3 && (wave + 1) % 2 == 0;
+    }
+    public void Init(bool isContinue)
+    {
+        wave = isContinue ? GameDataManager.SavedLevelData.Wave : GameDataManager.LevelData.Wave;
+        wave--;
     }
     public void NextWave()
     {
@@ -86,20 +86,18 @@ public class LevelManager : MonoBehaviour
         wave++;
         waveText.text = "Wave " + (wave + 1);
         ResetTimer();
-        recordHealthForThisWave();
+        RecordHealthForThisWave();
         EnemyManager.Instance.StartSpawn();
         StartCoroutine("CountdownTimer");
     }
 
-    public void recordHealthForThisWave()
+    public void RecordHealthForThisWave()
     {
-       
         int health = PlayerManager.Instance.playerView.GetHP();
-
         healthForWave += $"Wave {wave+1}: HP {health}\n"; 
     }
 
-    private bool showPanel()
+    private bool ShowPanel()
     {
         return waveEnded && CameraController.Instance.CameraStopped() && enteredNext;
     }

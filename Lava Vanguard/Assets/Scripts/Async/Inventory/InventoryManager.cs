@@ -13,10 +13,9 @@ namespace Async
         {
             Instance = this;
         }
-        public void Init()
+        public void Init(bool isContinue)
         {
-            inventoryView.Init();
+            inventoryView.Init(isContinue);
         }
-
     }
 }

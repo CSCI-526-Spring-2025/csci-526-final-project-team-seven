@@ -10,10 +10,11 @@ public class SlotManager : MonoBehaviour
     public static readonly int COL = 5;
     public static readonly float TOTAL_TIME = 0.25f * ROW * COL;
     public static readonly int TOTAL_GRID = ROW * COL;
-    public static readonly int START_GRID = 2;
+    public static int START_GRID = 2;
     [HideInInspector]
     public SlotView[,] slotViews = new SlotView[ROW, COL];
     public GameObject slotPrefab;
+    public GameObject cardPrefab;
     public Transform slotContainer;
     public Transform draggingTransform;
     [HideInInspector]
@@ -26,10 +27,22 @@ public class SlotManager : MonoBehaviour
     {
         Instance = this;
     }
-    public void Init()
+    public void Init(bool isContinue)
     {
-        for (int i = 0; i < START_GRID; i++)
-            AddSlot();
+        var datas = isContinue ? GameDataManager.SavedSequenceData.CardDatas : GameDataManager.SequenceData.CardDatas;
+        START_GRID = datas.Count;
+        foreach(var data in datas)
+        {
+            var t = AddSlot();
+            if (t != null && data.CardID != "Card_Empty")
+            {
+                var cardView = Instantiate(cardPrefab, t.transform).GetComponent<CardView>();
+                cardView.Init(null, GameDataManager.CardData[data.CardID], data);
+                cardView.GetComponent<CardDrag>().Init(GameDataManager.CardData[data.CardID].Draggable);
+                t.content = cardView;
+                cardView.slot = t;
+            }
+        }
         UpdateAndRunSequence();
     }
     public int GetCardViewNum()
@@ -40,16 +53,16 @@ public class SlotManager : MonoBehaviour
                 cnt++;
         return cnt;
     }
-    public void AddSlot()
+    public SlotView AddSlot()
     {
-        if (currentTotalGrid == TOTAL_GRID) return;
+        if (currentTotalGrid == TOTAL_GRID) return null;
         int i = currentTotalGrid / COL;
         int j = currentTotalGrid % COL;
         slotViews[i, j] = Instantiate(slotPrefab, slotContainer).GetComponent<SlotView>();
         slotViews[i, j].transform.SetSiblingIndex(slotContainer.childCount - 2);
         currentTotalGrid++;
         Async.AsyncManager.Instance.RecordSlotPurchase();//record slot purchase
-
+        return slotViews[i, j];
     }
     public void HideBuySlot()
     {

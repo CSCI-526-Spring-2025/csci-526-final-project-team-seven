@@ -6,22 +6,21 @@ using System;
 public class PlayerManager : MonoBehaviour
 {
     public PlayerView playerView;
+    private bool initialized = false;
     public static PlayerManager Instance { get; private set; }
     private void Awake()
     {
         Instance = this;
     }
 
-    private void Start()
+    public void Init(bool isContinue)
     {
-        playerView.Init();
-    }
-    public void Init()
-    {
-        playerView.gameObject.SetActive(true);
+        playerView.Init(isContinue);
+        initialized = true;
     }
     private void Update()
     {
+        if (!initialized) return;
         Move();
         Jump();
         Down();

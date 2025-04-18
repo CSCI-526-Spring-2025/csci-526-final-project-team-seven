@@ -46,12 +46,16 @@ namespace Async
     }
     public struct SequenceData
     {
-        public string ID { get; set; }
         public List<CardRankData> CardDatas { get; set; }
     }
     public struct InventoryData
     {
         public List<CardRankData> CardDatas { get; set; }
     }
-
+    public struct LevelData
+    {
+        public int Health { get; set;}
+        public int Coin { get; set; }
+        public int Wave { get; set; }
+    }
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Async
 {
-    //Just for temp testing
     public class AsyncManager : MonoBehaviour
     {
         public static AsyncManager Instance { get; private set; }
@@ -14,10 +13,10 @@ namespace Async
         {
             Instance = this;
         }
-        private void Start()
+        public void Init(bool isContinue = false)
         {
-            SlotManager.Instance.Init();
-            InventoryManager.Instance.Init();
+            SlotManager.Instance.Init(isContinue);
+            InventoryManager.Instance.Init(isContinue);
         }
         public void GainCard(CardRankData data)
         {
@@ -29,7 +28,10 @@ namespace Async
             }
             InventoryManager.Instance.inventoryView.AddCardView(data);
         }
-
+        private void OnApplicationQuit()
+        {
+            GameDataManager.SaveData();
+        }
         public void RecordCardSelection(CardRankData data)
         {
             int wave = LevelManager.Instance.wave;

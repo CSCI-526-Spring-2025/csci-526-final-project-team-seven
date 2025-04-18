@@ -17,7 +17,7 @@ namespace Async
         public GameObject cardPrefab;
 
         public List<CardView> cardViews = new List<CardView>();
-        public void Init()
+        public void Init(bool isContinue)
         {
             //Init position and size
             inventoryRectTransform.anchoredPosition = GameDataManager.InventoryConfig.Center;
@@ -25,7 +25,8 @@ namespace Async
 
             gridLayoutGroup.cellSize = Vector2.one * GameDataManager.CardConfig.CardSize;
 
-            var inventoryData = GameDataManager.InventoryData;
+            var inventoryData = isContinue ? GameDataManager.SavedInventoryData : GameDataManager.InventoryData;
+
             for (int i = 0; i < inventoryData.CardDatas.Count; i++)
             {
                 var data = inventoryData.CardDatas[i];

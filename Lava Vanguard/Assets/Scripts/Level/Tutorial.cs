@@ -25,15 +25,20 @@ public class Tutorial : MonoBehaviour
     {
         Instance = this;
     }
-    public void Init()
+    public void Init(bool isContinue = false)
     {
+        PlayerManager.Instance.Init(isContinue);
         if (!tutorial)
         {
             basicUI.alpha = 1;
             basicUI2.alpha = 1;
             cnt = 13;
             //PlatformGenerator.Instance.StartGenerating();
+            LevelManager.Instance.Init(isContinue);
             LevelManager.Instance.NextWave();
+
+            AsyncManager.Instance.Init(isContinue);
+
             Lava.Instance.SetCameraDistance(5);
             CameraController.Instance.StartMove();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
@@ -46,6 +51,7 @@ public class Tutorial : MonoBehaviour
         else
         {
             cnt++;
+            AsyncManager.Instance.Init();
             SetTutorialGameObject();
         }
     }

@@ -13,9 +13,11 @@ public class MenuPanel : UIPanel
     public Button tutorialButton;
     public Button startButton;
     public Button quitButton;
+    public Button continueButton;
     public Transform envTransform;
     public Transform platformContainer;
     public GameObject Trunk1;
+    public GameObject continueBranch;
 
     public override void Init()
     {
@@ -37,7 +39,7 @@ public class MenuPanel : UIPanel
             }
             envTransform.DOMoveY(y, t).onComplete += () =>
             {
-                PlayerManager.Instance.Init();
+                
                 Tutorial.Instance.Init();
             };
            
@@ -63,8 +65,32 @@ public class MenuPanel : UIPanel
             }
             envTransform.DOMoveY(y, t).onComplete += () =>
             {
-                PlayerManager.Instance.Init();
                 Tutorial.Instance.Init();
+            };
+
+            Close();
+            EventSystem.current.SetSelectedGameObject(null);
+            startButton.onClick.RemoveAllListeners();
+        });
+        continueButton.onClick.AddListener(() =>
+        {
+            Tutorial.Instance.tutorial = false;
+            PlatformGenerator.Instance.Init();
+            PlatformGenerator.Instance.StartGenerating();
+            UIGameManager.Instance.SetCanOpen<PausePanel>(true);
+
+            float y = -28;
+            float t = 5;
+            if (LevelManager.Instance.skipCredit)
+            {
+                envTransform.Find("Trunk1").gameObject.SetActive(false);
+                platformContainer.transform.localPosition = new Vector3(0, 14.25f);
+                y = -14;
+                t = 1;
+            }
+            envTransform.DOMoveY(y, t).onComplete += () =>
+            {
+                Tutorial.Instance.Init(isContinue: true);
             };
 
             Close();
@@ -79,12 +105,15 @@ public class MenuPanel : UIPanel
     Application.Quit();
 #endif
         });
-
+        if (GameDataManager.SavedLevelData.Health == 0)
+        {
+            Debug.Log("No saved data.");
+            continueBranch.SetActive(false);
+            continueButton.gameObject.SetActive(false);
+        }
     }
     public override void Close()
     {
-
         gameObject.SetActive(false);
-
     }
 }
