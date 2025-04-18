@@ -7,13 +7,14 @@ using TMPro;
 
 public class DeathPanel : UIPanel
 {
-    public TMP_Text survivalTime;
-    public Button restartButton;
+    //public TMP_Text survivalTime;
+    public Button reviveButton;
+    public Button menuButton;
     public Button exitButton;
     public override void Init()
     {
         base.Init();
-        restartButton.onClick.AddListener(() =>
+        menuButton.onClick.AddListener(() =>
         {
             Time.timeScale = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -28,9 +29,16 @@ public class DeathPanel : UIPanel
         }); ;
     }
 
+
     public override void Open()
     {
-        base.Open();
-        survivalTime.text = "Survival Wave: " + LevelManager.Instance.wave;
+        CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
+        //TODO: survivalTime
+    }
+    public override void Close()
+    {
+        base.Close();
+        CameraZoomAndMove.Instance.ResetCamera();
+        Tooltip.Instance.HideTooltip();
     }
 }

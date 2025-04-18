@@ -38,7 +38,7 @@ public class Tutorial : MonoBehaviour
             CameraController.Instance.StartMove();
             UIGameManager.Instance.SetCanOpen<WeaponPanel>(true);
             UIGameManager.Instance.GetPanel<CardSelectorPanel>().nextWaveButton.gameObject.SetActive(true);
-            UIGameManager.Instance.GetPanel<WeaponPanel>().buySlotButton.gameObject.SetActive(true);
+            SlotManager.Instance.ShowBuySlot();
             SetTutorialGameObject();
             UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
             SetTutorialGameObject();
@@ -156,7 +156,7 @@ public class Tutorial : MonoBehaviour
         {
             cnt++;
             tutorialCanvas.sortingOrder = 1;
-            UIGameManager.Instance.GetPanel<WeaponPanel>().buySlotButton.gameObject.SetActive(true);
+            SlotManager.Instance.ShowBuySlot();
             SetTutorialGameObject();
         }
         if (cnt == 12 )

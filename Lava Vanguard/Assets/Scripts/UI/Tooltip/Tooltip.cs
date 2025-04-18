@@ -103,7 +103,14 @@ public class Tooltip : MonoBehaviour
         {
             bulletDetail2.text = "";
         }
-        description2.text = data.cardSpriteData.Description;
+        if (data.cardSpriteData.Type == "AddSlot")
+        {
+            description2.text = string.Format(data.cardSpriteData.Description, UIGameManager.Instance.GetPanel<WeaponPanel>().BuySlotPrice, PlayerManager.Instance.playerView.GetCoin());
+        }
+        else
+        {
+            description2.text = data.cardSpriteData.Description;
+        }
     }
     public void HideTooltip()
     {
