@@ -8,7 +8,7 @@ public class WeaponPanel : UIPanel
 {
     private int initialPrice = 5;
     private int addPrice = 5;
-    public int BuySlotPrice { get => 5 + (SlotManager.Instance.currentTotalGrid - 2) * addPrice; }
+    public int BuySlotPrice { get => initialPrice + (SlotManager.Instance.currentTotalGrid - 2) * addPrice; }
     
     public override void Init()
     {
@@ -28,7 +28,7 @@ public class WeaponPanel : UIPanel
     public void BuySlot()
     {
         int currentTotalGird = SlotManager.Instance.currentTotalGrid;
-        int price = 5 + (currentTotalGird - 2) * addPrice;
+        int price = initialPrice + (currentTotalGird - 2) * addPrice;
         if (PlayerManager.Instance.playerView.GetCoin() >= price)
         {
             PlayerManager.Instance.playerView.GainCoin(-price);

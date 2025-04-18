@@ -14,7 +14,7 @@
     "Card_AddSlot": {
         "ID": "Card_Empty",
         "Title": "Buy-a-Slot",
-        "Description": "Click to spend {0} coins to gain an extra slot. You have {1} coins.",
+        "Description": "Click to spend <b>{0}</b> coins to gain an extra slot. You have <b>{1}</b> coins.",
         "Cost": 10,
         "Type": "AddSlot",
         "Background": "Background_Normal",
