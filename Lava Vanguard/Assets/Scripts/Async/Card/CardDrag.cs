@@ -4,7 +4,7 @@ namespace Async
 {
 
     [RequireComponent(typeof(CardView))]
-    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler
+    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler,IPointerUpHandler
     {
         private CardView cardView;
         private RectTransform rectTransform;
@@ -127,6 +127,11 @@ namespace Async
         public void OnPointerDown(PointerEventData eventData)
         {
             Tooltip.Instance.HideTooltip();
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (cardView.cardSpriteData.Type == "AddSlot") UIGameManager.Instance.GetPanel<WeaponPanel>().BuySlot();
         }
     }
 }

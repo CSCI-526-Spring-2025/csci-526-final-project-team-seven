@@ -8,6 +8,7 @@ namespace Async
 {
     public class CardView : MonoBehaviour
     {
+        public bool addSlot = false;
         public CardSpriteData cardSpriteData;
         public CardRankData cardRankData;
 
@@ -17,8 +18,16 @@ namespace Async
         public Image background;
         public Image outline;
         public Image content;
+        private void Start()
+        {
+            if (addSlot)
+            {
+                cardSpriteData = GameDataManager.CardData["Card_AddSlot"];
+            }
+        }
         public void Init(SlotView slot, CardSpriteData cardSpriteData, CardRankData cardRankData)//Consider using inheritance and other data like atk.
         {
+            
             this.slot = slot;
             this.cardSpriteData = cardSpriteData;
             this.cardRankData = cardRankData;

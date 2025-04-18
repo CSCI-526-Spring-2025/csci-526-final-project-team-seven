@@ -11,6 +11,18 @@
         "Draggable": false,
         "Collectable": false
     },
+    "Card_AddSlot": {
+        "ID": "Card_Empty",
+        "Title": "Buy-a-Slot",
+        "Description": "Click to spend {0} coins to gain an extra slot. You have {1} coins.",
+        "Cost": 10,
+        "Type": "AddSlot",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_Empty",
+        "Draggable": false,
+        "Collectable": false
+    },
     "Card_Bullet01": {
         "ID": "Card_Bullet01",
         "Title": "Basic",

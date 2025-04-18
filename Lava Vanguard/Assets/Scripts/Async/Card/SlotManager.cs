@@ -46,9 +46,18 @@ public class SlotManager : MonoBehaviour
         int i = currentTotalGrid / COL;
         int j = currentTotalGrid % COL;
         slotViews[i, j] = Instantiate(slotPrefab, slotContainer).GetComponent<SlotView>();
+        slotViews[i, j].transform.SetSiblingIndex(slotContainer.childCount - 2);
         currentTotalGrid++;
         Async.AsyncManager.Instance.RecordSlotPurchase();//record slot purchase
 
+    }
+    public void HideBuySlot()
+    {
+        slotContainer.GetChild(slotContainer.childCount - 1).gameObject.SetActive(false);
+    }
+    public void ShowBuySlot()
+    {
+        slotContainer.GetChild(slotContainer.childCount - 1).gameObject.SetActive(true);
     }
     public SlotView CheckDrag(CardView cardView)
     {
