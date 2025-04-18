@@ -63,8 +63,18 @@ public class BulletView05 : BulletView
         if (other.CompareTag("Enemy"))
         {
             hasHit = true;
-            EnemyView enemy = other.GetComponent<EnemyView>();
             Async.BulletManager.Instance.bulletHit5++;
+            
+            TriggerForwarder forwarder = other.GetComponent<TriggerForwarder>();
+            EnemyView enemy;
+            if (forwarder != null)
+            {
+                enemy = forwarder.parent;
+            }
+            else
+            {
+                enemy = other.GetComponent<EnemyView>();
+            }
             bool killed = false;
             if (enemy != null)
             {
