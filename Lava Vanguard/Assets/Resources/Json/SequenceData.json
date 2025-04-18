@@ -4,52 +4,52 @@
         "CardDatas": [
             {
                 "ID": 0,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 1,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 2,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 3,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 4,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 3
             },
             {
                 "ID": 5,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 6,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 7,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 8,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             },
             {
                 "ID": 9,
-                "CardID": "Card_Empty",
+                "CardID": "Card_Bullet03",
                 "Level": 1
             }
         ]

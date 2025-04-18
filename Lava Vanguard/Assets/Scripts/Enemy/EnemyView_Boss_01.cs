@@ -182,6 +182,7 @@ public class EnemyView_Boss_01 : EnemyView
     {
         if (UIGameManager.Instance.bossHPBar != null)
         {
+            Debug.Log("Have health bar");
             UIGameManager.Instance.bossHPBar.gameObject.SetActive(true);
         }
         if (UIGameManager.Instance.BossHPLabel != null)
