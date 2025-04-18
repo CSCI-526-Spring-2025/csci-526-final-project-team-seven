@@ -12,6 +12,7 @@ public class PausePanel : UIPanel
     {
         base.Init();
         canOpen = false;
+        
         restartButton.onClick.AddListener(() =>
         {
             Time.timeScale = 1;
@@ -25,5 +26,26 @@ public class PausePanel : UIPanel
     Application.Quit();
 #endif
         }); ;
+    }
+    public override void Open()
+    {
+        if (UIGameManager.Instance.GetOpen<WeaponPanel>())
+        {
+            var g = UIGameManager.Instance.GetPanel<WeaponPanel>();
+            g.gameObject.SetActive(false);
+            g.isOpen = false;
+            base.Open();
+        }
+        else
+        {
+            CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
+        }
+        
+    }
+    public override void Close()
+    {
+        base.Close();
+        CameraZoomAndMove.Instance.ResetCamera();
+        Tooltip.Instance.HideTooltip();
     }
 }

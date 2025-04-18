@@ -27,17 +27,6 @@ public class UIPanel : MonoBehaviour
     public virtual void Close()
     {
         isOpen = false;
-        bool allClosed = true;
-        foreach (var p in UIGameManager.Instance.UIPanels)
-        {
-            if (p.isOpen)
-            {
-                allClosed = false; 
-                break;
-            }
-        }
-        if (allClosed)
-            Time.timeScale = 1f;
         gameObject.SetActive(false);
     }
     public virtual void Switch()

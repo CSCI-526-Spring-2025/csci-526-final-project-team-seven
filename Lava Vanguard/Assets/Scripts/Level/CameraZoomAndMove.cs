@@ -11,9 +11,12 @@ public class CameraZoomAndMove : MonoBehaviour
     public float targetSize = 3f;           
     public float duration = 2f;
     public bool isMoving = false;
+    public Canvas UIWorldCanvas;
 
     private float originalSize;
     private Vector3 originalPosition;
+
+    private bool focused = false;
     private void Awake()
     {
         Instance = this;
@@ -21,7 +24,7 @@ public class CameraZoomAndMove : MonoBehaviour
     public void ZoomAndMove(TweenCallback action = null)
     {
         isMoving = true;
-
+        focused = true;
         originalSize = vcam.m_Lens.OrthographicSize;
         originalPosition = vcam.transform.position;
 
@@ -57,7 +60,13 @@ public class CameraZoomAndMove : MonoBehaviour
                       .SetEase(Ease.OutQuad).SetUpdate(true).onComplete += () =>
                       {
                           isMoving = false;
+                          focused = false;
                           Time.timeScale = 1f;
                       };
+    }
+    private void Update()
+    {
+        if (!focused)
+            UIWorldCanvas.transform.position = new Vector3(0, vcam.transform.position.y, 0);
     }
 }

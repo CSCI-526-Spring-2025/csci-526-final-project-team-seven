@@ -44,8 +44,8 @@ public class UIGameManager : MonoBehaviour
         {
             Switch<WeaponPanel>();
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            Open<PausePanel>();
+        if (Input.GetKeyDown(KeyCode.Escape) && !CameraZoomAndMove.Instance.isMoving) {
+            Switch<PausePanel>();
         }
     }
     public void Open<T>() where T : UIPanel

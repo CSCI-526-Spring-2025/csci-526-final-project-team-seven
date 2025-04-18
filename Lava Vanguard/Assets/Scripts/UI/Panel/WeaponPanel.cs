@@ -19,14 +19,12 @@ public class WeaponPanel : UIPanel
     }
     public override void Close()
     {
-        isOpen = false;
-        gameObject.SetActive(false);
+        base.Close();
         CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
     }
     public override void Open()
     {
-        Time.timeScale = 0f;
         CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
     }
     public void BuySlot()
