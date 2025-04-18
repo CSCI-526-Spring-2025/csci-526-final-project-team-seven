@@ -8,4 +8,5 @@ public class TriggerForwarder : MonoBehaviour
     {
         parent?.OnChildTriggerStay2D(collision);
     }
+
 }

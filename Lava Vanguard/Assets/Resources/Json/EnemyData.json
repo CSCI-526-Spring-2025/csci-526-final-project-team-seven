@@ -43,5 +43,14 @@
         "Speed": 3,
         "MaxHealth": 0,
         "Attack": 1
+    },
+    "Enemy_Boss_02": {
+        "ID": "Enemy_Boss_02",
+        "Name": "Enemy_Boss_02",
+        "Health": 150,
+        "Coin": 30,
+        "Speed": 3,
+        "MaxHealth": 150,
+        "Attack": 1
     }
 }

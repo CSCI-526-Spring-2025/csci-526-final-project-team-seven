@@ -29,8 +29,9 @@ public class ColorCenter
         {"Enemy6", new Color(0.5f, 0.3f, 1f)},
         {"Enemy7", new Color(0.6f, 0.2f, 0.9f)},
         {"Enemy8", new Color(0.8f, 0.3f, 0.6f)},
-        {"Enemy9", new Color(1f, 0.4f, 0.3f)}
+        {"Enemy9", new Color(1f, 0.4f, 0.3f)},
 
+        {"EnemyBoss02",new Color(120/255f,194/255f,87/255f) }
     };
 
     public static Dictionary<string, Color> CardTypeColors = new Dictionary<string, Color>()

@@ -104,7 +104,16 @@ public class BulletView02 : BulletView
             //Debug.Log("Split Hit: "+attack);
             hasHit = true;
             Async.BulletManager.Instance.bulletHit2++;
-            EnemyView enemy = other.GetComponent<EnemyView>();
+            TriggerForwarder forwarder = other.GetComponent<TriggerForwarder>();
+            EnemyView enemy;
+            if (forwarder != null)
+            {
+                enemy = forwarder.parent;
+            }
+            else
+            {
+                enemy = other.GetComponent<EnemyView>();
+            }
             if (enemy != null)
             {
                 enemy.TakeHit(attack);
