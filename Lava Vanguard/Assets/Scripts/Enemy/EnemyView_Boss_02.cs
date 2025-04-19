@@ -74,7 +74,7 @@ public class EnemyView_Boss_02 : EnemyView
         SetTagRecursively(gameObject, "Untagged");
         yield return StartCoroutine(ShowHealthBar());
         yield return StartCoroutine(ShowExclamationMark(exclamationEntrancePosition));
-        SetTagRecursively(gameObject, "Enemy");
+        SetTagRecursively(gameObject, "Boss");
         startAttack = true;
         yield return StartCoroutine(MoveFromTo(entranceStartPosition,centerPosition));
         yield return StartCoroutine(LaserAttackRoutine());
@@ -90,6 +90,7 @@ public class EnemyView_Boss_02 : EnemyView
     {
         Vector3 cameraPosition = Camera.main.transform.position;
         currentPosition = entranceStartPosition;
+        FindObjectOfType<ButtonSound>()?.PlayBossApproachSound();// add special sound for boss!
         return new Vector3(entranceStartPosition.x, cameraPosition.y, 0);
     }
 
@@ -146,6 +147,7 @@ public class EnemyView_Boss_02 : EnemyView
 
     private IEnumerator LaserAttackRoutine()
     {
+        Debug.Log("LaserAttack");
         Transform pivot;
         float timer = 0f;
         while (enemyData.Health > enemyData.MaxHealth * bulletAttackHealthPercentage)
@@ -178,6 +180,7 @@ public class EnemyView_Boss_02 : EnemyView
                 timer -= Time.deltaTime;
             }
         }
+        Debug.Log("StopAttack");
     }
 
     private IEnumerator ShowHealthBar()

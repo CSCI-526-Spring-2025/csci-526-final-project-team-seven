@@ -50,7 +50,7 @@ public abstract class BulletView : MonoBehaviour
 
         foreach (Collider2D enemy in enemies)
         {   
-            if (enemy.CompareTag("Enemy") && enemy.gameObject.activeInHierarchy)
+            if ((enemy.CompareTag("Enemy")|| enemy.CompareTag("Boss")) && enemy.gameObject.activeInHierarchy)
             {
                 Rigidbody2D targetRb = enemy.GetComponent<Rigidbody2D>();
                 Vector3 targetVelocity = targetRb != null ? targetRb.velocity : Vector3.zero;

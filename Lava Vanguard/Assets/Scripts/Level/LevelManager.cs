@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour
 
     public bool WaveHasBoss()
     {
-        //return true;
+        return true;
         return wave >= 3 && (wave + 1) % 2 == 0;
     }
     public void Init(bool isContinue)

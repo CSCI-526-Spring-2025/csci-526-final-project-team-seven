@@ -86,6 +86,7 @@ public class EnemyView_Boss_01 : EnemyView
     protected override Vector3 GetSpawnPosition()
     {
         Vector3 cameraPosition = Camera.main.transform.position;
+        FindObjectOfType<ButtonSound>()?.PlayBossApproachSound();// add special sound for boss!
         return new Vector3(rightStartPosition.x,cameraPosition.y,0);
     }
     private IEnumerator RectMovementRoutine()
@@ -115,6 +116,7 @@ public class EnemyView_Boss_01 : EnemyView
         if (exclamationPrebab != null)
         {
             exclamationCurrentPosition = spawnPos;
+            
             currentExclamation = Instantiate(exclamationPrebab);
             //currentExclamation.transform.SetParent(transform,true);
         }
@@ -137,7 +139,7 @@ public class EnemyView_Boss_01 : EnemyView
         }
         yield return null;
         startAttack=true;
-        gameObject.tag= "Enemy";
+        gameObject.tag= "Boss";
     }
 
     // Move boss from fromPos to toPos

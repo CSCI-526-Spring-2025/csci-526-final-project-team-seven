@@ -21,6 +21,7 @@ namespace Async
         public void GainCard(CardRankData data)
         {
             RecordCardSelection(data);
+            FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for purchase
             if (data.CardID == "Card_RestoreHealth")
             {
                 PlayerManager.Instance.playerView.RestoreHealth();

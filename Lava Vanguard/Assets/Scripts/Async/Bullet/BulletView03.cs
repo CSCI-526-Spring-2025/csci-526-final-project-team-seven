@@ -58,7 +58,7 @@ public class BulletView03 : BulletView
         {
             return;
         }
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             hasHit = true;
             Async.BulletManager.Instance.bulletHit3++;
