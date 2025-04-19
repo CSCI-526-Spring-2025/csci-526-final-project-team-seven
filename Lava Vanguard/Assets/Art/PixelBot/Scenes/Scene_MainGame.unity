@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11843,12 +11842,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &781484989
 GameObject:
   m_ObjectHideFlags: 0
@@ -15313,7 +15312,6 @@ MonoBehaviour:
   waveText: {fileID: 1132703558}
   star: {fileID: 529867982}
   lightGameObjects: {fileID: 1395010201}
-  isContinue: 0
   healthForWave: 
   hashLongPlatform: 1
   skipCredit: 1
@@ -17089,6 +17087,8 @@ MonoBehaviour:
   - {fileID: 2611334319756937351, guid: a164e5f3a35f04dc18129b735329b6f9, type: 3}
   bossPrefabs:
   - {fileID: 6635705815580878535, guid: ca1a21cdc2cf3a94491d3def71b8f1d5, type: 3}
+  - {fileID: 6635705815580878535, guid: 4259d22a244e6e043a655ce6f1500bb3, type: 3}
+  - {fileID: 6635705815580878535, guid: 7100d711bf337f148947589e14c4289b, type: 3}
   - {fileID: 6635705815580878535, guid: 0e45150c033a9f344830017362ae40af, type: 3}
   bossRef: {fileID: 0}
   enemyViews: []

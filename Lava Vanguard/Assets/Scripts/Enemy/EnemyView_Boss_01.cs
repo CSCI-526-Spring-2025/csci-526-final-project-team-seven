@@ -137,7 +137,7 @@ public class EnemyView_Boss_01 : EnemyView
         }
         yield return null;
         startAttack=true;
-        gameObject.tag= "Enemy";
+        gameObject.tag= "Boss";
     }
 
     // Move boss from fromPos to toPos

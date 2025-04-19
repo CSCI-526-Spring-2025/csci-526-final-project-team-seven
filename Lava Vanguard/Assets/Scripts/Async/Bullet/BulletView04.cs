@@ -59,7 +59,7 @@ public class BulletView04 : BulletView
         {
             return;
         }
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             Async.BulletManager.Instance.bulletHit4++;
             TriggerForwarder forwarder = other.GetComponent<TriggerForwarder>();
