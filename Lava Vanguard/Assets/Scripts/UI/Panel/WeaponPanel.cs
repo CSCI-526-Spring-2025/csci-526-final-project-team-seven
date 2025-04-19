@@ -18,11 +18,13 @@ public class WeaponPanel : UIPanel
     public override void Close()
     {
         base.Close();
+        FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for close panel
         CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
     }
     public override void Open()
     {
+        FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for open panel
         CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
     }
     public void BuySlot()
@@ -33,6 +35,7 @@ public class WeaponPanel : UIPanel
         {
             PlayerManager.Instance.playerView.GainCoin(-price);
             UIGameManager.Instance.UpdateCoin();
+            FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for buy slot
             SlotManager.Instance.AddSlot();
         }
         if (SlotManager.Instance.currentTotalGrid == SlotManager.TOTAL_GRID)
