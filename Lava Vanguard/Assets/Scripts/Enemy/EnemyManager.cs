@@ -78,7 +78,7 @@ public class EnemyManager : MonoBehaviour
 
         if (LevelManager.Instance.WaveHasBoss())
         {
-            SpawnBoss(1, Mathf.Min(LevelManager.Instance.wave / 2, 9));
+            SpawnBoss(2, Mathf.Min(LevelManager.Instance.wave / 2, 9));
             while (true)
             {
                 GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave / 2 + 1, 9));
