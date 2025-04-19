@@ -50,7 +50,9 @@ namespace Async
                 dragStartType = DragType.Inventory;
             else
                 dragStartType = DragType.Sequence;
-            
+
+            FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for drag
+
         }
 
         public void OnDrag(PointerEventData eventData)
