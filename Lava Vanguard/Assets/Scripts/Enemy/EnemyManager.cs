@@ -78,7 +78,8 @@ public class EnemyManager : MonoBehaviour
 
         if (LevelManager.Instance.WaveHasBoss())
         {
-            SpawnBoss(3, Mathf.Max(1, Mathf.Min(LevelManager.Instance.wave / 2, 9)));
+            int level = Mathf.Max(1, Mathf.Min(LevelManager.Instance.wave / 2, 9));
+            SpawnBoss((level-1)/2, level);
             while (true)
             {
                 GenerateRandomEnemy(Mathf.Min(LevelManager.Instance.wave / 2 + 1, 9));
@@ -140,7 +141,7 @@ public class EnemyManager : MonoBehaviour
     {
         var boss = Instantiate(bossPrefabs[suffix], enemyContainer);
         var bossView = boss.GetComponent<EnemyView>();
-        if (suffix < 3)
+        if (suffix < 4)
         {
             bossView.Init("Enemy_Boss_01", level);
         }

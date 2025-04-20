@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Timers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ public class EnemyView_Boss_02 : EnemyView
 {
     // The relative position of the camera
     private Vector3 currentPosition = new Vector3(0, 0, 0);
-
+    public SpriteRenderer[] spriteRenderers;
     private float healthBarAppearTime = 3f;
 
     [Header("Exclamation Bar")]
@@ -24,25 +25,39 @@ public class EnemyView_Boss_02 : EnemyView
     
     private bool startAttack = false;
 
-    [Header("Boss Phase 1: Laser Attack")]
+    [Header("Boss Transforms")]
+    public Transform headPivot;
+    public Transform leftHornPivot;
+    public Transform rightHornPivot;
+    public Transform leftLeg;
+    public Transform rightLeg;
+    public Transform body;
+    public Transform leftArmPivot;
+    public Transform leftArmEnd;
+    public Transform rightArmPivot;
+    public Transform rightArmEnd;
+
     private Vector3 entranceStartPosition = new Vector3(0, -10, 0);
     private Vector3 centerPosition = new Vector3(0, 0, 0);
-    public Transform leftArmPivot;
-    public Transform rightArmPivot;
+
+    [Header("Laser Attack")]
+    public GameObject littleLasePrefab;
     public GameObject laserPrefab;
     public GameObject windUpEffect;
-    public float armRotationSpeed = 10f;
-    public float armCooldown = 2f;
-
-    [Header("Boss Phase 2")]
-    public GameObject flyingGuard;
+    private float armRotationSpeed = 60f;
+    private float armCooldown = 0.5f;
 
     public override void Init(string ID,int level)
     {
         this.level = level;
-        originalColor = ColorCenter.CardColors["EnemyBoss02"];
+        originalColor = ColorCenter.CardColors["Boss" + level];
 
-        spriteRenderer.color = originalColor;
+        foreach (var sr in spriteRenderers)
+        {
+            if (sr != null)
+                sr.color = originalColor;
+        }
+
         enemyData = GameDataManager.EnemyData[ID];
         enemyData.Health = Mathf.RoundToInt(150 * Mathf.Pow(4500f / 150f, (level - 1f) / 8f));
         enemyData.MaxHealth = enemyData.Health;
@@ -76,8 +91,9 @@ public class EnemyView_Boss_02 : EnemyView
         yield return StartCoroutine(ShowExclamationMark(exclamationEntrancePosition));
         SetTagRecursively(gameObject, "Boss");
         startAttack = true;
-        yield return StartCoroutine(MoveFromTo(entranceStartPosition,centerPosition));
+        yield return StartCoroutine(MoveFromToBoss(entranceStartPosition,centerPosition));
         yield return StartCoroutine(LaserAttackRoutine());
+        yield return StartCoroutine(HeadShotRoutine());
     }
 
     private void Start()
@@ -128,7 +144,7 @@ public class EnemyView_Boss_02 : EnemyView
     }
 
     // Move boss from fromPos to toPos
-    private IEnumerator MoveFromTo(Vector3 fromPos, Vector3 toPos,bool forceMove=false)
+    private IEnumerator MoveFromToBoss(Vector3 fromPos, Vector3 toPos,bool forceMove=false)
     {
         currentPosition = fromPos;
 
@@ -136,10 +152,6 @@ public class EnemyView_Boss_02 : EnemyView
         {
             currentPosition = Vector3.MoveTowards(currentPosition, toPos, enemyData.Speed * Time.deltaTime);
             yield return null;
-            if(!forceMove&&enemyData.Health <= enemyData.MaxHealth * bulletAttackHealthPercentage)
-            {
-                yield break;
-            }
         }
         transform.position = toPos;
         yield return null;
@@ -147,42 +159,102 @@ public class EnemyView_Boss_02 : EnemyView
 
     private IEnumerator LaserAttackRoutine()
     {
-        Debug.Log("LaserAttack");
-        Transform pivot;
-        float timer = 0f;
         while (enemyData.Health > enemyData.MaxHealth * bulletAttackHealthPercentage)
         {
             // Move left arm
-            timer = armCooldown;
-            while (timer>0f)
-            {
-                pivot = leftArmPivot;
-                Vector3 toPlayer = PlayerManager.Instance.playerView.transform.position - pivot.position;
-                float currentAngle = pivot.eulerAngles.z;
-                float targetAngle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg + 90f;
-                float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, armRotationSpeed * Time.deltaTime);
-                pivot.rotation = Quaternion.Euler(0, 0, newAngle);
-                yield return null;
-                timer -= Time.deltaTime;
-            }
-            if(enemyData.Health <= enemyData.MaxHealth * bulletAttackHealthPercentage) yield break;
+            StartCoroutine(DoArmAttack(leftArmPivot, leftArmEnd));
+            yield return new WaitForSeconds(0.5f);
             // Move right arm
-            timer = armCooldown;
-            while (timer > 0f)
-            {
-                pivot = rightArmPivot;
-                Vector3 toPlayer = PlayerManager.Instance.playerView.transform.position - pivot.position;
-                float currentAngle = pivot.eulerAngles.z;
-                float targetAngle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg + 90f;
-                float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, armRotationSpeed * Time.deltaTime);
-                pivot.rotation = Quaternion.Euler(0, 0, newAngle);
-                yield return null;
-                timer -= Time.deltaTime;
-            }
+            StartCoroutine(DoArmAttack(rightArmPivot, rightArmEnd));
+            yield return new WaitForSeconds(0.5f);
         }
-        Debug.Log("StopAttack");
     }
 
+    private IEnumerator DoArmAttack(Transform pivot,Transform end)
+    {
+        float timer = armCooldown;
+        while (timer > 0f)
+        {
+            Vector3 toPlayer = PlayerManager.Instance.playerView.transform.position - pivot.position;
+            float currentAngle = pivot.eulerAngles.z;
+            float targetAngle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg + 90f;
+            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, armRotationSpeed * Time.deltaTime);
+            pivot.rotation = Quaternion.Euler(0, 0, newAngle);
+            yield return null;
+            timer -= Time.deltaTime;
+        }
+        //var wind = Instantiate(windUpEffect,end);
+        var littleLaser = Instantiate(littleLasePrefab, end.position, end.rotation *Quaternion.Euler(0, 0, 180f), end);
+        //Destroy(wind, 0.4f);
+        Destroy(littleLaser, 0.25f);
+
+        yield return new WaitForSeconds(0.25f);
+        var laser = Instantiate(laserPrefab, end.position, end.rotation * Quaternion.Euler(0, 0, 180f), end);
+        var laserView = laser.GetComponent<EnemyView_Boss_Bullet>();
+        laserView.Init("Enemy_Boss_Bullet", laser.transform.position, new Vector3(0,0,0), laser.transform.rotation);
+        Destroy(laser, 0.25f);
+        yield return new WaitForSeconds(0.25f);
+    }
+
+    private IEnumerator MoveFromToPart(Transform obj, Vector3 toPos, float speed,Quaternion toRot,float rotSpeed, bool forceMove = false)
+    {
+        while (Vector3.Distance(obj.localPosition, toPos) > 0.01f ||
+           Quaternion.Angle(obj.rotation, toRot) > 0.5f)
+        {
+            obj.localPosition = Vector3.MoveTowards(obj.localPosition, toPos, speed * Time.deltaTime);
+            obj.rotation = Quaternion.RotateTowards(obj.rotation,toRot,rotSpeed * Time.deltaTime);
+            yield return null;
+        }
+        obj.localPosition = toPos;
+        obj.rotation = toRot;
+        yield return null;
+    }
+    private IEnumerator GenerateFlyingEnemy()
+    {
+        while (true)
+        {
+            var enemyView = EnemyManager.Instance.GenerateSpecificEnemy(0, level);
+            enemyView.transform.position = leftHornPivot.position;
+            yield return new WaitForSeconds(0.1f);
+            enemyView = EnemyManager.Instance.GenerateSpecificEnemy(0, level);
+            enemyView.transform.position = rightHornPivot.position;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    private IEnumerator BodyMovement()
+    {
+        while(true)
+        {
+            yield return StartCoroutine(MoveFromToPart(leftArmPivot, new Vector3(2, -4, 0), 9.0f, Quaternion.Euler(0, 0, 45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(rightArmPivot, new Vector3(-2, -4, 0), 9.0f, Quaternion.Euler(0, 0, -45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(leftLeg, new Vector3(2, 4, 0), 9.0f, Quaternion.Euler(0, 0, -45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(rightLeg, new Vector3(-2, 4, 0), 9.0f, Quaternion.Euler(0, 0, 45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(body, new Vector3(0, 5, 0), 9.0f, Quaternion.Euler(0, 0, 0f), 90f));
+
+            leftArmPivot.localPosition = new Vector3(-6, 4, 0);
+            rightArmPivot.localPosition = new Vector3(6, 4, 0);
+            leftLeg.localPosition = new Vector3(-6, -4, 0);
+            rightLeg.localPosition = new Vector3(6, -4, 0);
+            body.localPosition = new Vector3(0, -5, 0);
+
+            yield return StartCoroutine(MoveFromToPart(leftArmPivot, new Vector3(-5, 3, 0), 3.0f, Quaternion.Euler(0, 0, 45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(rightArmPivot, new Vector3(5, 3, 0), 3.0f, Quaternion.Euler(0, 0, -45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(leftLeg, new Vector3(-5, -3, 0), 3.0f, Quaternion.Euler(0, 0, -45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(rightLeg, new Vector3(5, -3, 0), 3.0f, Quaternion.Euler(0, 0, 45f), 90f));
+            yield return StartCoroutine(MoveFromToPart(body, new Vector3(0, -2, 0), 5.0f, Quaternion.Euler(0, 0, 0f), 90f));
+        }
+    }
+    private IEnumerator HeadShotRoutine()
+    {
+        yield return StartCoroutine(MoveFromToPart(leftArmPivot, new Vector3(-5, 3, 0), 5.0f, Quaternion.Euler(0, 0, 45f),90f));
+        yield return StartCoroutine(MoveFromToPart(rightArmPivot, new Vector3(5, 3, 0), 5.0f, Quaternion.Euler(0, 0, -45f),90f));
+        yield return StartCoroutine(MoveFromToPart(leftLeg, new Vector3(-5, -3, 0), 5.0f, Quaternion.Euler(0, 0, -45f), 90f));
+        yield return StartCoroutine(MoveFromToPart(rightLeg, new Vector3(5, -3, 0), 5.0f, Quaternion.Euler(0, 0, 45f), 90f));
+        yield return StartCoroutine(MoveFromToPart(body, new Vector3(0, -2, 0), 5.0f, Quaternion.Euler(0, 0, 0f), 90f));
+        yield return StartCoroutine(MoveFromToPart(headPivot, new Vector3(0, 0, 0), 3.0f, Quaternion.Euler(0, 0, 0f), 90f));
+        StartCoroutine(GenerateFlyingEnemy());
+        StartCoroutine(BodyMovement());
+    }
     private IEnumerator ShowHealthBar()
     {
         if (UIGameManager.Instance.bossHPBar != null)
@@ -271,6 +343,21 @@ public class EnemyView_Boss_02 : EnemyView
         foreach (Transform child in obj.transform)
         {
             SetTagRecursively(child.gameObject, tagName);
+        }
+    }
+
+    protected override IEnumerator ChangeColorTemporarily(Color color, float duration)
+    {
+        foreach (var sr in spriteRenderers)
+        {
+            if (sr != null)
+                sr.color = color;
+        }
+        yield return new WaitForSeconds(duration);
+        foreach (var sr in spriteRenderers)
+        {
+            if (sr != null)
+                sr.color = originalColor;
         }
     }
 }

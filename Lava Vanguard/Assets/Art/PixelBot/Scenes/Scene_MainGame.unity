@@ -11726,10 +11726,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.3305928
-    y: -0.33076924
-    width: 1.6616184
-    height: 1.6615385
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 40
@@ -17150,6 +17150,7 @@ MonoBehaviour:
   - {fileID: 6635705815580878535, guid: ca1a21cdc2cf3a94491d3def71b8f1d5, type: 3}
   - {fileID: 6635705815580878535, guid: 4259d22a244e6e043a655ce6f1500bb3, type: 3}
   - {fileID: 6635705815580878535, guid: 7100d711bf337f148947589e14c4289b, type: 3}
+  - {fileID: 6635705815580878535, guid: 8555a06a78e747342b7f3165c85bc34b, type: 3}
   - {fileID: 6635705815580878535, guid: 0e45150c033a9f344830017362ae40af, type: 3}
   bossRef: {fileID: 0}
   enemyViews: []

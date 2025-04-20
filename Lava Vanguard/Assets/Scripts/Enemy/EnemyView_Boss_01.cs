@@ -39,7 +39,7 @@ public class EnemyView_Boss_01 : EnemyView
     public override void Init(string ID,int level)
     {
         this.level = level;
-        originalColor = ColorCenter.CardColors["Enemy" + level];
+        originalColor = ColorCenter.CardColors["Boss" + level];
 
         spriteRenderer.color = originalColor;
         enemyData = GameDataManager.EnemyData[ID];
@@ -172,8 +172,8 @@ public class EnemyView_Boss_01 : EnemyView
                 Quaternion bulletRotation = Quaternion.Euler(0, 0, angleDeg - 90f);
                 Vector3 direction = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0);
 
-                var bullet = Instantiate(bulletPrefab, transform).GetComponent<EnemyView_Boss_01_Bullet>();
-                bullet.Init("Enemy_Boss_01_Bullet", transform.position, direction, bulletRotation);
+                var bullet = Instantiate(bulletPrefab, transform).GetComponent<EnemyView_Boss_Bullet>();
+                bullet.Init("Enemy_Boss_Bullet", transform.position, direction, bulletRotation);
 
                 yield return new WaitForSeconds(bulletInterval/bulletCount);
             }

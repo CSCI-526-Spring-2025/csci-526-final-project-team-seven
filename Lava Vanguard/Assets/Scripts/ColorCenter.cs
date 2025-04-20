@@ -31,7 +31,15 @@ public class ColorCenter
         {"Enemy8", new Color(0.8f, 0.3f, 0.6f)},
         {"Enemy9", new Color(1f, 0.4f, 0.3f)},
 
-        {"EnemyBoss02",new Color(120/255f,194/255f,87/255f) }
+        {"Boss1", new Color(1f, 1f, 1f)},
+        {"Boss2", new Color(1f, 1f, 0f)},
+        {"Boss3", new Color(1f, 1f, 1f)},
+        {"Boss4", new Color(1f, 1f, 0.4f)},
+        {"Boss5", new Color(1f, 1f, 1f)},
+        {"Boss6", new Color(1f, 1f, 0f)},
+        {"Boss7", new Color(1f, 1f, 1f)},
+        {"Boss8", new Color(1f, 1f, 0f)},
+        {"Boss9", new Color(120/255f,194/255f,87/255f)}
     };
 
     public static Dictionary<string, Color> CardTypeColors = new Dictionary<string, Color>()

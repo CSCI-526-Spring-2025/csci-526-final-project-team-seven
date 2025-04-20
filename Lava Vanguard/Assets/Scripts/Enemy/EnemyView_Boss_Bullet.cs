@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyView_Boss_01_Bullet : EnemyView
+public class EnemyView_Boss_Bullet : EnemyView
 {
     private Vector3 direction;
     private Vector3 startPosition;
@@ -11,9 +11,9 @@ public class EnemyView_Boss_01_Bullet : EnemyView
     {
     }
 
-    public void Init(string ID,Vector3 startPosition,Vector3 direction,Quaternion rotation)
+    public void Init(string ID, Vector3 startPosition, Vector3 direction, Quaternion rotation)
     {
-        base.Init(ID,1);
+        base.Init(ID, 1);
         transform.position = startPosition;
         transform.rotation = rotation;
         this.startPosition = startPosition;
