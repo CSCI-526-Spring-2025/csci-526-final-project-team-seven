@@ -48,6 +48,7 @@ public class CardSelectorView : MonoBehaviour
         this.selectButton.onClick.RemoveAllListeners();
         this.selectButton.onClick.AddListener(() =>
         {
+            UIGameManager.Instance.SetRedDot(true);
             AsyncManager.Instance.GainCard(rankData);
             selectButton.interactable = false;
             cost.text = "Sold";

@@ -138,6 +138,7 @@ public class PlayerView : MonoBehaviour
             {
                 LevelManager.Instance.enteredNext = true;
             }
+            GameDataManager.SaveData();
         }
     }
 

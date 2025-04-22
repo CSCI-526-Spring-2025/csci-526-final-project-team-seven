@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +14,7 @@ public class UIGameManager : MonoBehaviour
     public Button pauseButton;
     public Button weaponButton;
 
+    public GameObject redDot;
 
     //HP and Coin
     public TMP_Text coinText;
@@ -24,6 +26,9 @@ public class UIGameManager : MonoBehaviour
     public Slider bossHPBar;
 
     public UIPanel[] UIPanels;
+
+    public CanvasGroup BasicUI;
+    public CanvasGroup BasicUI2;
 
     
     private void Awake()
@@ -113,5 +118,21 @@ public class UIGameManager : MonoBehaviour
         int coin = PlayerManager.Instance.playerView.GetCoin();
         coinText.text = "Coin: " + coin;
     }
-    
+    public void SetRedDot(bool show)
+    {
+        redDot.SetActive(show);
+        if (show) ShakeOnce(weaponButton.transform);
+
+    }
+    private void ShakeOnce(Transform t)
+    {
+
+        Vector3 originalRotation = t.eulerAngles;
+
+        Sequence shakeSeq = DOTween.Sequence();
+        shakeSeq.Append(t.DORotate(new Vector3(0, 0, 10), 0.05f))
+                .Append(t.DORotate(new Vector3(0, 0, -10), 0.1f))
+                .Append(t.DORotate(originalRotation, 0.05f))
+                .SetEase(Ease.InOutSine);
+    }
 }

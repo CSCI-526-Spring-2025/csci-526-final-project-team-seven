@@ -17,46 +17,10 @@ public class Tooltip : MonoBehaviour
     public TMP_Text bulletDetail2;
     public TMP_Text description2;
 
-    [Header("ColorTooltip")]
-    public GameObject colorTooltip;
-    public GameObject colorItemPrefab;
-    private List<GameObject> colorItems = new List<GameObject>(); 
-
 
     private void Awake()
     {
         Instance = this;
-        InitializeColorItems();
-    }
-
-    private void InitializeColorItems()
-    {
-        int maxColors = ColorCenter.CardTypeColors.Count;
-        VerticalLayoutGroup layoutGroup = colorTooltip.GetComponent<VerticalLayoutGroup>();
-
-        foreach (var pair in ColorCenter.CardTypeColors)
-        {
-            GameObject item = Instantiate(colorItemPrefab, layoutGroup.transform);
-            item.SetActive(true);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
-            Image colorImage = item.GetComponentInChildren<Image>();
-            TMP_Text colorText = item.GetComponentInChildren<TMP_Text>();
-            
-            colorImage.color = pair.Value;
-            colorText.text = pair.Key;
-            
-            colorItems.Add(item);
-        }
-    }
-
-    public void ShowColorTooltip(Vector2 anchorPosition)
-    {
-        colorTooltip.SetActive(true);
-    }
-
-    public void HideColorTooltip()
-    {
-        colorTooltip.SetActive(false);
     }
 
     public void ShowTooltip(CardView data)

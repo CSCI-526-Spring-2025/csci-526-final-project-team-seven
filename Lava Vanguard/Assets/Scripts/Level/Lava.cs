@@ -23,7 +23,6 @@ public class Lava : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player is dead");
             PlayerManager.Instance.GetHurt(5);
         }
         else if (other.CompareTag("Enemy"))

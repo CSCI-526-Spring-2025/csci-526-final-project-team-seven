@@ -13,11 +13,11 @@ public class ColorHoverTrigger : MonoBehaviour,IPointerEnterHandler,IPointerExit
             rectTransform.position.y - rectTransform.rect.height/2
         );
         
-        Tooltip.Instance.ShowColorTooltip(pivotPosition);
+        //Tooltip.Instance.ShowColorTooltip(pivotPosition);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Tooltip.Instance.HideColorTooltip();
+        //Tooltip.Instance.HideColorTooltip();
     }
 }

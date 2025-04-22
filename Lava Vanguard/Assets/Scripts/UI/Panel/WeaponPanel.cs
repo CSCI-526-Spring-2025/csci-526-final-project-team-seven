@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class WeaponPanel : UIPanel
 {
-    private int initialPrice = 5;
-    private int addPrice = 5;
+    private readonly int initialPrice = 5;
+    private readonly int addPrice = 5;
     public int BuySlotPrice { get => initialPrice + (SlotManager.Instance.currentTotalGrid - 2) * addPrice; }
     
     public override void Init()
@@ -19,12 +19,15 @@ public class WeaponPanel : UIPanel
     {
         base.Close();
         FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for close panel
+        UIGameManager.Instance.BasicUI.interactable = true;
         CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
     }
     public override void Open()
     {
         FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for open panel
+        UIGameManager.Instance.SetRedDot(false);
+        UIGameManager.Instance.BasicUI.interactable = false;
         CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
     }
     public void BuySlot()

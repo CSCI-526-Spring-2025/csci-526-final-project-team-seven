@@ -31,7 +31,7 @@ namespace Async
         }
         private void OnApplicationQuit()
         {
-            GameDataManager.SaveData();
+            //GameDataManager.SaveData();
         }
         public void RecordCardSelection(CardRankData data)
         {

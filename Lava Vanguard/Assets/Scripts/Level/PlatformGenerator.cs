@@ -136,7 +136,8 @@ public class PlatformGenerator : MonoBehaviour
     }
     private void RemoveOneLayer()
     {
-        if (platforms.Count >= 8)
+        if (platforms.Count >= 24)
+        //    if (platforms.Count >= 8)
         {
             var layer0 = platforms[0];
             platforms.RemoveAt(0);

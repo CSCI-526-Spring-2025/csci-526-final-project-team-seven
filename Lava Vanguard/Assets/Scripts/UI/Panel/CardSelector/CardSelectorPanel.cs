@@ -15,7 +15,6 @@ public class CardSelectorPanel : UIPanel
     public GameObject cardSeletorPrefab;
     public Button nextWaveButton;
     public Button refreshButton;
-    
     public List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
     private int refreshCount = 0;
     private TMP_Text refreshText;
