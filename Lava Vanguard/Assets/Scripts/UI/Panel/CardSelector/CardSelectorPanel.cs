@@ -66,8 +66,6 @@ public class CardSelectorPanel : UIPanel
         refreshView.Init(GameDataManager.CardData["Card_Refresh"], new CardRankData(GameDataManager.CardData["Card_Refresh"]));
         refreshView.selectButton.onClick.RemoveAllListeners();
         refreshView.selectButton.onClick.AddListener(RefreshFunc);
-        //refreshView.selectButton.interactable = PlayerManager.Instance.playerView.GetCoin() >= RefreshPrice;
-        //refreshView.cost.color=
         refreshText.text = RefreshPrice + "$";
     }
     public void PresetCard(List<string> IDs, List<int> prices)
@@ -93,6 +91,9 @@ public class CardSelectorPanel : UIPanel
     {
         foreach (var v in cardSeletorViews)
             v.UpdateSelectButton();
+        refreshView.selectButton.onClick.RemoveAllListeners();
+        refreshView.selectButton.onClick.AddListener(RefreshFunc);
+        refreshText.text = RefreshPrice + "$";
     }
     private void NextWaveFunc()
     {
@@ -105,7 +106,7 @@ public class CardSelectorPanel : UIPanel
     }
     private void RefreshFunc()
     {
-        int price = 3 + 3 * refreshCount;
+        int price = RefreshPrice;
         if (PlayerManager.Instance.playerView.GetCoin() >= price)
         {
             PlayerManager.Instance.playerView.GainCoin(-price);

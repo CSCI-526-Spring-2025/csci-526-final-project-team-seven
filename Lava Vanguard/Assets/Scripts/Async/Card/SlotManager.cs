@@ -72,7 +72,7 @@ public class SlotManager : MonoBehaviour
     {
         slotContainer.GetChild(slotContainer.childCount - 1).gameObject.SetActive(true);
     }
-    public SlotView CheckDrag(CardView cardView)
+    public (SlotView,bool) CheckDrag(CardView cardView)
     {
         var cardPosition = cardView.rectTransform.position;
         for (int i = 0; i < ROW; i++)
@@ -80,13 +80,13 @@ public class SlotManager : MonoBehaviour
             for (int j = 0; j < COL; j++)
             {
                 if (!slotViews[i, j]) continue;
-                if (slotViews[i, j].content == null && slotViews[i, j].CheckInside(cardPosition)) 
+                if (slotViews[i, j].CheckInside(cardPosition)) 
                 {
-                    return slotViews[i, j];
+                    return (slotViews[i, j], slotViews[i, j].content == null);
                 }
             }
         }
-        return null;
+        return (null,false);
     }
     public void UpdateAndRunSequence()
     {

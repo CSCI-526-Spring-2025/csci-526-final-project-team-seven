@@ -49,7 +49,7 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
         //Special Case
-        if (layer[2] != null) layer[2].SetBottomSize(new Vector2(3, 4));
+        if (layer[2] != null) layer[2].SetBottomSize(new Vector2(3, 3.5f));
         if (platforms.Count == 1) layer[1].SetRightSize(new Vector2(3, 0.5f));
         platforms.Add(layer);
         layerIndex++;
@@ -136,8 +136,7 @@ public class PlatformGenerator : MonoBehaviour
     }
     private void RemoveOneLayer()
     {
-        if (platforms.Count >= 24)
-        //    if (platforms.Count >= 8)
+        if (platforms.Count >= 8)
         {
             var layer0 = platforms[0];
             platforms.RemoveAt(0);

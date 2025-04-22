@@ -33,7 +33,7 @@ public class MenuPanel : UIPanel
             if (LevelManager.Instance.skipCredit)
             {
                 envTransform.Find("Trunk1").gameObject.SetActive(false);
-                platformContainer.transform.localPosition = new Vector3(0, 14.25f);
+                platformContainer.transform.localPosition = new Vector3(0, 13.75f);
                 y = -14;
                 t = 1;
             }
@@ -59,7 +59,7 @@ public class MenuPanel : UIPanel
             if (LevelManager.Instance.skipCredit)
             {
                 envTransform.Find("Trunk1").gameObject.SetActive(false);
-                platformContainer.transform.localPosition = new Vector3(0, 14.25f);
+                platformContainer.transform.localPosition = new Vector3(0, 13.75f);
                 y = -14;
                 t = 1;
             }
@@ -84,7 +84,7 @@ public class MenuPanel : UIPanel
             if (LevelManager.Instance.skipCredit)
             {
                 envTransform.Find("Trunk1").gameObject.SetActive(false);
-                platformContainer.transform.localPosition = new Vector3(0, 14.25f);
+                platformContainer.transform.localPosition = new Vector3(0, 13.75f);
                 y = -14;
                 t = 1;
             }

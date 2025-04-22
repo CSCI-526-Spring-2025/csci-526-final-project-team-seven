@@ -4,7 +4,7 @@ namespace Async
 {
 
     [RequireComponent(typeof(CardView))]
-    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler,IPointerUpHandler
+    public class CardDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         private CardView cardView;
         private RectTransform rectTransform;
@@ -45,7 +45,7 @@ namespace Async
             originalParent = transform.parent;
             originalPosition = rectTransform.anchoredPosition;
             transform.SetParent(draggingParent);
-            
+
             if (cardView.slot == null)
                 dragStartType = DragType.Inventory;
             else
@@ -84,30 +84,60 @@ namespace Async
             // 1. Drag to inventory.
             if (GameDataManager.InventoryConfig.CheckInside(rectTransform.anchoredPosition))
             {
-                if (cardView.slot != null) 
+                if (cardView.slot != null)
                     cardView.slot.RemoveCardView();
                 InventoryManager.Instance.inventoryView.AddCardView(cardView);
                 SlotManager.Instance.UpdateAndRunSequence();
                 return;
             }
             // 2. Drag to another empty slot.
-            var slot = SlotManager.Instance.CheckDrag(cardView);
-            if (slot != null) 
+            var slotInfo = SlotManager.Instance.CheckDrag(cardView);
+            if (slotInfo.Item1 != null && slotInfo.Item2)
             {
                 if (cardView.slot != null)
                 {
                     cardView.slot.RemoveCardView();
                 }
-                slot.AddCardView(cardView);
+                slotInfo.Item1.AddCardView(cardView);
                 SlotManager.Instance.UpdateAndRunSequence();
                 return;
             }
             // 3. Drag to another slot. Swap.
+            if (slotInfo.Item1 != null && !slotInfo.Item2 && slotInfo.Item1 != cardView.slot) 
+            {
+                var targetSlot = slotInfo.Item1;
+                //From a Slot
+                if (cardView.slot != null)
+                {
+                    var currentSlot = cardView.slot;
+                    var targetView = targetSlot.content;
+                    currentSlot.RemoveCardView();
+                    targetSlot.RemoveCardView();
+
+                    targetSlot.AddCardView(cardView);
+                    currentSlot.AddCardView(targetView);
+                }
+                //From inventory
+                else
+                {
+                    var targetView = targetSlot.content;
+                    //currentSlot.RemoveCardView();
+                    targetSlot.RemoveCardView();
+
+                    targetSlot.AddCardView(cardView);
+                    InventoryManager.Instance.inventoryView.AddCardView(targetView);
+                    //currentSlot.AddCardView(targetView);
+                }
+                //slotInfo.Item1.AddCardView(cardView);
+                SlotManager.Instance.UpdateAndRunSequence();
+                return;
+            }
             // 4. Drag to self.
+            SlotManager.Instance.UpdateAndRunSequence();
             // 5. Drag to somewhere else.
             transform.SetParent(originalParent);
             rectTransform.anchoredPosition = originalPosition;
-           
+
         }
 
         public void OnPointerEnter(PointerEventData eventData)
