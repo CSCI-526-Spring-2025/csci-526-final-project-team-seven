@@ -19,8 +19,8 @@ public class Tutorial : MonoBehaviour
     public TMP_Text specialText;
     public GameObject specialPlatform;
 
-
-    private int cnt = -1;
+    [HideInInspector]
+    public int cnt = -1;
     private void Awake()
     {
         Instance = this;
@@ -45,7 +45,7 @@ public class Tutorial : MonoBehaviour
             UIGameManager.Instance.GetPanel<CardSelectorPanel>().nextWaveButton.gameObject.SetActive(true);
             SlotManager.Instance.ShowBuySlot();
             SetTutorialGameObject();
-            //UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
+            UIGameManager.Instance.GetPanel<CardSelectorPanel>().SetRefreshButton(true);
             SetTutorialGameObject();
         }
         else
@@ -136,7 +136,7 @@ public class Tutorial : MonoBehaviour
             SetTutorialGameObject();
             var panel = UIGameManager.Instance.GetPanel<CardSelectorPanel>();
             panel.nextWaveButton.gameObject.SetActive(true);
-            //UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
+            
         }
         if (cnt == 8 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
         {
@@ -168,6 +168,7 @@ public class Tutorial : MonoBehaviour
         if (cnt == 12 )
         {
             cnt++;
+            UIGameManager.Instance.GetPanel<CardSelectorPanel>().SetRefreshButton(true);
             Invoke("SetTutorialGameObject", 4f);
         }
         if (PlayerManager.Instance.playerView.transform.position.y < -6.5)
@@ -184,7 +185,6 @@ public class Tutorial : MonoBehaviour
     {
         for (int i = 0; i < tutorialGameObjects.Length; i++) 
         {
-
             tutorialGameObjects[i].DOFade(i == cnt ? 1 : 0, 0.5f).SetUpdate(true);
         }
     }

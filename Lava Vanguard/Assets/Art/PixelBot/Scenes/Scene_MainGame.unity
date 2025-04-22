@@ -2815,7 +2815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7604494926141090458, guid: c857e41392e82c94b876ed98b0b8a994, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7604494926141090458, guid: c857e41392e82c94b876ed98b0b8a994, type: 3}
       propertyPath: m_SortingOrder
@@ -2823,7 +2823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7604494926141090458, guid: c857e41392e82c94b876ed98b0b8a994, type: 3}
       propertyPath: m_SortingLayerID
-      value: 0
+      value: -1530455829
       objectReference: {fileID: 0}
     - target: {fileID: 7900692528994513370, guid: c857e41392e82c94b876ed98b0b8a994, type: 3}
       propertyPath: m_Mesh
@@ -3153,7 +3153,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -824584367
   m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!1 &442069543
@@ -11263,7 +11263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &781484990
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13597,6 +13597,7 @@ MonoBehaviour:
   basicUI2: {fileID: 1326806700}
   specialText: {fileID: 2104503771}
   specialPlatform: {fileID: 580190806}
+  cnt: -1
 --- !u!1 &1015224605
 GameObject:
   m_ObjectHideFlags: 0
@@ -24422,6 +24423,7 @@ GameObject:
   - component: {fileID: 2125676515}
   - component: {fileID: 2125676517}
   - component: {fileID: 2125676516}
+  - component: {fileID: 2125676518}
   m_Layer: 5
   m_Name: ShopPanel
   m_TagString: Untagged
@@ -24473,6 +24475,7 @@ MonoBehaviour:
   cardSelectorContainer: {fileID: 360494333}
   cardSeletorPrefab: {fileID: 12189454680901933, guid: fabe349dbe638ca448826d43f0a57f83, type: 3}
   nextWaveButton: {fileID: 781484992}
+  canvasGroup: {fileID: 2125676518}
   cardSeletorViews: []
 --- !u!222 &2125676517
 CanvasRenderer:
@@ -24482,6 +24485,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125676514}
   m_CullTransparentMesh: 1
+--- !u!225 &2125676518
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125676514}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2146244063
 GameObject:
   m_ObjectHideFlags: 0
@@ -25243,7 +25258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef02ad5f1307f64f889e34b5cfa95a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: {fileID: 0}
+  content: {fileID: 1935936723244523430}
   rectTransform: {fileID: 1927954824017130062}
 --- !u!1 &1213227246431688384
 GameObject:
@@ -28292,6 +28307,7 @@ MonoBehaviour:
   cardSelectorContainer: {fileID: 710584666682769578}
   cardSeletorPrefab: {fileID: 12189454680901933, guid: fabe349dbe638ca448826d43f0a57f83, type: 3}
   nextWaveButton: {fileID: 4696215326934633304}
+  canvasGroup: {fileID: 0}
   cardSeletorViews: []
 --- !u!4 &4017423499101321816
 Transform:
@@ -30142,7 +30158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!251 &6529274088949788757
 PlatformEffector2D:
   m_ObjectHideFlags: 0

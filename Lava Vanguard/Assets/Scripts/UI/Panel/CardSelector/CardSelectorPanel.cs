@@ -14,7 +14,7 @@ public class CardSelectorPanel : UIPanel
     public Transform cardSelectorContainer;
     public GameObject cardSeletorPrefab;
     public Button nextWaveButton;
-    //public Button refreshButton;
+    public CanvasGroup canvasGroup;
     public List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
     private CardSelectorView refreshView;
     private int refreshCount = 0;
@@ -27,18 +27,27 @@ public class CardSelectorPanel : UIPanel
     {
         base.Init();
         for (int i = 0; i < optionNumber; i++)
-            cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSelectorView>());
+        {
+            var view = Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSelectorView>();
+            view.Reset();
+            cardSeletorViews.Add(view);
+        }
         cardSeletorViews.Add(refreshView = Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSelectorView>());
         refreshText = refreshView.cost;
         nextWaveButton.onClick.AddListener(NextWaveFunc);
-
+        SetRefreshButton(false);
     }
     public override void Open()
     {
         base.Open();
         CameraController.Instance.canMove = false;
         refreshCount = -1;
-        RefreshCard();
+        if (Tutorial.Instance.cnt > 6)
+            RefreshCard();
+    }
+    public void SetRefreshButton(bool show)
+    {
+        refreshView.gameObject.SetActive(show);
     }
     public void RefreshCard()
     {
@@ -73,6 +82,7 @@ public class CardSelectorPanel : UIPanel
         }
         for (; i < optionNumber; i++)
             cardSeletorViews[i].Reset();
+        refreshView.Reset();
     }
     public override void Close()
     {

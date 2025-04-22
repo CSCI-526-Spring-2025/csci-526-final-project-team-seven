@@ -21,7 +21,7 @@ public class CardSelectorView : MonoBehaviour
     public bool sold = false;
     public void Init(CardSpriteData data, CardRankData rankData)
     {
-        gameObject.SetActive(true);
+        
         this.title.text = data.Title;
         this.title.color = ColorCenter.CardTypeColors[data.Type];
 
@@ -36,6 +36,8 @@ public class CardSelectorView : MonoBehaviour
 
         
         UpdateSelectButton();
+
+        gameObject.SetActive(true);
     }
     public void Reset()
     {

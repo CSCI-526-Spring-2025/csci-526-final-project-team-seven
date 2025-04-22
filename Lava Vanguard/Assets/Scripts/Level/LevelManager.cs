@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
     public int wave = -1;
     public int time;
-    public static readonly int[] TotalTime = new int[] { 35, 20, 25, 30 };
+    public static readonly int[] TotalTime = new int[] { 5, 20, 25, 30 };
     public TMP_Text timeText;
     public TMP_Text waveText;
     public ParticleSystem star;

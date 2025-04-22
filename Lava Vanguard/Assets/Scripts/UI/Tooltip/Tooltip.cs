@@ -67,7 +67,7 @@ public class Tooltip : MonoBehaviour
         {
             bulletDetail2.text = "";
         }
-        if (data.cardSpriteData.Type == "AddSlot")
+        if (data.cardSpriteData.ID == "Card_AddSlot")
         {
             description2.text = string.Format(data.cardSpriteData.Description, UIGameManager.Instance.GetPanel<WeaponPanel>().BuySlotPrice, PlayerManager.Instance.playerView.GetCoin());
         }
