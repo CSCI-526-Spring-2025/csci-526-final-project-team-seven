@@ -52,7 +52,7 @@ public class EnemyView_02 : EnemyView
             }
 
             PlatformView chosenPlatform = validPlatforms[Random.Range(0, validPlatforms.Count)];
-            spawnPosition = chosenPlatform.transform.position + new Vector3(0, 0.5f, 0);
+            spawnPosition = chosenPlatform.transform.position + new Vector3(0, 0.75f, 0);
 
 
         } while (Vector3.Distance(playerPos, spawnPosition) < SpawnDistance);
