@@ -47,6 +47,8 @@ namespace Async
             {
                 content.color = ColorCenter.CardColors[cardSpriteData.Type];
             }
+
+            outline.color = ColorCenter.CardTypeColors[cardSpriteData.Type];
         }
     }
 }

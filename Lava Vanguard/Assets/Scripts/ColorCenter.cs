@@ -6,10 +6,10 @@ public class ColorCenter
 {
     public static Dictionary<string, Color> CardColors = new Dictionary<string, Color>()
     {
-        {"Async", new Color(0,0,0) },
         {"Empty", new Color(0,0,0) },
         {"Functional", new Color(22/255f,196/255f,255/255f) },
         {"Health",new Color(1f,0f,0f) },
+        {"BuiltIn", new Color(1,1,1) },
         
         {"Bullet1", new Color(1f, 1f, 1f)},
         {"Bullet2", new Color(1.0f, 1f, 0.2f)},
@@ -47,11 +47,13 @@ public class ColorCenter
         {"Functional", new Color(22/255f,196/255f,255/255f) },
         {"Health",new Color(1f,0f,0f) },
         {"Bullet", new Color(1f, 1f, 1f)},
+        {"BuiltIn", new Color(255/255f,192/255f,84/255f) }
     };
 
+    
     public static Dictionary<string, Color> SelectorPanelColors = new Dictionary<string, Color>()
     {
-        {"Green",new Color(89/255f,160/255f,49/255f) },
+        {"Green",new Color(159/255f,255/255f,104/255f) },
         {"Red",new Color(209/255f,43/255f,28/255f) }
     };
     public static Color platformHiddenColor = new Color(1, 1, 1, 0);

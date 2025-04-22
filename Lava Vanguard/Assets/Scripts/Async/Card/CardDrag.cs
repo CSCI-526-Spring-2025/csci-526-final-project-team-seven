@@ -133,7 +133,7 @@ namespace Async
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (cardView.cardSpriteData.Type == "AddSlot") UIGameManager.Instance.GetPanel<WeaponPanel>().BuySlot();
+            if (cardView.cardSpriteData.ID == "Card_AddSlot") UIGameManager.Instance.GetPanel<WeaponPanel>().BuySlot();
         }
     }
 }

@@ -14,26 +14,34 @@ public class CardSelectorPanel : UIPanel
     public Transform cardSelectorContainer;
     public GameObject cardSeletorPrefab;
     public Button nextWaveButton;
-    public Button refreshButton;
+    //public Button refreshButton;
     public List<CardSelectorView> cardSeletorViews = new List<CardSelectorView>();
+    private CardSelectorView refreshView;
     private int refreshCount = 0;
     private TMP_Text refreshText;
+    private readonly int initialRefreshPrice = 3;
+    private readonly int addRefreshPrice = 3;
+    public int RefreshPrice { get => initialRefreshPrice + addRefreshPrice * refreshCount; }
+
     public override void Init()
     {
         base.Init();
         for (int i = 0; i < optionNumber; i++)
-        {
             cardSeletorViews.Add(Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSelectorView>());
-        }
+        cardSeletorViews.Add(refreshView = Instantiate(cardSeletorPrefab, cardSelectorContainer).GetComponent<CardSelectorView>());
+        refreshText = refreshView.cost;
         nextWaveButton.onClick.AddListener(NextWaveFunc);
-        refreshButton.onClick.AddListener(RefreshFunc);
-        refreshText = refreshButton.transform.GetChild(0).GetComponent<TMP_Text>();
+
     }
     public override void Open()
     {
         base.Open();
         CameraController.Instance.canMove = false;
-        refreshCount = 0;
+        refreshCount = -1;
+        RefreshCard();
+    }
+    public void RefreshCard()
+    {
         var collectableCardsList = GameDataManager.CardData
             .Where(kv => kv.Value.Collectable)
             .Select(kv => kv.Value)
@@ -45,8 +53,15 @@ public class CardSelectorPanel : UIPanel
             var rankData = new CardRankData(data);
             cardSeletorViews[i].Init(data, rankData);
         }
+        refreshCount++;
+        refreshView.Init(GameDataManager.CardData["Card_Refresh"], new CardRankData(GameDataManager.CardData["Card_Refresh"]));
+        refreshView.selectButton.onClick.RemoveAllListeners();
+        refreshView.selectButton.onClick.AddListener(RefreshFunc);
+        //refreshView.selectButton.interactable = PlayerManager.Instance.playerView.GetCoin() >= RefreshPrice;
+        //refreshView.cost.color=
+        refreshText.text = RefreshPrice + "$";
     }
-    public void RefreshCard(List<string> IDs, List<int> prices)
+    public void PresetCard(List<string> IDs, List<int> prices)
     {
         int i = 0;
         for (; i < IDs.Count; i++) 
@@ -85,20 +100,8 @@ public class CardSelectorPanel : UIPanel
         {
             PlayerManager.Instance.playerView.GainCoin(-price);
             UIGameManager.Instance.UpdateCoin();
-            var collectableCardsList = GameDataManager.CardData
-            .Where(kv => kv.Value.Collectable)
-            .Select(kv => kv.Value)
-            .ToList();
-            for (int i = 0; i < optionNumber; i++)
-            {
-                var data = collectableCardsList[Random.Range(0, collectableCardsList.Count)];
-                collectableCardsList.Remove(data);
-                var rankData = new CardRankData(data);
-                cardSeletorViews[i].Init(data, rankData);
-            }
 
-            refreshCount++;
-            refreshText.text = "Refresh" + '\n' + (3 + 3 * refreshCount) + "$";
+            RefreshCard();
         }
     }
 }

@@ -23,6 +23,8 @@ public class CardSelectorView : MonoBehaviour
     {
         gameObject.SetActive(true);
         this.title.text = data.Title;
+        this.title.color = ColorCenter.CardTypeColors[data.Type];
+
         this.description.text = data.Description;
 
         this.cardView.Init(null, data, rankData);
@@ -31,6 +33,8 @@ public class CardSelectorView : MonoBehaviour
         this.rankData = rankData;
 
         this.sold = false;
+
+        
         UpdateSelectButton();
     }
     public void Reset()
@@ -41,9 +45,11 @@ public class CardSelectorView : MonoBehaviour
     {
         if (sold)
             return;
-        this.cost.text = data.Cost + "$";
-        bool affordable = PlayerManager.Instance.playerView.GetCoin() >= data.Cost;
+        int price = (data.Type == "BuiltIn" ? UIGameManager.Instance.GetPanel<CardSelectorPanel>().RefreshPrice : data.Cost);
+        this.cost.text = price + "$";
+        bool affordable = PlayerManager.Instance.playerView.GetCoin() >= price;
         this.cost.color = affordable ? ColorCenter.SelectorPanelColors["Green"] : ColorCenter.SelectorPanelColors["Red"];
+        this.selectButton.image.color = affordable ? ColorCenter.SelectorPanelColors["Green"] : ColorCenter.SelectorPanelColors["Red"];
         this.selectButton.interactable = affordable;
         this.selectButton.onClick.RemoveAllListeners();
         this.selectButton.onClick.AddListener(() =>

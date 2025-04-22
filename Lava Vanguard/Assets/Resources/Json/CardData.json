@@ -12,14 +12,26 @@
         "Collectable": false
     },
     "Card_AddSlot": {
-        "ID": "Card_Empty",
+        "ID": "Card_AddSlot",
         "Title": "Buy-a-Slot",
         "Description": "Click to spend <b>{0}</b> coins to gain an extra slot. You have <b>{1}</b> coins.",
         "Cost": 10,
-        "Type": "AddSlot",
+        "Type": "BuiltIn",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
-        "Content": "Content_Empty",
+        "Content": "Content_AddSlot",
+        "Draggable": false,
+        "Collectable": false
+    },
+    "Card_Refresh": {
+        "ID": "Card_Refresh",
+        "Title": "Refresh-the-Shop",
+        "Description": "Click to refresh the shop!",
+        "Cost": 10,
+        "Type": "BuiltIn",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_Refresh",
         "Draggable": false,
         "Collectable": false
     },

@@ -20,6 +20,7 @@ public class UIGameManager : MonoBehaviour
     public TMP_Text coinText;
     public Image hpBarFill;
     public TMP_Text hpLabel;
+    public TMP_Text hpNum;
 
     //Boss
     public TMP_Text BossHPLabel;
@@ -110,7 +111,8 @@ public class UIGameManager : MonoBehaviour
         int hp = PlayerManager.Instance.playerView.GetHP();
         int maxHP = PlayerManager.Instance.playerView.GetHPLimit();
         float percentage = 1.0f * hp / maxHP;
-        hpLabel.text = "HP: " + hp + "/" + maxHP;
+        hpLabel.text = "HP:";
+        hpNum.text = hp + "/" + maxHP;
         hpBarFill.fillAmount = percentage;
     }
     public void UpdateCoin()

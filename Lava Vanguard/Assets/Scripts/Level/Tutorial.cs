@@ -45,7 +45,7 @@ public class Tutorial : MonoBehaviour
             UIGameManager.Instance.GetPanel<CardSelectorPanel>().nextWaveButton.gameObject.SetActive(true);
             SlotManager.Instance.ShowBuySlot();
             SetTutorialGameObject();
-            UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
+            //UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
             SetTutorialGameObject();
         }
         else
@@ -125,7 +125,7 @@ public class Tutorial : MonoBehaviour
 
             tutorialCanvas.sortingOrder = 3;
             var panel = UIGameManager.Instance.GetPanel<CardSelectorPanel>();
-            panel.RefreshCard(new List<string>() { "Card_LevelUp" }, new List<int>() { 0 });
+            panel.PresetCard(new List<string>() { "Card_LevelUp" }, new List<int>() { 0 });
             panel.nextWaveButton.gameObject.SetActive(false);
             //buySlotButton.gameObject.SetActive(true);
 
@@ -136,7 +136,7 @@ public class Tutorial : MonoBehaviour
             SetTutorialGameObject();
             var panel = UIGameManager.Instance.GetPanel<CardSelectorPanel>();
             panel.nextWaveButton.gameObject.SetActive(true);
-            UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
+            //UIGameManager.Instance.GetPanel<CardSelectorPanel>().refreshButton.gameObject.SetActive(true);
         }
         if (cnt == 8 && !UIGameManager.Instance.GetOpen<CardSelectorPanel>())
         {
