@@ -12,7 +12,7 @@ public class ButtonSound : MonoBehaviour
     public AudioClip bossApproachSound;
     private AudioSource audioSource;
 
-
+    public bool mute = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,25 +21,25 @@ public class ButtonSound : MonoBehaviour
     }
     public void PlayClickSound()
     {
-        if (clickSound != null)
-            audioSource.PlayOneShot(clickSound);
+        if (mute || clickSound == null) return;
+        audioSource.PlayOneShot(clickSound);
     }
 
     public void PlayRefreshSound()
     {
-        if (refreshSound != null)
+        if (mute || refreshSound != null) return;
             audioSource.PlayOneShot(refreshSound);
     }
 
     public void PlayPurchaseSound()
     {
-        if (purchaseSound != null)
+        if (mute || purchaseSound != null) return;
             audioSource.PlayOneShot(purchaseSound);
     }
 
     public void PlayBossApproachSound()
     {
-        if (bossApproachSound != null)
+        if (mute || bossApproachSound != null) return;
             audioSource.PlayOneShot(bossApproachSound);
 
 
