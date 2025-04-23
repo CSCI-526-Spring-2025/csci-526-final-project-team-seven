@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlatformGenerator : MonoBehaviour
 {
@@ -215,5 +216,10 @@ public class PlatformGenerator : MonoBehaviour
             }
             nextGenerateY += IntervalY; // Update the threshold for the next layer
         }
+    }
+    public Vector3 Revive()
+    {
+        GenerateLongLayer();
+        return platforms[^1][2].transform.position;
     }
 }

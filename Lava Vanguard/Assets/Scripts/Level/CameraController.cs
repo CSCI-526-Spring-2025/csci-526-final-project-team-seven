@@ -141,4 +141,8 @@ public class CameraController : MonoBehaviour
     {
         currentSpeedY = speed;
     }
+    public void SetCameraY(float y)
+    {
+        virtualCamera.transform.position = new Vector3(0, y, virtualCamera.transform.position.z);
+    }
 }

@@ -137,4 +137,9 @@ public class UIGameManager : MonoBehaviour
                 .Append(t.DORotate(originalRotation, 0.05f))
                 .SetEase(Ease.InOutSine);
     }
+    public void SetFocus(bool focus)
+    {
+        BasicUI.interactable = !focus;
+        GetPanel<CardSelectorPanel>().canvasGroup.interactable = !focus;
+    }
 }

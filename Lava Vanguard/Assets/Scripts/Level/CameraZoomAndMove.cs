@@ -64,6 +64,13 @@ public class CameraZoomAndMove : MonoBehaviour
                           Time.timeScale = 1f;
                       };
     }
+    public void ResetCameraInstantly()
+    {
+        isMoving = false;
+        focused = false;
+        Time.timeScale = 1;
+        vcam.m_Lens.OrthographicSize = originalSize;
+    }
     private void Update()
     {
         if (!focused)

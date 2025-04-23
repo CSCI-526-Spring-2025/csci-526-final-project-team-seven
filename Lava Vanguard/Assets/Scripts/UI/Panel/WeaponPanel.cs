@@ -19,8 +19,7 @@ public class WeaponPanel : UIPanel
     {
         base.Close();
         FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for close panel
-        UIGameManager.Instance.BasicUI.interactable = true;
-        UIGameManager.Instance.GetPanel<CardSelectorPanel>().canvasGroup.interactable = true;
+        UIGameManager.Instance.SetFocus(false);
         CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
     }
@@ -28,8 +27,7 @@ public class WeaponPanel : UIPanel
     {
         FindObjectOfType<ButtonSound>()?.PlayPurchaseSound();// sepcial sound effect for open panel
         UIGameManager.Instance.SetRedDot(false);
-        UIGameManager.Instance.BasicUI.interactable = false;
-        UIGameManager.Instance.GetPanel<CardSelectorPanel>().canvasGroup.interactable = false;
+        UIGameManager.Instance.SetFocus(true);
         CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
     }
     public void BuySlot()

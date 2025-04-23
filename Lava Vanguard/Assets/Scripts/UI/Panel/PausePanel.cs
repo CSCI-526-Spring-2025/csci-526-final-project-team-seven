@@ -40,12 +40,13 @@ public class PausePanel : UIPanel
         {
             CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
         }
-        
+        UIGameManager.Instance.SetFocus(true);
     }
     public override void Close()
     {
         base.Close();
         CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
+        UIGameManager.Instance.SetFocus(false);
     }
 }

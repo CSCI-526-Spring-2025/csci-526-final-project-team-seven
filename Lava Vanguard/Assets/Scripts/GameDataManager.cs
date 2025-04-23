@@ -169,7 +169,6 @@ public class GameDataManager : MonoBehaviour
         }
 
         SavedLevelData = new LevelData() { Coin = PlayerManager.Instance.playerView.GetCoin(), Health = PlayerManager.Instance.playerView.GetHP(), Wave = LevelManager.Instance.wave };
-
         string sequenceDataPath = Path.Combine(Application.persistentDataPath, "Json/SequenceData.json");
         string inventoryDataPath = Path.Combine(Application.persistentDataPath, "Json/InventoryData.json");
         string levelDataPath = Path.Combine(Application.persistentDataPath, "Json/LevelData.json");

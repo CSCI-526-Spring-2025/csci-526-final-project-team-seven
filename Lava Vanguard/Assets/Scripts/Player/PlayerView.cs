@@ -31,7 +31,10 @@ public class PlayerView : MonoBehaviour
     {
         return playerData.coin;
     }
-
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
     public void Init(bool isContinue)
     {
         playerData = PlayerData.DefaultData;

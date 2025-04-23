@@ -70,6 +70,7 @@ public class SlotManager : MonoBehaviour
     }
     public void ShowBuySlot()
     {
+        if (slotContainer.childCount == TOTAL_GRID + 1) return;
         slotContainer.GetChild(slotContainer.childCount - 1).gameObject.SetActive(true);
     }
     public (SlotView,bool) CheckDrag(CardView cardView)
