@@ -150,6 +150,7 @@ public class GameDataManager : MonoBehaviour
     }
     public static void SaveData()
     {
+        Debug.Log("SaveData");
         SavedSequenceData = new SequenceData();
         SavedSequenceData.CardDatas = new List<CardRankData>();
         foreach (var slot in SlotManager.Instance.slotViews)

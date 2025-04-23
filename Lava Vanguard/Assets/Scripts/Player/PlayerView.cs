@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     [HideInInspector]
-    private PlayerData playerData;
+    public PlayerData playerData;
     private Rigidbody2D rb;
     public bool isGround = false;
     private bool isJumping = false;
@@ -141,7 +141,6 @@ public class PlayerView : MonoBehaviour
             {
                 LevelManager.Instance.enteredNext = true;
             }
-            GameDataManager.SaveData();
         }
     }
 

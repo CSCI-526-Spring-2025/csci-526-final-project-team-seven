@@ -151,6 +151,13 @@ public class EnemyManager : MonoBehaviour
         }
         bossRef = boss;
     }
+    public void KillBoss()
+    {
+        if (bossRef != null) {
+            var bossView = bossRef.GetComponent<EnemyView>();
+            bossView.TakeHit(bossView.enemyData.MaxHealth);
+        }
+    }
 
     public void StopSpawn()
     {

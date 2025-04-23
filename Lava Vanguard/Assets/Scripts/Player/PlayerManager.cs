@@ -25,8 +25,7 @@ public class PlayerManager : MonoBehaviour
         Jump();
         Down();
         UpdateInvincible();
-        if (Input.GetKeyDown(KeyCode.O))
-            playerView.GainCoin(1000);
+        
     }
 
     private void Move()

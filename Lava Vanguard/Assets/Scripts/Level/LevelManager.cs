@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
     public int wave = -1;
     public int time;
-    public static readonly int[] TotalTime = new int[] { 15, 20, 25, 30 };
+    public static readonly int[] TotalTime = new int[] { 2, 20, 25, 30 };
     public TMP_Text timeText;
     public TMP_Text waveText;
     public ParticleSystem star;
@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
         time = TotalTime[Mathf.Min(wave, TotalTime.Length - 1)];
     }
 
-    private IEnumerator CountdownTimer()
+    public IEnumerator CountdownTimer()
     {
         while (time > 0)
         {
@@ -70,6 +70,7 @@ public class LevelManager : MonoBehaviour
         }
 
         UIGameManager.Instance.Open<CardSelectorPanel>();
+        GameDataManager.SaveData();
     }
 
     public bool WaveHasBoss()
@@ -92,7 +93,12 @@ public class LevelManager : MonoBehaviour
         EnemyManager.Instance.StartSpawn();
         StartCoroutine("CountdownTimer");
     }
-
+    public void StopTimer()
+    {
+        StopCoroutine("CountdownTimer");
+        timeText.text= "Time's Up!";
+        waveText.text = "Wave " + (wave + 1);
+    }
     public void RecordHealthForThisWave()
     {
         int health = PlayerManager.Instance.playerView.GetHP();

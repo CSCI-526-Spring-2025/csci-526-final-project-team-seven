@@ -19,6 +19,11 @@ namespace Async
         public List<CardView> cardViews = new List<CardView>();
         public void Init(bool isContinue)
         {
+
+            foreach (var cardView in cardViews)
+                Destroy(cardView.gameObject);
+            cardViews.Clear();
+
             //Init position and size
             inventoryRectTransform.anchoredPosition = GameDataManager.InventoryConfig.Center;
             inventoryRectTransform.sizeDelta = GameDataManager.InventoryConfig.Size;

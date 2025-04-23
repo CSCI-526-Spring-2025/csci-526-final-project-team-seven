@@ -29,6 +29,13 @@ public class SlotManager : MonoBehaviour
     }
     public void Init(bool isContinue)
     {
+        for (int i = 0; i < ROW; i++)
+            for (int j = 0; j < COL; j++)
+                if (slotViews[i, j] != null)
+                {
+                    Destroy(slotViews[i, j].gameObject);
+                    slotViews[i, j] = null;
+                }
         var datas = isContinue ? GameDataManager.SavedSequenceData.CardDatas : GameDataManager.SequenceData.CardDatas;
         START_GRID = datas.Count;
         foreach(var data in datas)

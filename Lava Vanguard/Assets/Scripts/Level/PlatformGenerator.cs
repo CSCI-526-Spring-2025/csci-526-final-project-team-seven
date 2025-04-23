@@ -217,7 +217,7 @@ public class PlatformGenerator : MonoBehaviour
             nextGenerateY += IntervalY; // Update the threshold for the next layer
         }
     }
-    public Vector3 Revive()
+    public Vector3 GetRevivePosition()
     {
         GenerateLongLayer();
         return platforms[^1][2].transform.position;
