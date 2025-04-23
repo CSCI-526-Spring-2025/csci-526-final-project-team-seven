@@ -53,6 +53,7 @@ public class DeathPanel : UIPanel
     {
         isOpen = false;
         gameObject.SetActive(false);
+        blocker.SetActive(false);
         Tooltip.Instance.HideTooltip();
         UIGameManager.Instance.SetFocus(false);
 

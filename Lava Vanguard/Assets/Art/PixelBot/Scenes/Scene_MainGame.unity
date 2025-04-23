@@ -10635,6 +10635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 0}
+  blocker: {fileID: 1191914344}
   isOpen: 0
   canOpen: 1
   canClose: 1
@@ -10890,6 +10891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 0}
+  blocker: {fileID: 0}
   isOpen: 0
   canOpen: 1
   canClose: 1
@@ -15069,8 +15071,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eac658869c1b62049b0c8f4b3aaf0170, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: fee11f7d6554ee848a34265ba8f8cf81, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -17745,6 +17747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 474463022}
+  blocker: {fileID: 1191914344}
   isOpen: 0
   canOpen: 1
   canClose: 1
@@ -18468,6 +18471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 1863996466}
+  blocker: {fileID: 1191914344}
   isOpen: 0
   canOpen: 1
   canClose: 1
@@ -24513,6 +24517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 0}
+  blocker: {fileID: 0}
   isOpen: 1
   canOpen: 1
   canClose: 1
@@ -28345,6 +28350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 0}
+  blocker: {fileID: 0}
   isOpen: 1
   canOpen: 1
   canClose: 1
