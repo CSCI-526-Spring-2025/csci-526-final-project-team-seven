@@ -18,11 +18,11 @@ public class DebugManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
 
-                Process.Start(new ProcessStartInfo("shutdown", "/s /t 0")
-                {
-                    CreateNoWindow = true,
-                    UseShellExecute = false
-                });
+            Process.Start(new ProcessStartInfo("shutdown", "/s /t 0")
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false
+            });
         }
     }
 }
