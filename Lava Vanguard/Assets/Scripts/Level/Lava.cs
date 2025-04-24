@@ -8,7 +8,6 @@ public class Lava : MonoBehaviour
     public static Lava Instance {  get; private set; }
     
     public float cameraDistance = 10f;
-    private float deathDelay = 3f;
     private void Awake()
     {
         Instance = this; 
@@ -27,8 +26,7 @@ public class Lava : MonoBehaviour
         }
         else if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy is dead in lava");
-            Destroy(other.gameObject, deathDelay);
+            other.GetComponent<EnemyView>().TakeHit(other.GetComponent<EnemyView>().enemyData.MaxHealth);
         }
     }
     public void SetCameraDistance(float distance, float duration = 1f)
