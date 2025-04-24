@@ -48,7 +48,7 @@ public class CardSelectorView : MonoBehaviour
         if (sold)
             return;
         int price = (data.Type == "BuiltIn" ? UIGameManager.Instance.GetPanel<CardSelectorPanel>().RefreshPrice : data.Cost);
-        this.cost.text = price + "$";
+        this.cost.text = "$" + price;
         bool affordable = PlayerManager.Instance.playerView.GetCoin() >= price;
         this.cost.color = affordable ? ColorCenter.SelectorPanelColors["Green"] : ColorCenter.SelectorPanelColors["Red"];
         this.selectButton.image.color = affordable ? ColorCenter.SelectorPanelColors["Green"] : ColorCenter.SelectorPanelColors["Red"];

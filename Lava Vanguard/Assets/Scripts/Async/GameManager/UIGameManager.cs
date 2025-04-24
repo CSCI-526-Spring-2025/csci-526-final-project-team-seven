@@ -118,7 +118,7 @@ public class UIGameManager : MonoBehaviour
     public void UpdateCoin()
     {
         int coin = PlayerManager.Instance.playerView.GetCoin();
-        coinText.text = "Coin: " + coin;
+        coinText.text = "Money: " + coin;
     }
     public void SetRedDot(bool show)
     {

@@ -17677,8 +17677,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Coin: 10'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b29910069b38d404095ef1aa3a88085a, type: 2}
-  m_sharedMaterial: {fileID: 3030647578408558628, guid: b29910069b38d404095ef1aa3a88085a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4f70931057e3d424fa194c4055cbee93, type: 2}
+  m_sharedMaterial: {fileID: 3030647578408558628, guid: 4f70931057e3d424fa194c4055cbee93, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22961,8 +22961,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'HP:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b29910069b38d404095ef1aa3a88085a, type: 2}
-  m_sharedMaterial: {fileID: 3030647578408558628, guid: b29910069b38d404095ef1aa3a88085a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4f70931057e3d424fa194c4055cbee93, type: 2}
+  m_sharedMaterial: {fileID: 3030647578408558628, guid: 4f70931057e3d424fa194c4055cbee93, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

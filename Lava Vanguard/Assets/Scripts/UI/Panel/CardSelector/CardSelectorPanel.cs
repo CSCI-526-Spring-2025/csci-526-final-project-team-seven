@@ -66,7 +66,7 @@ public class CardSelectorPanel : UIPanel
         refreshView.Init(GameDataManager.CardData["Card_Refresh"], new CardRankData(GameDataManager.CardData["Card_Refresh"]));
         refreshView.selectButton.onClick.RemoveAllListeners();
         refreshView.selectButton.onClick.AddListener(RefreshFunc);
-        refreshText.text = RefreshPrice + "$";
+        refreshText.text = "$" + RefreshPrice;
     }
     public void PresetCard(List<string> IDs, List<int> prices)
     {
