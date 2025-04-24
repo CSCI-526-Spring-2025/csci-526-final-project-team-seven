@@ -59,6 +59,7 @@ public class SlotManager : MonoBehaviour
         {
             InventoryManager.Instance.inventoryView.RemoveCardView(cardView);
             slotViews[0, 0].AddCardView(cardView);
+            UpdateAndRunSequence();
         }
     }
     public int GetCardViewNum()
