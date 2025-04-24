@@ -66,6 +66,7 @@ public class MenuPanel : UIPanel
             envTransform.DOMoveY(y, t).onComplete += () =>
             {
                 Tutorial.Instance.Init();
+                SlotManager.Instance.PresetCardView();
             };
 
             Close();

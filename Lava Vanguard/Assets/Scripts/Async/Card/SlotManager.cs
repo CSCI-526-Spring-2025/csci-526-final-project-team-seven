@@ -52,6 +52,15 @@ public class SlotManager : MonoBehaviour
         }
         UpdateAndRunSequence();
     }
+    public void PresetCardView()
+    {
+        var cardView = InventoryManager.Instance.inventoryView.cardViews[0];
+        if (cardView != null)
+        {
+            InventoryManager.Instance.inventoryView.RemoveCardView(cardView);
+            slotViews[0, 0].AddCardView(cardView);
+        }
+    }
     public int GetCardViewNum()
     {
         int cnt = 0;
