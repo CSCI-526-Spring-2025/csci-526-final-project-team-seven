@@ -6,11 +6,6 @@ public class ColorCenter
 {
     public static Dictionary<string, Color> CardColors = new Dictionary<string, Color>()
     {
-        {"Empty", new Color(0,0,0) },
-        {"Functional", new Color(22/255f,196/255f,255/255f) },
-        {"Health",new Color(1f,0f,0f) },
-        {"BuiltIn", new Color(1,1,1) },
-        
         {"Bullet1", new Color(1f, 1f, 1f)},
         {"Bullet2", new Color(1.0f, 1f, 0.2f)},
         {"Bullet3", new Color(0.8f, 0.8f, 1f)},
