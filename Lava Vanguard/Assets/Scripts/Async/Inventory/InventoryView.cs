@@ -10,6 +10,7 @@ namespace Async
     {
         //Thinking: no card views? Yes! We do!
         //public InventoryData inventoryData;
+        public static readonly int TOTAL_GRID = 10;
         public RectTransform inventoryRectTransform;
         public GridLayoutGroup gridLayoutGroup;
 

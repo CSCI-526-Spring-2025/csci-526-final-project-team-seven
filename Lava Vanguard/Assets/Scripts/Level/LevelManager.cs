@@ -21,9 +21,6 @@ public class LevelManager : MonoBehaviour
     [HideInInspector] public bool waveEnded = false;
     [HideInInspector] public bool genLongPlatform = false;
     [HideInInspector] public bool enteredNext = false;
-
-    private Vector3 playerRebornPosition;
-    private Vector3 cameraRebornPosition;
     private void Awake()
     {
         Instance = this;
