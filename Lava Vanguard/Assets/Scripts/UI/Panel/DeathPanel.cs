@@ -12,6 +12,31 @@ public class DeathPanel : UIPanel
     public Button reviveButton;
     public Button menuButton;
     public Button exitButton;
+
+    [Header("Submit score")]
+    public Button submitScoreButton;
+    public TMP_InputField nameInputField;
+    public TMP_Text currentWaveText;
+    public TMP_Text currentKilledText;
+    public TMP_Text currentReviveText;
+
+    [Header("No Revive")]
+    public GameObject noReviveSubPanel;
+    public Button noReviveHeadButton;
+    public Button noReviveSortByWaveButton;
+    public Button noReviveSortByKilledButton;
+    public RankingNoReviveRow[] noReviveRows;
+    public RankingNoReviveRow userNoReviveRow;
+
+    [Header("With Revive")]
+    public GameObject withReviveSubPanel;
+    public Button withReviveHeadButton;
+    public Button withReviveSortByWaveButton;
+    public Button withReviveSortByKilledButton;
+    public Button withReviveSortByReviveButton;
+    public RankingWithReviveRow[] withReviveRows;
+    public RankingWithReviveRow userWithReviveRow;
+
     public override void Init()
     {
         base.Init();
