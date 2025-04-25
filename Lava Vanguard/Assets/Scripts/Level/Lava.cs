@@ -26,7 +26,7 @@ public class Lava : MonoBehaviour
         }
         else if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyView>().TakeHit(other.GetComponent<EnemyView>().enemyData.MaxHealth);
+            other.GetComponent<EnemyView>().ForceKill();
         }
     }
     public void SetCameraDistance(float distance, float duration = 1f)

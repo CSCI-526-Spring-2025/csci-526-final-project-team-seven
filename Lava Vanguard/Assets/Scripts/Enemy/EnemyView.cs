@@ -37,6 +37,7 @@ public abstract class EnemyView : MonoBehaviour
         enemyData.Health -= bulletAttack;
         if (enemyData.Health <= 0)
         {
+            EnemyManager.Instance.enemyKilled++;
             enemyData.Health = 0;
             StartCoroutine(DeathEffect());
             PlayerManager.Instance.playerView.GainCoin(enemyData.Coin);

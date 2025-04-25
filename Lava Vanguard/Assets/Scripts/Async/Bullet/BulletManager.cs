@@ -11,19 +11,19 @@ namespace Async
         public Transform bulletContainer2;
         public GameObject[] bulletPrefabs;
 
-        public int bulletGenerated1 = 0;
-        public int bulletGenerated2 = 0;
-        public int bulletGenerated3 = 0;
-        public int bulletGenerated4 = 0;
-        public int bulletGenerated5 = 0;
-        public int bulletGenerated6 = 0;
+        [HideInInspector] public int bulletGenerated1 = 0;
+        [HideInInspector] public int bulletGenerated2 = 0;
+        [HideInInspector] public int bulletGenerated3 = 0;
+        [HideInInspector] public int bulletGenerated4 = 0;
+        [HideInInspector] public int bulletGenerated5 = 0;
+        [HideInInspector] public int bulletGenerated6 = 0;
 
-        public int bulletHit1 = 0;
-        public int bulletHit2 = 0;
-        public int bulletHit3 = 0;
-        public int bulletHit4 = 0;
-        public int bulletHit5 = 0;
-        public int bulletHit6 = 0;
+        [HideInInspector] public int bulletHit1 = 0;
+        [HideInInspector] public int bulletHit2 = 0;
+        [HideInInspector] public int bulletHit3 = 0;
+        [HideInInspector] public int bulletHit4 = 0;
+        [HideInInspector] public int bulletHit5 = 0;
+        [HideInInspector] public int bulletHit6 = 0;
 
         private void Awake()
         {

@@ -51,6 +51,13 @@ public class ColorCenter
         {"Green",new Color(159/255f,255/255f,104/255f) },
         {"Red",new Color(209/255f,43/255f,28/255f) }
     };
+
+    public static Dictionary<string, Color> RankingPanelColors = new Dictionary<string, Color>()
+    {
+        {"HeadButtonInactive",new Color(48/255f,45/255f,33/255f,255f/255f) },
+        {"HeadButtonActive",new Color(48/255f,45/255f,33/255f,155f/255f) }
+    };
+
     public static Color platformHiddenColor = new Color(1, 1, 1, 0);
     public static Color platformFadeColor = new Color(1, 1, 1, 47 / 255f);
 }

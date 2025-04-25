@@ -37,6 +37,7 @@ public class DeathPanel : UIPanel
     public RankingWithReviveRow[] withReviveRows;
     public RankingWithReviveRow userWithReviveRow;
 
+    [HideInInspector] public int revive = 0;
     public override void Init()
     {
         base.Init();
@@ -54,6 +55,17 @@ public class DeathPanel : UIPanel
     Application.Quit();
 #endif
         }); ;
+
+        
+        // Setup submit score
+        nameInputField.onValidateInput = (text, index, ch) => (char.IsLetterOrDigit(ch) && text.Length < 9) ? ch : '\0';
+        submitScoreButton.onClick.AddListener(submitScore);
+
+        // Setup no revive
+        noReviveHeadButton.onClick.AddListener(noReviveSetUp);
+
+        // Setup with revive
+        withReviveHeadButton.onClick.AddListener(withReviveSetUp);
     }
 
 
@@ -66,6 +78,10 @@ public class DeathPanel : UIPanel
         else 
             reviveButton.gameObject.SetActive(true);
         //TODO: survivalTime
+        currentWaveText.text="Wave: "+LevelManager.Instance.wave;
+        currentKilledText.text = "Killed: "+EnemyManager.Instance.enemyKilled;
+        currentReviveText.text = "Revive: " + revive;
+        noReviveSetUp();
     }
     public override void Close()
     {
@@ -76,6 +92,7 @@ public class DeathPanel : UIPanel
     }
     public void Revive()
     {
+        revive++;
         isOpen = false;
         gameObject.SetActive(false);
         blocker.SetActive(false);
@@ -109,5 +126,26 @@ public class DeathPanel : UIPanel
         InventoryManager.Instance.Init(true);
 
         UIGameManager.Instance.Open<CardSelectorPanel>();
+    }
+
+    private void submitScore()
+    {
+        return;
+    }
+
+    private void noReviveSetUp()
+    {
+        noReviveSubPanel.SetActive(true);
+        withReviveSubPanel.SetActive(false);
+        noReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonActive"];
+        withReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonInactive"];
+    }
+
+    private void withReviveSetUp()
+    {
+        noReviveSubPanel.SetActive(false);
+        withReviveSubPanel.SetActive(true);
+        noReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonInactive"];
+        withReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonActive"];
     }
 }

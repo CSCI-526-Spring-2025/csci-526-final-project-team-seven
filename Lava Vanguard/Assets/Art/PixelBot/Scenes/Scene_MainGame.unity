@@ -3408,7 +3408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &284634388
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13245,8 +13245,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4f70931057e3d424fa194c4055cbee93, type: 2}
+  m_sharedMaterial: {fileID: 3030647578408558628, guid: 4f70931057e3d424fa194c4055cbee93, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -21789,6 +21789,7 @@ MonoBehaviour:
   - {fileID: 6635705815580878535, guid: 0e45150c033a9f344830017362ae40af, type: 3}
   bossRef: {fileID: 0}
   enemyViews: []
+  enemyKilled: 0
 --- !u!1001 &1310240424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23810,7 +23811,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: 4f70931057e3d424fa194c4055cbee93, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -30282,6 +30283,7 @@ MonoBehaviour:
   - {fileID: 800359578}
   - {fileID: 1613257642}
   userWithReviveRow: {fileID: 2080162110}
+  revive: 0
 --- !u!1 &1790789567
 GameObject:
   m_ObjectHideFlags: 0
@@ -32926,7 +32928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2034074465
 RectTransform:
   m_ObjectHideFlags: 0

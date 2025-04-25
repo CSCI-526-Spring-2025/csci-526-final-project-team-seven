@@ -23,6 +23,8 @@ public class EnemyManager : MonoBehaviour
     private float maxSpawnInterval = 4f;
     private float maxLevel = 20f;
     private Coroutine spawnCoroutine;
+
+    [HideInInspector] public int enemyKilled = 0;
     private void Awake()
     {
         Instance = this;

@@ -287,6 +287,7 @@ public class EnemyView_Boss_02 : EnemyView
         UIGameManager.Instance.bossHPBar.value = enemyData.Health;
         if (enemyData.Health <= 0)
         {
+            EnemyManager.Instance.enemyKilled++;
             enemyData.Health = 0;
             StartCoroutine(DeathEffect());
             PlayerManager.Instance.playerView.GainCoin(enemyData.Coin);
