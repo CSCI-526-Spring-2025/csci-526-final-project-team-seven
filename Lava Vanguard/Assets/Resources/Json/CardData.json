@@ -107,15 +107,15 @@
         "Draggable": true,
         "Collectable": true
     },
-    "Card_Brimstone": {
-        "ID": "Card_Brimstone",
-        "Title": "Brimstone[WIP]",
-        "Description": "Laser! (Not implemented yet)",
-        "Cost": 32,
+    "Card_Bullet06": {
+        "ID": "Card_Bullet06",
+        "Title": "Brimstone",
+        "Description": "Laser! Laser! Laser!",
+        "Cost": 20,
         "Type": "Bullet",
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
-        "Content": "Content_Brimstone",
+        "Content": "Content_Bullet06",
         "Draggable": true,
         "Collectable": true
     },

@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class BulletView04 : BulletView
 {
-    private float initialSurviveTime;
     private float surviveTime;
-    private PolygonCollider2D hexCollider;
 
     private static readonly Dictionary<int, BulletData> dataByLevel = new Dictionary<int, BulletData>()
     {
@@ -37,9 +35,6 @@ public class BulletView04 : BulletView
 
         attack = dataByLevel[level].attack;
         detectionRange = dataByLevel[level].detectionRange;
-
-        initialSurviveTime = surviveTime = 0.5f;
-        hexCollider=GetComponent<PolygonCollider2D>();
 
         float scaleFactor = detectionRange / 0.7f;
         transform.localScale = Vector3.one * scaleFactor;

@@ -8,6 +8,7 @@ namespace Async
     {
         public static BulletManager Instance {  get; private set; }
         public Transform bulletContainer;
+        public Transform bulletContainer2;
         public GameObject[] bulletPrefabs;
 
         public int bulletGenerated1 = 0;
@@ -15,12 +16,14 @@ namespace Async
         public int bulletGenerated3 = 0;
         public int bulletGenerated4 = 0;
         public int bulletGenerated5 = 0;
+        public int bulletGenerated6 = 0;
+
         public int bulletHit1 = 0;
         public int bulletHit2 = 0;
         public int bulletHit3 = 0;
         public int bulletHit4 = 0;
         public int bulletHit5 = 0;
-
+        public int bulletHit6 = 0;
 
         private void Awake()
         {
@@ -31,8 +34,6 @@ namespace Async
         {
             Vector3 spawnPos = PlayerManager.Instance.playerView.transform.position;
             int index = cardView.cardRankData.CardID[^1] - '1';
-            //Debug.Log("GenerateBullet - "+index+" mult: "+damageMultiplier);
-            //Debug.Log(index);
 
             var b = Instantiate(bulletPrefabs[index], spawnPos, Quaternion.identity, bulletContainer);
             b.GetComponent<SpriteRenderer>().color = cardView.content.color;
@@ -48,26 +49,24 @@ namespace Async
             {
                 case 0:
                     bulletGenerated1++;
-                    //Debug.Log($"bullet 1 generated: {bulletGenerated1}");
                     break;
                 case 1:
                     bulletGenerated2++;
-                    //Debug.Log($"bullet 2 index: {index}");
                     break;
                 case 2:
                     bulletGenerated3++;
-                    //Debug.Log($"bullet 3 index: {index}");
                     break;
                 case 3:
                     bulletGenerated4++;
-                    //Debug.Log($"bullet 4 index: {index}");
                     break;
                 case 4:
                     bulletGenerated5++;
-                    //Debug.Log($"bullet 5 index: {index}");
+                    break;
+                case 5:
+                    b.transform.parent = bulletContainer2;
+                    bulletGenerated6++;
                     break;
                 default:
-                   // Debug.LogWarning($"unknown index: {index}");
                     break;
             }
         }

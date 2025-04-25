@@ -11032,6 +11032,37 @@ MonoBehaviour:
   reviveButton: {fileID: 844327950}
   menuButton: {fileID: 1290878562}
   exitButton: {fileID: 1622006689}
+--- !u!1 &691880469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 691880470}
+  m_Layer: 0
+  m_Name: BulletContainer2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &691880470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691880469}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 753478895}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705550592
 GameObject:
   m_ObjectHideFlags: 0
@@ -16781,7 +16812,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9148028093608249357, guid: 7c37413ef3761244e800594c96d0d541, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 691880470}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c37413ef3761244e800594c96d0d541, type: 3}
 --- !u!1 &1310118643
@@ -22685,22 +22719,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletContainer: {fileID: 51462393}
+  bulletContainer2: {fileID: 691880470}
   bulletPrefabs:
   - {fileID: 7397666833938694871, guid: 118d987b0cf6c064980c2e550b2fa8d3, type: 3}
   - {fileID: 7397666833938694871, guid: 27325eb101c0eed4e94420a4baf4f889, type: 3}
   - {fileID: 7397666833938694871, guid: d9b706d749baaf54d9990e8c2925be95, type: 3}
   - {fileID: 7397666833938694871, guid: fa6d2d515f4bb85428949c40acfd00ff, type: 3}
   - {fileID: 7397666833938694871, guid: 8d5f273f36b1ed248a3f312a69de7306, type: 3}
+  - {fileID: 7397666833938694871, guid: fefce112345885b49b33a83be608f4b7, type: 3}
   bulletGenerated1: 0
   bulletGenerated2: 0
   bulletGenerated3: 0
   bulletGenerated4: 0
   bulletGenerated5: 0
+  bulletGenerated6: 0
   bulletHit1: 0
   bulletHit2: 0
   bulletHit3: 0
   bulletHit4: 0
   bulletHit5: 0
+  bulletHit6: 0
 --- !u!1 &1776664524
 GameObject:
   m_ObjectHideFlags: 0
