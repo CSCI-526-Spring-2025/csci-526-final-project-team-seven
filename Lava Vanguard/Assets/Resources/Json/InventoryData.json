@@ -4,6 +4,11 @@
             "ID": 0,
             "CardID": "Card_Bullet01",
             "Level": 1
+        },
+        {
+            "ID": 0,
+            "CardID": "Card_ANKH",
+            "Level": 1
         }
     ]
 }

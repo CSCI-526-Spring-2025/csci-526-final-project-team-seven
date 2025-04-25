@@ -201,6 +201,20 @@ public class SlotManager : MonoBehaviour
 
         return formattedData.TrimEnd(',', ' '); 
     }
+    public bool CheckANKH()
+    {
+        foreach(var slot in slotViews)
+        {
+            if (slot != null && slot.content != null && slot.content.cardSpriteData.ID == "Card_ANKH")
+            {
+                var cardView = slot.content;
+                slot.RemoveCardView();
+                Destroy(cardView.gameObject);
+                return true;
+            }
+        }
+        return false;
+    }
     private void OnDestroy()
     {
         sequence.Kill();

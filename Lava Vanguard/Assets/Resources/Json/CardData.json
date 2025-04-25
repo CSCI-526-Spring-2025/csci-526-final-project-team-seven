@@ -35,6 +35,18 @@
         "Draggable": false,
         "Collectable": false
     },
+    "Card_ANKH": {
+        "ID": "Card_ANKH",
+        "Title": "ANKH",
+        "Description": "When you take fatal damage, destroy this and restore all your health.",
+        "Cost": "85",
+        "Type": "Functional",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_ANKH",
+        "Draggable": true,
+        "Collectable": true
+    },
     "Card_Bullet01": {
         "ID": "Card_Bullet01",
         "Title": "Basic",
@@ -92,6 +104,18 @@
         "Background": "Background_Normal",
         "Outline": "Outline_Normal",
         "Content": "Content_Bullet05",
+        "Draggable": true,
+        "Collectable": true
+    },
+    "Card_Brimstone": {
+        "ID": "Card_Brimstone",
+        "Title": "Brimstone[WIP]",
+        "Description": "Laser! (Not implemented yet)",
+        "Cost": 32,
+        "Type": "Bullet",
+        "Background": "Background_Normal",
+        "Outline": "Outline_Normal",
+        "Content": "Content_Brimstone",
         "Draggable": true,
         "Collectable": true
     },

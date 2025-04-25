@@ -161,8 +161,15 @@ public class PlayerView : MonoBehaviour
         playerData.health -= damage;
         if (playerData.health <= 0)
         {
-            playerData.health = 0;
-            PlayerManager.Instance.KillPlayer();
+            if (SlotManager.Instance.CheckANKH())
+            {
+                playerData.health = playerData.currentHealthLimit;
+            }
+            else
+            {
+                playerData.health = 0;
+                PlayerManager.Instance.KillPlayer();
+            }
         }
         UIGameManager.Instance.UpdateHp();
     }
