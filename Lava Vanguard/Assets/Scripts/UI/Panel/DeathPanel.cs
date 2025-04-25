@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using Async;
+using System;
+using UnityEngine.Networking;
 
 public class DeathPanel : UIPanel
 {
@@ -38,6 +40,9 @@ public class DeathPanel : UIPanel
     public RankingWithReviveRow userWithReviveRow;
 
     [HideInInspector] public int revive = 0;
+    private string[] rankingTitle = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th" };
+
+    private string baseUrl = "https://csci526teamsevenranking-default-rtdb.firebaseio.com/";
     public override void Init()
     {
         base.Init();
@@ -71,7 +76,11 @@ public class DeathPanel : UIPanel
 
     public override void Open()
     {
-        CameraZoomAndMove.Instance.ZoomAndMove(base.Open);
+        CameraZoomAndMove.Instance.ZoomAndMove(() =>
+        {
+            base.Open();
+            noReviveSetUp();
+        }); ;
         UIGameManager.Instance.SetFocus(true);
         if (Tutorial.Instance.cnt < 13 || LevelManager.Instance.wave < 1)
             reviveButton.gameObject.SetActive(false);
@@ -81,7 +90,6 @@ public class DeathPanel : UIPanel
         currentWaveText.text="Wave: "+LevelManager.Instance.wave;
         currentKilledText.text = "Killed: "+EnemyManager.Instance.enemyKilled;
         currentReviveText.text = "Revive: " + revive;
-        noReviveSetUp();
     }
     public override void Close()
     {
@@ -130,7 +138,32 @@ public class DeathPanel : UIPanel
 
     private void submitScore()
     {
-        return;
+        StartCoroutine(postScore());
+    }
+
+    private IEnumerator postScore()
+    {
+        string url = baseUrl + "rankingNoRevive.json";
+        string json = "{"
+            + "\"name\":\"" + nameInputField.text + "\","
+            + "\"wave\":" + +LevelManager.Instance.wave + ","
+            + "\"killed\":" + EnemyManager.Instance.enemyKilled
+            + "}";
+        byte[] body = System.Text.Encoding.UTF8.GetBytes(json);
+        using var uwr = new UnityWebRequest(url, "POST");
+        uwr.uploadHandler = new UploadHandlerRaw(body);
+        uwr.downloadHandler = new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Submission failed" + uwr.error);
+        }
+        else
+        {
+            Debug.Log("Submission success" + uwr.downloadHandler.text);
+        }
     }
 
     private void noReviveSetUp()
@@ -139,6 +172,24 @@ public class DeathPanel : UIPanel
         withReviveSubPanel.SetActive(false);
         noReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonActive"];
         withReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonInactive"];
+        StartCoroutine(getScore());
+    }
+
+    private IEnumerator getScore()
+    {
+        string url = baseUrl + "rankingNoRevive.json";
+
+        using var uwr = UnityWebRequest.Get(url);
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Get Score Fail " + uwr.error);
+            yield break;
+        }
+
+        string json = uwr.downloadHandler.text;
+        Debug.Log("Original JSON is:\n" + json);
     }
 
     private void withReviveSetUp()
