@@ -192,7 +192,7 @@ public class PlatformGenerator : MonoBehaviour
     }
     public void StartGenerating()
     {
-        int cnt = Tutorial.Instance.tutorial ? 2 : 5;
+        int cnt = Tutorial.Instance.tutorial ? 1 : 5;
         for (int i = 0; i < cnt; i++)
         {
             GenerateOneLayer();

@@ -82,7 +82,7 @@ public class DeathPanel : UIPanel
             noReviveSetUp();
         }); ;
         UIGameManager.Instance.SetFocus(true);
-        if (Tutorial.Instance.cnt < 13 || LevelManager.Instance.wave < 1)
+        if (Tutorial.Instance.cnt < 15 || LevelManager.Instance.wave < 1)
             reviveButton.gameObject.SetActive(false);
         else 
             reviveButton.gameObject.SetActive(true);

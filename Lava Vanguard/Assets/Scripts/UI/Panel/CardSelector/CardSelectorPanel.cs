@@ -42,7 +42,7 @@ public class CardSelectorPanel : UIPanel
         base.Open();
         CameraController.Instance.canMove = false;
         refreshCount = -1;
-        if (Tutorial.Instance.cnt > 6)
+        if (Tutorial.Instance.cnt > 8)
             RefreshCard();
     }
     public void SetRefreshButton(bool show)
