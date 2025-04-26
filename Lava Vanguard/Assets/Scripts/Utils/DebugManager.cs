@@ -35,7 +35,8 @@ public class DebugManager : MonoBehaviour
             if (!enableDebug)
                 cnt++;
         }
-        if (Input.GetKeyDown(KeyCode.H)) enableDebug = !enableDebug;
+        if (Input.GetKeyDown(KeyCode.H)) 
+            enableDebug = !enableDebug;
         if (cnt == 3 && !enableDebug) 
         {
             UIGameManager.Instance.Open<CheatPanel>();
