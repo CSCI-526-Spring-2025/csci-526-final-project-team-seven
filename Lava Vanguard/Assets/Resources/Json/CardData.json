@@ -62,7 +62,7 @@
     "Card_Bullet02": {
         "ID": "Card_Bullet02",
         "Title": "Split",
-        "Description": "Split into small bullets.",
+        "Description": "Split into small bullets after certain distance.",
         "Cost": 12,
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -74,7 +74,7 @@
     "Card_Bullet03": {
         "ID": "Card_Bullet03",
         "Title": "Strike",
-        "Description": "Fast, powerful and long range.",
+        "Description": "Fast, powerful and long range bullet.",
         "Cost": 12,
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -86,7 +86,7 @@
     "Card_Bullet04": {
         "ID": "Card_Bullet04",
         "Title": "Area Attack",
-        "Description": "Area attack!",
+        "Description": "Area attack in a hexagon area",
         "Cost": 8,
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -98,7 +98,7 @@
     "Card_Bullet05": {
         "ID": "Card_Bullet05",
         "Title": "Money Welder",
-        "Description": "Gain more coins if this bullet killed an enemy.",
+        "Description": "Gain more coins killing enemies using this bullet.",
         "Cost": 16,
         "Type": "Bullet",
         "Background": "Background_Normal",
@@ -122,7 +122,7 @@
     "Card_LevelUp": {
         "ID": "Card_LevelUp",
         "Title": "Level Up",
-        "Description": "Increase all bullets' level whithin its 3x3 area.",
+        "Description": "Level up surrounding bullets whithin 3x3 area.",
         "Cost": 14,
         "Type": "Functional",
         "Background": "Background_Normal",
