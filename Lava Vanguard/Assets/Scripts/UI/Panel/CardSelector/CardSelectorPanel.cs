@@ -93,7 +93,7 @@ public class CardSelectorPanel : UIPanel
             v.UpdateSelectButton();
         refreshView.selectButton.onClick.RemoveAllListeners();
         refreshView.selectButton.onClick.AddListener(RefreshFunc);
-        refreshText.text = RefreshPrice + "$";
+        refreshText.text = "$" + RefreshPrice;
     }
     private void NextWaveFunc()
     {
