@@ -29,6 +29,7 @@ public class SlotManager : MonoBehaviour
     }
     public void Init(bool isContinue)
     {
+        currentTotalGrid = 0;
         for (int i = 0; i < ROW; i++)
             for (int j = 0; j < COL; j++)
                 if (slotViews[i, j] != null)
