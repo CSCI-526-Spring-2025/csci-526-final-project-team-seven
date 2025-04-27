@@ -6,7 +6,7 @@ using UnityEngine;
 public class DebugManager : MonoBehaviour
 {
     private int cnt = 0;
-    private bool enableDebug = false;
+    private bool enableDebug = true;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))

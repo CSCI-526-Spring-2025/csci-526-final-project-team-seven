@@ -39,17 +39,25 @@ public class DeathPanel : UIPanel
     public RankingWithReviveRow[] withReviveRows;
     public RankingWithReviveRow userWithReviveRow;
 
-    [HideInInspector] public int revive = 0;
+    private int revive = 0;
     private string[] rankingTitle = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th" };
 
-    private int noReviveWaveData = 0;
-    private int noReviveKilledData = 0;
+    private int noReviveWaveData = -1;
+    private int noReviveKilledData = -1;
     private string baseUrlRealtimeDatabase = "https://csci526teamsevenranking-default-rtdb.firebaseio.com/";
+   
+    //firestore
     private string projectId = "csci526teamsevenranking";
     private string apiKey = "";
     private string baseUrlFireStore = "https://firestore.googleapis.com/v1/projects/";
     private string dbPath = "/databases/(default)/documents:runQuery";
-    // Google Form (write)
+    private string writePath = "/databases/(default)/documents/";
+
+    private string noReviveParts;
+    private string withReviveParts;
+    private int noReviveRank = 0;
+    private int withReviveRank = 0;
+
     public override void Init()
     {
         base.Init();
@@ -168,26 +176,59 @@ public class DeathPanel : UIPanel
 
     private IEnumerator postScore()
     {
-        string url = baseUrlRealtimeDatabase + "rankingNoRevive.json";
-        string json = "{"
-            + "\"name\":\"" + nameInputField.text + "\","
-            + "\"wave\":" + +LevelManager.Instance.wave + ","
-            + "\"killed\":" + EnemyManager.Instance.enemyKilled
-            + "}";
-        byte[] body = System.Text.Encoding.UTF8.GetBytes(json);
-        using var uwr = new UnityWebRequest(url, "POST");
-        uwr.uploadHandler = new UploadHandlerRaw(body);
-        uwr.downloadHandler = new DownloadHandlerBuffer();
+        if (revive == 0)
+        {
+            noReviveWaveData = LevelManager.Instance.wave;
+            noReviveKilledData = EnemyManager.Instance.enemyKilled;
+        }
+        string url = baseUrlFireStore + projectId + writePath + "noRevive";
+        string requestJson = @"
+    {
+      ""fields"": {
+        ""name"":   { ""stringValue"": """ + nameInputField.text + @""" },
+        ""wave"":   { ""integerValue"": """ + noReviveWaveData + @""" },
+        ""killed"": { ""integerValue"": """ + noReviveKilledData + @""" }
+      }
+    }";
+        byte[] body = System.Text.Encoding.UTF8.GetBytes(requestJson);
+        using var uwr = new UnityWebRequest(url, "POST")
+        {
+            uploadHandler = new UploadHandlerRaw(body),
+            downloadHandler = new DownloadHandlerBuffer()
+        };
         uwr.SetRequestHeader("Content-Type", "application/json");
         yield return uwr.SendWebRequest();
 
         if (uwr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError("Submission failed" + uwr.error);
-        }
+            Debug.LogError("Submit noRevive Fail: " + uwr.error);
         else
+            Debug.Log("Submit noRevive Success, response:\n" + uwr.downloadHandler.text);
+
+        if (revive > 0)
         {
-            Debug.Log("Submission success" + uwr.downloadHandler.text);
+            url = baseUrlFireStore + projectId + writePath + "withRevive";
+            requestJson = @"
+        {
+          ""fields"": {
+            ""name"":   { ""stringValue"": """ + nameInputField.text + @""" },
+            ""wave"":   { ""integerValue"": """ + LevelManager.Instance.wave + @""" },
+            ""killed"": { ""integerValue"": """ + EnemyManager.Instance.enemyKilled + @""" },
+            ""revive"": { ""integerValue"": """ + revive + @""" }
+          }
+        }";
+            body = System.Text.Encoding.UTF8.GetBytes(requestJson);
+            using var uwr2 = new UnityWebRequest(url, "POST")
+            {
+                uploadHandler = new UploadHandlerRaw(body),
+                downloadHandler = new DownloadHandlerBuffer()
+            };
+            uwr2.SetRequestHeader("Content-Type", "application/json");
+            yield return uwr2.SendWebRequest();
+
+            if (uwr2.result != UnityWebRequest.Result.Success)
+                Debug.LogError("Submit withRevive Fail: " + uwr2.error);
+            else
+                Debug.Log("Submit withRevive Success, response:\n" + uwr2.downloadHandler.text);
         }
     }
 
@@ -202,24 +243,7 @@ public class DeathPanel : UIPanel
             noReviveRows[i].Set(rankingTitle[i], "--", "--", "--");
         }
         userNoReviveRow.Set("--/--", "You", "--", "--");
-        StartCoroutine(getScoreNoRevive());
-    }
-
-    private IEnumerator getScoreNoRevive()
-    {
-        string url = baseUrlRealtimeDatabase + "rankingNoRevive.json";
-
-        using var uwr = UnityWebRequest.Get(url);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError("Get Score Fail " + uwr.error);
-            yield break;
-        }
-
-        string json = uwr.downloadHandler.text;
-        Debug.Log("Original JSON is:\n" + json);
+        StartCoroutine(getScore("noRevive","wave",noReviveWaveData));
     }
 
     private void withReviveSetUp()
@@ -233,47 +257,112 @@ public class DeathPanel : UIPanel
             withReviveRows[i].Set(rankingTitle[i], "--", "--", "--", "--");
         }
         userWithReviveRow.Set("--/--", "You", "--", "--", "--");
-        StartCoroutine(getScoreWithRevive());
+        StartCoroutine(getScore("withRevive","wave",LevelManager.Instance.wave));
     }
-
-    private IEnumerator getScoreWithRevive()
+    private void noReviveSortByWave()
     {
-        string url = baseUrlRealtimeDatabase + "rankingNoRevive.json";
+        StartCoroutine(getScore("noRevive", "wave", noReviveWaveData));
+    }
+    private void noReviveSortByKilled()
+    {
+        StartCoroutine(getScore("noRevive", "killed", noReviveWaveData));
+    }
+    private void withReviveSortByWave()
+    {
+        StartCoroutine(getScore("withRevive", "wave", LevelManager.Instance.wave));
+    }
+    private void withReviveSortByKilled()
+    {
+        StartCoroutine(getScore("withRevive", "killed", LevelManager.Instance.wave));
+    }
+    private void withReviveSortByRevive()
+    {
+        StartCoroutine(getScore("withRevive", "revive", LevelManager.Instance.wave));
+    }
+    private IEnumerator getScore(string collectionId, string sortByField, int greaterThanValue)
+    {
+        string url = baseUrlFireStore + projectId + dbPath;
 
-        using var uwr = UnityWebRequest.Get(url);
+        // Get descending by wave
+        string queryJson = "{ \"structuredQuery\": {"
+            + "\"from\":[{\"collectionId\":\"" + collectionId + "\"}],"
+            + "\"orderBy\":[{"
+                + "\"field\":{\"fieldPath\":\"" + sortByField + "\"},"
+                + "\"direction\":\"DESCENDING\""
+            + "}],"
+            + "\"limit\":10"
+            + "} }";
+
+        byte[] body = System.Text.Encoding.UTF8.GetBytes(queryJson);
+        using var uwr = new UnityWebRequest(url, "POST")
+        {
+            uploadHandler = new UploadHandlerRaw(body),
+            downloadHandler = new DownloadHandlerBuffer()
+        };
+        uwr.SetRequestHeader("Content-Type", "application/json");
         yield return uwr.SendWebRequest();
 
         if (uwr.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError("Get Score Fail " + uwr.error);
+            Debug.LogError("Get Score Fail: " + uwr.error);
             yield break;
         }
 
-        string json = uwr.downloadHandler.text;
-        Debug.Log("Original JSON is:\n" + json);
-        for(int i = 0; i < 10; i++)
+        var parts = uwr.downloadHandler.text;
+        Debug.Log(parts);
+        if (collectionId == "noRevive")
         {
-
+            noReviveParts = parts;
+            parseNoReviveParts();
+        }
+        else 
+        {
+            withReviveParts = parts;
+            parseWithReviveParts();
         }
     }
 
-    private void noReviveSortByWave()
+    private void parseNoReviveParts()
     {
+        string wrapped = "{\"entries\":" + noReviveParts + "}";
+        var list = JsonUtility.FromJson<FirestoreList>(wrapped);
+        for (int i = 0; i < noReviveRows.Length; i++)
+        {
+            if (i < list.entries.Length)
+            {
+                var entry = list.entries[i];
+                string name = entry.document.fields.name.stringValue;
+                int wave = int.Parse(entry.document.fields.wave.integerValue);
+                int killed = int.Parse(entry.document.fields.killed.integerValue);
+                noReviveRows[i].Set(rankingTitle[i], name, wave.ToString(), killed.ToString());
+            }
+            else
+            {
+                noReviveRows[i].Set(rankingTitle[i], "--", "--", "--");
+            }
+        }
     }
-    private void noReviveSortByKilled()
-    {
 
-    }
-    private void withReviveSortByWave()
+    private void parseWithReviveParts()
     {
-
+        string wrapped = "{\"entries\":" + withReviveParts + "}";
+        var list = JsonUtility.FromJson<FirestoreList>(wrapped);
+        for (int i = 0; i < withReviveRows.Length; i++)
+        {
+            if (i < list.entries.Length)
+            {
+                var entry = list.entries[i];
+                string name = entry.document.fields.name.stringValue;
+                int wave = int.Parse(entry.document.fields.wave.integerValue);
+                int killed = int.Parse(entry.document.fields.killed.integerValue);
+                int revive=int.Parse(entry.document.fields.revive.integerValue);
+                withReviveRows[i].Set(rankingTitle[i], name, wave.ToString(), killed.ToString(),revive.ToString());
+            }
+            else
+            {
+                withReviveRows[i].Set(rankingTitle[i], "--", "--", "--", "--");
+            }
+        }
     }
-    private void withReviveSortByKilled()
-    {
 
-    }
-    private void withReviveSortByRevive()
-    {
-
-    }
 }
