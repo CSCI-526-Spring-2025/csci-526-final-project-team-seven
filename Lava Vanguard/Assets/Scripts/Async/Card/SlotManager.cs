@@ -169,7 +169,7 @@ public class SlotManager : MonoBehaviour
                     var content = slot.content;
                     if (content.cardSpriteData.Type == "Bullet")
                     {
-                        content.content.color = ColorCenter.CardColors["Bullet" + content.cardRankData.Level];
+                        content.SetLevel(false);
                         sequence.AppendCallback(() => BulletManager.Instance.GenerateBullet(content));
                     }
                 }

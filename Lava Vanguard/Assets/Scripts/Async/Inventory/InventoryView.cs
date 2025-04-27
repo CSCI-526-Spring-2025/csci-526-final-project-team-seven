@@ -53,6 +53,7 @@ namespace Async
         {
             cardView.transform.SetParent(inventoryRectTransform);
             cardViews.Add(cardView);
+            cardView.SetLevel();
         }
         public void AddCardView(CardRankData data)
         {

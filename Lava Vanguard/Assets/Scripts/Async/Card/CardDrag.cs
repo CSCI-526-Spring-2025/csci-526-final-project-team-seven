@@ -59,11 +59,7 @@ namespace Async
         {
             if (!draggable)
                 return;
-            cardView.cardRankData.Level = 1;
-            if (cardView.cardSpriteData.Type == "Bullet")
-            {
-                cardView.content.color = ColorCenter.CardColors["Bullet1"];
-            }
+            cardView.SetLevel();
             if (canvas == null) return;
 
             Vector2 delta = eventData.delta / canvas.scaleFactor;

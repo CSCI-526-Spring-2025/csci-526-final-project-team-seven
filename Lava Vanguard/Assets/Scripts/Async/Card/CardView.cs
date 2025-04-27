@@ -42,13 +42,25 @@ namespace Async
             if (cardSpriteData.Type == "Bullet")
             {
                 content.color = ColorCenter.CardColors[cardSpriteData.Type + cardRankData.Level];
+                outline.color = ColorCenter.CardColors[cardSpriteData.Type + cardRankData.Level];
             }
             else
             {
                 content.color = ColorCenter.CardTypeColors[cardSpriteData.Type];
+                outline.color = ColorCenter.CardTypeColors[cardSpriteData.Type];
             }
 
-            outline.color = ColorCenter.CardTypeColors[cardSpriteData.Type];
+            
+        }
+        public void SetLevel(bool reset = true)
+        {
+            if (reset)
+                cardRankData.Level = 1;
+            if (cardSpriteData.Type == "Bullet")
+            {
+                content.color = ColorCenter.CardColors[cardSpriteData.Type + cardRankData.Level];
+                outline.color = ColorCenter.CardColors[cardSpriteData.Type + cardRankData.Level];
+            }
         }
     }
 }

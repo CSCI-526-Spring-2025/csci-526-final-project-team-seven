@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class CheatPanel : UIPanel
 {
-    
+    public override void Open()
+    {
+        
+    }
 }
