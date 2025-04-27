@@ -42,7 +42,14 @@ public class DeathPanel : UIPanel
     [HideInInspector] public int revive = 0;
     private string[] rankingTitle = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th" };
 
-    private string baseUrl = "https://csci526teamsevenranking-default-rtdb.firebaseio.com/";
+    private int noReviveWaveData = 0;
+    private int noReviveKilledData = 0;
+    private string baseUrlRealtimeDatabase = "https://csci526teamsevenranking-default-rtdb.firebaseio.com/";
+    private string projectId = "csci526teamsevenranking";
+    private string apiKey = "";
+    private string baseUrlFireStore = "https://firestore.googleapis.com/v1/projects/";
+    private string dbPath = "/databases/(default)/documents:runQuery";
+    // Google Form (write)
     public override void Init()
     {
         base.Init();
@@ -68,11 +75,14 @@ public class DeathPanel : UIPanel
 
         // Setup no revive
         noReviveHeadButton.onClick.AddListener(noReviveSetUp);
-
+        noReviveSortByWaveButton.onClick.AddListener(noReviveSortByWave);
+        noReviveSortByKilledButton.onClick.AddListener(noReviveSortByKilled);
         // Setup with revive
         withReviveHeadButton.onClick.AddListener(withReviveSetUp);
+        withReviveSortByWaveButton.onClick.AddListener(withReviveSortByWave);
+        withReviveSortByKilledButton.onClick.AddListener(withReviveSortByKilled);
+        withReviveSortByReviveButton.onClick.AddListener(withReviveSortByRevive);
     }
-
 
     public override void Open()
     {
@@ -82,10 +92,13 @@ public class DeathPanel : UIPanel
             noReviveSetUp();
         }); ;
         UIGameManager.Instance.SetFocus(true);
+//        reviveButton.interactable = true;
         if (Tutorial.Instance.cnt < 15 || LevelManager.Instance.wave < 1)
-            reviveButton.gameObject.SetActive(false);
-        else 
-            reviveButton.gameObject.SetActive(true);
+            reviveButton.interactable = false;
+        else
+            reviveButton.interactable = true;
+        nameInputField.interactable = true;
+        submitScoreButton.interactable = true;
         //TODO: survivalTime
         currentWaveText.text="Wave: "+LevelManager.Instance.wave;
         currentKilledText.text = "Killed: "+EnemyManager.Instance.enemyKilled;
@@ -100,6 +113,11 @@ public class DeathPanel : UIPanel
     }
     public void Revive()
     {
+        if (revive == 0)
+        {
+            noReviveWaveData = LevelManager.Instance.wave;
+            noReviveKilledData = EnemyManager.Instance.enemyKilled;
+        }
         revive++;
         isOpen = false;
         gameObject.SetActive(false);
@@ -138,12 +156,19 @@ public class DeathPanel : UIPanel
 
     private void submitScore()
     {
+        if (nameInputField.text.Length == 0)
+        {
+            return;
+        }
+        reviveButton.interactable = false;
+        submitScoreButton.interactable = false;
+        nameInputField.interactable = false;
         StartCoroutine(postScore());
     }
 
     private IEnumerator postScore()
     {
-        string url = baseUrl + "rankingNoRevive.json";
+        string url = baseUrlRealtimeDatabase + "rankingNoRevive.json";
         string json = "{"
             + "\"name\":\"" + nameInputField.text + "\","
             + "\"wave\":" + +LevelManager.Instance.wave + ","
@@ -172,12 +197,17 @@ public class DeathPanel : UIPanel
         withReviveSubPanel.SetActive(false);
         noReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonActive"];
         withReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonInactive"];
-        StartCoroutine(getScore());
+        for(int i = 0; i < 10; i++)
+        {
+            noReviveRows[i].Set(rankingTitle[i], "--", "--", "--");
+        }
+        userNoReviveRow.Set("--/--", "You", "--", "--");
+        StartCoroutine(getScoreNoRevive());
     }
 
-    private IEnumerator getScore()
+    private IEnumerator getScoreNoRevive()
     {
-        string url = baseUrl + "rankingNoRevive.json";
+        string url = baseUrlRealtimeDatabase + "rankingNoRevive.json";
 
         using var uwr = UnityWebRequest.Get(url);
         yield return uwr.SendWebRequest();
@@ -198,5 +228,52 @@ public class DeathPanel : UIPanel
         withReviveSubPanel.SetActive(true);
         noReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonInactive"];
         withReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonActive"];
+        for(int i = 0; i < 10; i++)
+        {
+            withReviveRows[i].Set(rankingTitle[i], "--", "--", "--", "--");
+        }
+        userWithReviveRow.Set("--/--", "You", "--", "--", "--");
+        StartCoroutine(getScoreWithRevive());
+    }
+
+    private IEnumerator getScoreWithRevive()
+    {
+        string url = baseUrlRealtimeDatabase + "rankingNoRevive.json";
+
+        using var uwr = UnityWebRequest.Get(url);
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Get Score Fail " + uwr.error);
+            yield break;
+        }
+
+        string json = uwr.downloadHandler.text;
+        Debug.Log("Original JSON is:\n" + json);
+        for(int i = 0; i < 10; i++)
+        {
+
+        }
+    }
+
+    private void noReviveSortByWave()
+    {
+    }
+    private void noReviveSortByKilled()
+    {
+
+    }
+    private void withReviveSortByWave()
+    {
+
+    }
+    private void withReviveSortByKilled()
+    {
+
+    }
+    private void withReviveSortByRevive()
+    {
+
     }
 }

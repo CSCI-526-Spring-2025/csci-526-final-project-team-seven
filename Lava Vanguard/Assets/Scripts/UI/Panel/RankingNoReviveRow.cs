@@ -12,11 +12,11 @@ public class RankingNoReviveRow : MonoBehaviour
     [SerializeField] TMP_Text textWave;
     [SerializeField] TMP_Text textKilled;
 
-    public void Set(int rank,string name,int wave, int killed)
+    public void Set(string rank,string name,string wave,string killed)
     {
-        textRank.text = rank.ToString();
+        textRank.text = rank;
         textName.text = name;
-        textWave.text = textWave.ToString();
-        textKilled.text = textKilled.ToString();
+        textWave.text = wave;
+        textKilled.text = killed;
     }
 }
