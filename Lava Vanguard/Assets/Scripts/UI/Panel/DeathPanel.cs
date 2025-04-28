@@ -112,8 +112,17 @@ public class DeathPanel : UIPanel
             reviveButton.interactable = false;
         else
             reviveButton.interactable = true;
-        nameInputField.interactable = true;
-        submitScoreButton.interactable = true;
+        Debug.Log(DebugManager.Instance.getCnt());
+        if (DebugManager.Instance.getCnt() == 0)
+        {
+            nameInputField.interactable = true;
+            submitScoreButton.interactable = true;
+        }
+        else
+        {
+            nameInputField.interactable = false;
+            submitScoreButton.interactable = false;
+        }
         //TODO: survivalTime
         currentWaveText.text="Wave: "+LevelManager.Instance.wave;
         currentKilledText.text = "Killed: "+EnemyManager.Instance.enemyKilled;

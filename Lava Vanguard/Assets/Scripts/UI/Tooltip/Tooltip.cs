@@ -60,6 +60,9 @@ public class Tooltip : MonoBehaviour
                 case "Card_Bullet05":
                     bulletDescription += BulletView05.BulletDescription(data.cardRankData.Level);
                     break;
+                case "Card_Bullet06":
+                    bulletDescription += BulletView06.BulletDescription(data.cardRankData.Level);
+                    break;
             }
             bulletDetail2.text = bulletDescription;
         }

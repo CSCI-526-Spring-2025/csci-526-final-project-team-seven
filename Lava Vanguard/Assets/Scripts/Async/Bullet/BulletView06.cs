@@ -19,7 +19,8 @@ public class BulletView06 : BulletView
     };
     public static string BulletDescription(int level)
     {
-        return "Attack: " + dataByLevel[level].attack;
+        return "Range: " + dataByLevel[level].detectionRange + 
+            "\nAttack: " + dataByLevel[level].attack;
     }
 
     protected override void MoveBullet()

@@ -5,8 +5,18 @@ using System.IO;
 
 public class DebugManager : MonoBehaviour
 {
-    public static DebugManager Instance {  get; private set; }
+    public static DebugManager Instance { get; private set; }
+    private int cnt = 0;
+    private bool enableDebug = true;
     private void Awake()
+    {
+        Instance = this;
+    }
+    public int getCnt()
+    {
+        return cnt;
+    }
+    void Update()
     {
         Instance = this;
     }
@@ -44,21 +54,25 @@ public class DebugManager : MonoBehaviour
         if (typing) return;
         if (Input.GetKeyDown(KeyCode.O) && enableDebug) 
             PlayerManager.Instance.playerView.GainCoin(1000);
-        if (Input.GetKeyDown(KeyCode.Alpha0) && enableDebug)
+            cnt++;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             PlayerManager.Instance.playerView.playerData.currentHealthLimit += 1000;
             UIGameManager.Instance.UpdateHp();
+            cnt++;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha9) && enableDebug)
         {
             PlayerManager.Instance.playerView.RestoreHealth();
             UIGameManager.Instance.UpdateHp();
+            cnt++;
         }
         if (Input.GetKeyDown(KeyCode.Alpha8)&& enableDebug)
             LevelManager.Instance.wave++;
-        if (Input.GetKeyDown(KeyCode.C) && enableDebug)
-            TakeScreenshot();
+            cnt++;
+        }
         if (Input.GetKeyDown(KeyCode.H)) 
             enableDebug = !enableDebug;
     }
