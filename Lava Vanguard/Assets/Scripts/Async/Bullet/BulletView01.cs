@@ -7,7 +7,7 @@ public class BulletView01 : BulletView
 {
     private static readonly Dictionary<int, BulletData> dataByLevel = new Dictionary<int, BulletData>()
     {
-         { 1, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 1500} },
+         { 1, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 3} },
          { 2, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 4} },
          { 3, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 5} },
          { 4, new BulletData { lifeDistance=8.0f,detectionRange = 8.0f,speed=15f, attack = 6} },

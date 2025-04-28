@@ -39,7 +39,7 @@ public class EnemyView_Boss_01 : EnemyView
     public override void Init(string ID,int level)
     {
         this.level = level;
-        originalColor = ColorCenter.CardColors["Boss" + level];
+        originalColor = ColorCenter.CardColors["Enemy" + Mathf.Min(Mathf.Max(level, 1), 9)];
 
         spriteRenderer.color = originalColor;
         enemyData = GameDataManager.EnemyData[ID];

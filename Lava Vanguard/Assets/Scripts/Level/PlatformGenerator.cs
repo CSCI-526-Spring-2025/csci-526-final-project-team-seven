@@ -24,6 +24,7 @@ public class PlatformGenerator : MonoBehaviour
     private static readonly float IntervalY = 2;
     private static readonly float IntervalX = 5;
 
+    private static bool boss02Platform = true;
     private void Awake()
     {
         Instance = this;
@@ -211,8 +212,20 @@ public class PlatformGenerator : MonoBehaviour
             }
             else
             {
-                GenerateOneLayer();
-                RemoveOneLayer();
+                if (LevelManager.Instance.wave == 19)
+                {
+                    if(boss02Platform == true)
+                        GenerateOneLayer(new bool[] { true, false, true, false, true });
+                    else
+                        GenerateOneLayer(new bool[] { false, true, false, true, false });
+                    boss02Platform = !boss02Platform;
+                    RemoveOneLayer();
+                }
+                else
+                {
+                    GenerateOneLayer();
+                    RemoveOneLayer();
+                }
             }
             nextGenerateY += IntervalY; // Update the threshold for the next layer
         }
