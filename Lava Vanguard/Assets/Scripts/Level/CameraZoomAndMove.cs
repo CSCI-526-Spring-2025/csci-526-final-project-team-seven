@@ -21,7 +21,7 @@ public class CameraZoomAndMove : MonoBehaviour
     {
         Instance = this;
     }
-    public void ZoomAndMove(TweenCallback action = null)
+    public void ZoomAndMove(TweenCallback callback = null)
     {
         isMoving = true;
         focused = true;
@@ -43,7 +43,7 @@ public class CameraZoomAndMove : MonoBehaviour
                       .SetEase(Ease.OutQuad).SetUpdate(true).onComplete += () =>
                       {
                           isMoving = false;
-                      } + action;
+                      } + callback;
     }
 
     public void ResetCamera()

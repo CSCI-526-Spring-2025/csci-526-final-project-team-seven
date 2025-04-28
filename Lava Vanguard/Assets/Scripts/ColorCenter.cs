@@ -54,8 +54,9 @@ public class ColorCenter
 
     public static Dictionary<string, Color> RankingPanelColors = new Dictionary<string, Color>()
     {
+
         {"HeadButtonInactive",new Color(48/255f,45/255f,33/255f,255f/255f) },
-        {"HeadButtonActive",new Color(48/255f,45/255f,33/255f,155f/255f) }
+        {"HeadButtonActive",new Color(119/255f,74/255f,61/255f,255f/255f) }
     };
 
     public static Color platformHiddenColor = new Color(1, 1, 1, 0);

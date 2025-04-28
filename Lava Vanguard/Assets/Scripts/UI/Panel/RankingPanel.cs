@@ -68,17 +68,15 @@ public class RankingPanel : UIPanel
 
     public override void Open()
     {
-        CameraZoomAndMove.Instance.ZoomAndMove(() =>
-        {
-            base.Open();
-            noReviveSetUp();
-        }); ;
+        base.Open();
+        DebugManager.Instance.typing = true;
+        noReviveSetUp();
         UIGameManager.Instance.SetFocus(true);
     }
     public override void Close()
     {
         base.Close();
-        CameraZoomAndMove.Instance.ResetCamera();
+        DebugManager.Instance.typing = false;
         Tooltip.Instance.HideTooltip();
         UIGameManager.Instance.SetFocus(false);
     }

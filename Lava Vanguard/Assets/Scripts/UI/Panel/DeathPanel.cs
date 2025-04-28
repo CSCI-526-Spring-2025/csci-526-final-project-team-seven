@@ -100,10 +100,11 @@ public class DeathPanel : UIPanel
 
     public override void Open()
     {
-        CameraZoomAndMove.Instance.ZoomAndMove(() =>
+        CameraZoomAndMove.Instance.ZoomAndMove(callback:() =>
         {
             base.Open();
             noReviveSetUp();
+            DebugManager.Instance.typing = true;
         }); ;
         UIGameManager.Instance.SetFocus(true);
 //        reviveButton.interactable = true;
@@ -121,6 +122,7 @@ public class DeathPanel : UIPanel
     public override void Close()
     {
         base.Close();
+        DebugManager.Instance.typing = false;
         CameraZoomAndMove.Instance.ResetCamera();
         Tooltip.Instance.HideTooltip();
         UIGameManager.Instance.SetFocus(false);
