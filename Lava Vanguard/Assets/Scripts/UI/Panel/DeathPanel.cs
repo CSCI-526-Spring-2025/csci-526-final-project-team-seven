@@ -7,6 +7,11 @@ using TMPro;
 using Async;
 using System;
 using UnityEngine.Networking;
+using Newtonsoft.Json.Linq;
+using System.Text;
+using System.Collections.ObjectModel;
+using Unity.Collections.LowLevel.Unsafe;
+using Cinemachine;
 
 public class DeathPanel : UIPanel
 {
@@ -44,19 +49,19 @@ public class DeathPanel : UIPanel
 
     private int noReviveWaveData = -1;
     private int noReviveKilledData = -1;
-    private string baseUrlRealtimeDatabase = "https://csci526teamsevenranking-default-rtdb.firebaseio.com/";
    
     //firestore
     private string projectId = "csci526teamsevenranking";
     private string apiKey = "";
     private string baseUrlFireStore = "https://firestore.googleapis.com/v1/projects/";
     private string dbPath = "/databases/(default)/documents:runQuery";
+    private string aggregatePath = "/databases/(default)/documents:runAggregationQuery";
     private string writePath = "/databases/(default)/documents/";
 
     private string noReviveParts;
     private string withReviveParts;
-    private int noReviveRank = 0;
-    private int withReviveRank = 0;
+
+    private string currentRankType;
 
     public override void Init()
     {
@@ -90,6 +95,7 @@ public class DeathPanel : UIPanel
         withReviveSortByWaveButton.onClick.AddListener(withReviveSortByWave);
         withReviveSortByKilledButton.onClick.AddListener(withReviveSortByKilled);
         withReviveSortByReviveButton.onClick.AddListener(withReviveSortByRevive);
+        currentRankType = "noRevive";
     }
 
     public override void Open()
@@ -227,13 +233,22 @@ public class DeathPanel : UIPanel
 
             if (uwr2.result != UnityWebRequest.Result.Success)
                 Debug.LogError("Submit withRevive Fail: " + uwr2.error);
-            else
-                Debug.Log("Submit withRevive Success, response:\n" + uwr2.downloadHandler.text);
+            //else
+            //    Debug.Log("Submit withRevive Success, response:\n" + uwr2.downloadHandler.text);
+        }
+        if (currentRankType == "noRevive")
+        {
+            noReviveSetUp();
+        }
+        else if(currentRankType == "withRevive")
+        {
+            withReviveSetUp();
         }
     }
 
     private void noReviveSetUp()
     {
+        currentRankType = "noRevive";
         noReviveSubPanel.SetActive(true);
         withReviveSubPanel.SetActive(false);
         noReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonActive"];
@@ -248,6 +263,7 @@ public class DeathPanel : UIPanel
 
     private void withReviveSetUp()
     {
+        currentRankType = "withRevive";
         noReviveSubPanel.SetActive(false);
         withReviveSubPanel.SetActive(true);
         noReviveHeadButton.image.color = ColorCenter.RankingPanelColors["HeadButtonInactive"];
@@ -265,7 +281,7 @@ public class DeathPanel : UIPanel
     }
     private void noReviveSortByKilled()
     {
-        StartCoroutine(getScore("noRevive", "killed", noReviveWaveData));
+        StartCoroutine(getScore("noRevive", "killed", noReviveKilledData));
     }
     private void withReviveSortByWave()
     {
@@ -273,18 +289,19 @@ public class DeathPanel : UIPanel
     }
     private void withReviveSortByKilled()
     {
-        StartCoroutine(getScore("withRevive", "killed", LevelManager.Instance.wave));
+        StartCoroutine(getScore("withRevive", "killed", EnemyManager.Instance.enemyKilled));
     }
     private void withReviveSortByRevive()
     {
-        StartCoroutine(getScore("withRevive", "revive", LevelManager.Instance.wave));
+        StartCoroutine(getScore("withRevive", "revive", revive));
     }
     private IEnumerator getScore(string collectionId, string sortByField, int greaterThanValue)
     {
         string url = baseUrlFireStore + projectId + dbPath;
 
         // Get descending by wave
-        string queryJson = "{ \"structuredQuery\": {"
+        string queryJson = 
+            "{ \"structuredQuery\": {"
             + "\"from\":[{\"collectionId\":\"" + collectionId + "\"}],"
             + "\"orderBy\":[{"
                 + "\"field\":{\"fieldPath\":\"" + sortByField + "\"},"
@@ -309,23 +326,127 @@ public class DeathPanel : UIPanel
         }
 
         var parts = uwr.downloadHandler.text;
-        Debug.Log(parts);
+        //Debug.Log(parts);
         if (collectionId == "noRevive")
         {
             noReviveParts = parts;
-            parseNoReviveParts();
+            parseNoReviveParts(sortByField);
         }
         else 
         {
             withReviveParts = parts;
-            parseWithReviveParts();
+            parseWithReviveParts(sortByField);
+        }
+
+        // Get total count
+        yield return StartCoroutine(getUserRank(collectionId,sortByField,greaterThanValue));
+    }
+
+    public IEnumerator getUserRank(string collectionId,string sortByField, int greaterThanValue)
+    {
+        int totalCount = -1, rank = -1;
+        string url = baseUrlFireStore + projectId + aggregatePath;
+        string totalCountJson =
+              "{"
+            + "\"structuredAggregationQuery\":{"
+            + "\"aggregations\":[{\"count\":{}}],"
+        + "\"structuredQuery\":{"
+            + "\"from\":[{\"collectionId\":\"" + collectionId + "\"}]"
+            + "}"
+            + "}"
+            + "}";
+        byte[] totalCountBody = Encoding.UTF8.GetBytes(totalCountJson);
+        using var totalCountUwr = new UnityWebRequest(url, "POST")
+        {
+            uploadHandler = new UploadHandlerRaw(totalCountBody),
+            downloadHandler = new DownloadHandlerBuffer()
+        };
+        totalCountUwr.SetRequestHeader("Content-Type", "application/json");
+
+        yield return totalCountUwr.SendWebRequest();
+
+        if (totalCountUwr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError($"[TotalCount] Error: {totalCountUwr.error}");
+            yield break;
+        }
+        //Debug.Log("total return " + totalCountUwr.downloadHandler.text);
+        string wrapped = "{ \"items\": " + totalCountUwr.downloadHandler.text + " }";
+        var list = JsonUtility.FromJson<AggregationResponseList>(wrapped);
+
+
+        if (list.items != null && list.items.Length > 0)
+            totalCount = int.Parse(list.items[0].result.aggregateFields.field_1.integerValue);
+        else
+            Debug.LogError("TotalCount error: Empty response array");
+
+        if (submitScoreButton.interactable==false&&!(revive==0&&currentRankType=="withRevive"))
+        {
+            string rankJson =
+                  "{"
+                + "\"structuredAggregationQuery\":{"
+                + "\"aggregations\":[{\"count\":{}}],"
+                + "\"structuredQuery\":{"
+                + "\"from\":[{\"collectionId\":\"" + collectionId + "\"}],"
+                + "\"where\":{"
+                + "\"fieldFilter\":{"
+                + "\"field\":{\"fieldPath\":\""+sortByField+"\"},"
+                + "\"op\":\"GREATER_THAN\","
+                + "\"value\":{\"integerValue\":\"" + greaterThanValue + "\"}"
+                + "}"
+                + "}"
+                + "}"
+                + "}"
+                + "}";
+            byte[] rankBody = Encoding.UTF8.GetBytes(rankJson);
+            using var rankUwr = new UnityWebRequest(url, "POST")
+            {
+                uploadHandler = new UploadHandlerRaw(rankBody),
+                downloadHandler = new DownloadHandlerBuffer()
+            };
+            rankUwr.SetRequestHeader("Content-Type", "application/json");
+            yield return rankUwr.SendWebRequest();
+
+            if (rankUwr.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"[TotalCount] Error: {rankUwr.error}");
+                yield break;
+            }
+            //Debug.Log("total return " + rankUwr.downloadHandler.text);
+            wrapped = "{ \"items\": " + rankUwr.downloadHandler.text + " }";
+            list = JsonUtility.FromJson<AggregationResponseList>(wrapped);
+
+            if (list.items != null && list.items.Length > 0)
+                rank = int.Parse(list.items[0].result.aggregateFields.field_1.integerValue)+1;
+            else
+                Debug.LogError("TotalCount error: Empty response array");
+            if (collectionId == "noRevive")
+            {
+                userNoReviveRow.Set(rank.ToString() + "/" + totalCount.ToString(), "You", noReviveWaveData.ToString(), noReviveKilledData.ToString());
+            }
+            else
+            {
+                userWithReviveRow.Set(rank.ToString() + "/" + totalCount.ToString(), "You", LevelManager.Instance.wave.ToString(), EnemyManager.Instance.enemyKilled.ToString(), revive.ToString());
+            }
+        }
+        else
+        {
+            if (collectionId == "noRevive")
+            {
+                userNoReviveRow.Set("--/" + totalCount.ToString(), "You", "--","--");
+            }
+            else
+            {
+                userWithReviveRow.Set("--/" + totalCount.ToString(), "You", "--","--","--");
+            }
         }
     }
 
-    private void parseNoReviveParts()
+    private void parseNoReviveParts(string sortByField)
     {
         string wrapped = "{\"entries\":" + noReviveParts + "}";
         var list = JsonUtility.FromJson<FirestoreList>(wrapped);
+        int lastValue = -1,cnt=0;
         for (int i = 0; i < noReviveRows.Length; i++)
         {
             if (i < list.entries.Length)
@@ -334,7 +455,19 @@ public class DeathPanel : UIPanel
                 string name = entry.document.fields.name.stringValue;
                 int wave = int.Parse(entry.document.fields.wave.integerValue);
                 int killed = int.Parse(entry.document.fields.killed.integerValue);
-                noReviveRows[i].Set(rankingTitle[i], name, wave.ToString(), killed.ToString());
+                if (sortByField == "wave")
+                {
+                    if (lastValue != wave)
+                        cnt=i;
+                    lastValue = wave;
+                }
+                else if (sortByField == "killed")
+                {
+                    if (lastValue != killed)
+                        cnt=i;
+                    lastValue = killed;
+                }
+                noReviveRows[i].Set(rankingTitle[cnt], name, wave.ToString(), killed.ToString());
             }
             else
             {
@@ -343,10 +476,11 @@ public class DeathPanel : UIPanel
         }
     }
 
-    private void parseWithReviveParts()
+    private void parseWithReviveParts(string sortByField)
     {
         string wrapped = "{\"entries\":" + withReviveParts + "}";
         var list = JsonUtility.FromJson<FirestoreList>(wrapped);
+        int lastValue = -1,cnt=0;
         for (int i = 0; i < withReviveRows.Length; i++)
         {
             if (i < list.entries.Length)
@@ -356,7 +490,25 @@ public class DeathPanel : UIPanel
                 int wave = int.Parse(entry.document.fields.wave.integerValue);
                 int killed = int.Parse(entry.document.fields.killed.integerValue);
                 int revive=int.Parse(entry.document.fields.revive.integerValue);
-                withReviveRows[i].Set(rankingTitle[i], name, wave.ToString(), killed.ToString(),revive.ToString());
+                if (sortByField == "wave")
+                {
+                    if (lastValue != wave)
+                        cnt=i;
+                    lastValue = wave;
+                }
+                else if (sortByField == "killed")
+                {
+                    if (lastValue != killed)
+                        cnt=i;
+                    lastValue = killed;
+                }
+                else if (sortByField == "revive")
+                {
+                    if (lastValue != revive)
+                        cnt=i;
+                    lastValue = revive;
+                }
+                withReviveRows[i].Set(rankingTitle[cnt], name, wave.ToString(), killed.ToString(),revive.ToString());
             }
             else
             {

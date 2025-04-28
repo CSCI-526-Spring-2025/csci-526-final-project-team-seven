@@ -36,6 +36,27 @@ public class StringValue
 [Serializable]
 public class IntValue
 {
-    // Firestore 里 integerValue 存的是字符串，所以这里也先用 string
     public string integerValue;
+}
+
+[Serializable]
+public class AggregationResponseList
+{
+    public AggregationResponse[] items;
+}
+
+[Serializable]
+public class AggregationResponse
+{
+    public Result result;
+}
+[Serializable]
+public class Result
+{
+    public AggregateFields aggregateFields;
+}
+[Serializable]
+public class AggregateFields
+{
+    public IntValue field_1;
 }
