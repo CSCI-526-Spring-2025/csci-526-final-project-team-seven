@@ -10,7 +10,6 @@ public class DebugManager : MonoBehaviour
     {
         Instance = this;
     }
-    private int cnt = 0;
     private bool enableDebug = false;
     public bool typing = false;
     private void TakeScreenshot()
@@ -43,33 +42,22 @@ public class DebugManager : MonoBehaviour
     private void Update()
     {
         if (typing) return;
-        if (Input.GetKeyDown(KeyCode.O))
-        {
+        if (Input.GetKeyDown(KeyCode.O) && enableDebug) 
             PlayerManager.Instance.playerView.GainCoin(1000);
-            if (!enableDebug)
-            cnt++;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha0) && enableDebug)
         {
             PlayerManager.Instance.playerView.playerData.currentHealthLimit += 1000;
             UIGameManager.Instance.UpdateHp();
-            if (!enableDebug)
-                cnt++;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+
+        if (Input.GetKeyDown(KeyCode.Alpha9) && enableDebug)
         {
             PlayerManager.Instance.playerView.RestoreHealth();
             UIGameManager.Instance.UpdateHp();
-            if (!enableDebug)
-                cnt++;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
+        if (Input.GetKeyDown(KeyCode.Alpha8)&& enableDebug)
             LevelManager.Instance.wave++;
-            if (!enableDebug)
-                cnt++;
-        }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && enableDebug)
             TakeScreenshot();
         if (Input.GetKeyDown(KeyCode.H)) 
             enableDebug = !enableDebug;
