@@ -44,6 +44,8 @@ public class DeathPanel : UIPanel
     public RankingWithReviveRow[] withReviveRows;
     public RankingWithReviveRow userWithReviveRow;
 
+    private bool isSubmit = false;
+
     private int revive = 0;
     private string[] rankingTitle = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th" };
 
@@ -96,6 +98,7 @@ public class DeathPanel : UIPanel
         withReviveSortByKilledButton.onClick.AddListener(withReviveSortByKilled);
         withReviveSortByReviveButton.onClick.AddListener(withReviveSortByRevive);
         currentRankType = "noRevive";
+        isSubmit = false;
     }
 
     public override void Open()
@@ -255,6 +258,7 @@ public class DeathPanel : UIPanel
         {
             withReviveSetUp();
         }
+        isSubmit = true;
     }
 
     private void noReviveSetUp()
@@ -391,7 +395,7 @@ public class DeathPanel : UIPanel
         else
             Debug.LogError("TotalCount error: Empty response array");
 
-        if (submitScoreButton.interactable==false&&!(revive==0&&currentRankType=="withRevive"))
+        if (isSubmit==true&&!(revive==0&&currentRankType=="withRevive"))
         {
             string rankJson =
                   "{"

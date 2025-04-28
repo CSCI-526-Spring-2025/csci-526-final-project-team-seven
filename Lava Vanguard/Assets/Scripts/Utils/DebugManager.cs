@@ -52,7 +52,7 @@ public class DebugManager : MonoBehaviour
             PlayerManager.Instance.playerView.GainCoin(1000);
             cnt++;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha0)&&enableDebug)
         {
             PlayerManager.Instance.playerView.playerData.currentHealthLimit += 1000;
             UIGameManager.Instance.UpdateHp();
