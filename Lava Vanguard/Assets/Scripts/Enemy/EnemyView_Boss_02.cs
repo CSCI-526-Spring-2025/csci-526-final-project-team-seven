@@ -229,7 +229,8 @@ public class EnemyView_Boss_02 : EnemyView
             yield return StartCoroutine(MoveFromToPart(rightArmPivot, new Vector3(-2, -4, 0), 9.0f, Quaternion.Euler(0, 0, -45f), 90f));
             yield return StartCoroutine(MoveFromToPart(leftLeg, new Vector3(2, 4, 0), 9.0f, Quaternion.Euler(0, 0, -45f), 90f));
             yield return StartCoroutine(MoveFromToPart(rightLeg, new Vector3(-2, 4, 0), 9.0f, Quaternion.Euler(0, 0, 45f), 90f));
-            yield return StartCoroutine(MoveFromToPart(body, new Vector3(0, 5, 0), 9.0f, Quaternion.Euler(0, 0, 0f), 90f));
+            Vector3 diffPos=PlayerManager.Instance.playerView.transform.position-transform.position;
+            yield return StartCoroutine(MoveFromToPart(body, diffPos, 9.0f, Quaternion.Euler(0, 0, 0f), 90f));
 
             leftArmPivot.localPosition = new Vector3(-6, 4, 0);
             rightArmPivot.localPosition = new Vector3(6, 4, 0);
