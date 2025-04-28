@@ -7,20 +7,15 @@ public class DebugManager : MonoBehaviour
 {
     public static DebugManager Instance { get; private set; }
     private int cnt = 0;
-    private bool enableDebug = true;
+    private bool enableDebug = false;
     private void Awake()
     {
         Instance = this;
     }
-    public int getCnt()
+    public int GetCnt()
     {
         return cnt;
     }
-    void Update()
-    {
-        Instance = this;
-    }
-    private bool enableDebug = false;
     public bool typing = false;
     private void TakeScreenshot()
     {
@@ -52,7 +47,8 @@ public class DebugManager : MonoBehaviour
     private void Update()
     {
         if (typing) return;
-        if (Input.GetKeyDown(KeyCode.O) && enableDebug) 
+        if (Input.GetKeyDown(KeyCode.O) && enableDebug)
+        {
             PlayerManager.Instance.playerView.GainCoin(1000);
             cnt++;
         }
@@ -69,11 +65,14 @@ public class DebugManager : MonoBehaviour
             UIGameManager.Instance.UpdateHp();
             cnt++;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha8)&& enableDebug)
+        if (Input.GetKeyDown(KeyCode.Alpha8) && enableDebug)
+        {
             LevelManager.Instance.wave++;
             cnt++;
         }
-        if (Input.GetKeyDown(KeyCode.H)) 
+        if (Input.GetKeyDown(KeyCode.C) && enableDebug)
+            TakeScreenshot();
+        if (Input.GetKeyDown(KeyCode.H))
             enableDebug = !enableDebug;
     }
 }

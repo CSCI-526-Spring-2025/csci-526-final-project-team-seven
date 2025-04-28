@@ -112,8 +112,8 @@ public class DeathPanel : UIPanel
             reviveButton.interactable = false;
         else
             reviveButton.interactable = true;
-        Debug.Log(DebugManager.Instance.getCnt());
-        if (DebugManager.Instance.getCnt() == 0)
+        Debug.Log(DebugManager.Instance.GetCnt());
+        if (DebugManager.Instance.GetCnt() == 0)
         {
             nameInputField.interactable = true;
             submitScoreButton.interactable = true;
