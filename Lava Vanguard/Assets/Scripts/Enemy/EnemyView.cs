@@ -10,6 +10,7 @@ public abstract class EnemyView : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     protected Color originalColor;
     protected int level;
+    public PlatformView currentPlatform;
     public virtual void Init(string ID,int level)
     {
         this.level = level;
