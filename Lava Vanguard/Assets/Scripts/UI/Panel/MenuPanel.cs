@@ -100,11 +100,12 @@ public class MenuPanel : UIPanel
         });
         quitButton.onClick.AddListener(() =>
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-    Application.Quit();
-#endif
+            UIGameManager.Instance.Open<RankingPanel>();
+//#if UNITY_EDITOR
+//            UnityEditor.EditorApplication.isPlaying = false;
+//#else
+//    Application.Quit();
+//#endif
         });
         if (GameDataManager.SavedLevelData.Health == 0)
         {
