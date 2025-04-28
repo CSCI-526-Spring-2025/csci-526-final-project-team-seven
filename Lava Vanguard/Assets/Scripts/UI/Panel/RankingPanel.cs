@@ -130,7 +130,7 @@ public class RankingPanel : UIPanel
     }
     private IEnumerator getScore(string collectionId, string sortByField, int greaterThanValue)
     {
-        string url = baseUrlFireStore + projectId + dbPath;
+        string url = baseUrlFireStore + projectId + dbPath+apiKey;
 
         // Get descending by wave
         string queryJson = 

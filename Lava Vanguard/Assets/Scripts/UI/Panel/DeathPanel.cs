@@ -201,7 +201,7 @@ public class DeathPanel : UIPanel
             noReviveWaveData = LevelManager.Instance.wave;
             noReviveKilledData = EnemyManager.Instance.enemyKilled;
         }
-        string url = baseUrlFireStore + projectId + writePath + "noRevive";
+        string url = baseUrlFireStore + projectId + writePath + "noRevive"+apiKey;
         string requestJson = @"
     {
       ""fields"": {
@@ -226,7 +226,7 @@ public class DeathPanel : UIPanel
 
         if (revive > 0)
         {
-            url = baseUrlFireStore + projectId + writePath + "withRevive";
+            url = baseUrlFireStore + projectId + writePath + "withRevive"+apiKey;
             requestJson = @"
         {
           ""fields"": {
@@ -312,7 +312,7 @@ public class DeathPanel : UIPanel
     }
     private IEnumerator getScore(string collectionId, string sortByField, int greaterThanValue)
     {
-        string url = baseUrlFireStore + projectId + dbPath;
+        string url = baseUrlFireStore + projectId + dbPath+apiky;
 
         // Get descending by wave
         string queryJson = 
@@ -360,7 +360,7 @@ public class DeathPanel : UIPanel
     public IEnumerator getUserRank(string collectionId,string sortByField, int greaterThanValue)
     {
         int totalCount = -1, rank = -1;
-        string url = baseUrlFireStore + projectId + aggregatePath;
+        string url = baseUrlFireStore + projectId + aggregatePath+apiKey;
         string totalCountJson =
               "{"
             + "\"structuredAggregationQuery\":{"
