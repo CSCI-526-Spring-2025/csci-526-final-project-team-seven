@@ -50,7 +50,7 @@ public class EnemyView_Boss_02 : EnemyView
     public override void Init(string ID,int level)
     {
         this.level = level;
-        originalColor = ColorCenter.CardColors["Boss" + level];
+        originalColor = ColorCenter.CardColors["Boss" + Mathf.Min(Mathf.Max(level, 1), 9)];
 
         foreach (var sr in spriteRenderers)
         {

@@ -13,7 +13,7 @@ public abstract class EnemyView : MonoBehaviour
     public virtual void Init(string ID,int level)
     {
         this.level = level;
-        originalColor = ColorCenter.CardColors["Enemy" + level];
+        originalColor = ColorCenter.CardColors["Enemy" + Mathf.Min(Mathf.Max(level, 1), 9)];
 
         spriteRenderer.color = originalColor;
         enemyData = GameDataManager.EnemyData[ID];
