@@ -312,7 +312,7 @@ public class DeathPanel : UIPanel
     }
     private IEnumerator getScore(string collectionId, string sortByField, int greaterThanValue)
     {
-        string url = baseUrlFireStore + projectId + dbPath+apiky;
+        string url = baseUrlFireStore + projectId + dbPath+apiKey;
 
         // Get descending by wave
         string queryJson = 
