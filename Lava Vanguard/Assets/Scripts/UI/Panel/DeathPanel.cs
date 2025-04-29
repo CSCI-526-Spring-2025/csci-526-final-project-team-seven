@@ -53,7 +53,7 @@ public class DeathPanel : UIPanel
     private int noReviveKilledData = -1;
    
     //firestore
-    private string projectId = "csci526teamsevenranking";
+    private string projectId = "";
     private string apiKey = "";
     private string baseUrlFireStore = "https://firestore.googleapis.com/v1/projects/";
     private string dbPath = "/databases/(default)/documents:runQuery";
